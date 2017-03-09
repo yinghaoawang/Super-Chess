@@ -5,17 +5,21 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.*;
 
+import java.awt.event.*;
+
 public class Board extends JPanel {
     int rows; // rows on board
     int cols; // columns on board
 
     double tileWidth = 10; // width of tile
-    double tileHeight = 10; // height of tile;
+    double tileHeight = 10; // height of tile
     double widthOffset = 1; // offset from left is widthOffset * tileWidth
-    double heightOffset = 1; // offset from right is heightOffset * tileHeight;
+    double heightOffset = 1; // offset from right is heightOffset * tileHeight
 
     Tile[][] tiles;
+    Rectangle2D[][] rects;
     Tile selectedTile = null;
+    Tile hoveredTile = null;
 
     // constructor that calls init
     Board() { this(8); }
@@ -24,6 +28,7 @@ public class Board extends JPanel {
         this.rows = rows;
         this.cols = cols;
         tiles = new Tile[rows][cols];
+        rects = new Rectangle2D[rows][cols];
         init();
     }
 
@@ -32,10 +37,15 @@ public class Board extends JPanel {
         try {
             selectedTile = tiles[row][col];
             System.out.println(selectedTile.peek().getName());
-        } catch (Exception e) {
-            Utilities.printException(e);
-        }
+        } catch (Exception e) {}
     }
+    void hoverTile(int row, int col) {
+        try {
+            hoveredTile = tiles[row][col];
+        } catch (Exception e) {}
+    }
+    void deselectTile() { selectedTile = null; }
+    void unhoverTile() { hoveredTile = null; }
 
     // moves piece at top of src to top of dest
     void movePiece(int srcRow, int srcCol, int destRow, int destCol) {
@@ -78,6 +88,34 @@ public class Board extends JPanel {
     void init() {
         initTiles();
         initPieces();
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                super.mouseClicked(me);
+                for (int i = 0; i < rows; ++i)
+                    for (int j = 0; j < cols; ++j)
+                        if (rects[i][j].contains(me.getPoint())) {
+                            unhoverTile();
+                            selectTile(i, j);
+                            repaint();
+                        }
+            }
+        });
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent me) {
+                super.mouseMoved(me);
+                for (int i = 0; i < rows; ++i)
+                    for (int j = 0; j < cols; ++j)
+                        if (rects[i][j].contains(me.getPoint())) {
+                            if (selectedTile != tiles[i][j])
+                                hoverTile(i, j);
+                            else
+                                unhoverTile();
+                            repaint();
+                        }
+            }
+        });
     }
 
     // places pieces on the chess board as they should be
@@ -95,13 +133,13 @@ public class Board extends JPanel {
         }
 
         addPiece(new Rook(Piece.Color.WHITE), 7, 0);
-        addPiece(new Knight(Piece.Color.WHITE), 7, 0);
-        addPiece(new Bishop(Piece.Color.WHITE), 7, 0);
-        addPiece(new Queen(Piece.Color.WHITE), 7, 0);
-        addPiece(new King(Piece.Color.WHITE), 7, 0);
-        addPiece(new Bishop(Piece.Color.WHITE), 7, 0);
-        addPiece(new Knight(Piece.Color.WHITE), 7, 0);
-        addPiece(new Rook(Piece.Color.WHITE), 7, 0);
+        addPiece(new Knight(Piece.Color.WHITE), 7, 1);
+        addPiece(new Bishop(Piece.Color.WHITE), 7, 2);
+        addPiece(new Queen(Piece.Color.WHITE), 7, 3);
+        addPiece(new King(Piece.Color.WHITE), 7, 4);
+        addPiece(new Bishop(Piece.Color.WHITE), 7, 5);
+        addPiece(new Knight(Piece.Color.WHITE), 7, 6);
+        addPiece(new Rook(Piece.Color.WHITE), 7, 7);
         for (int i = 0; i < 8; ++i) {
             addPiece(new Pawn(Piece.Color.WHITE), 6, i);
         }
@@ -113,6 +151,12 @@ public class Board extends JPanel {
         boolean blackRow = false;
         boolean blackCol = false;
 
+        // needed for rects
+        Dimension size = getSize();
+        double width = size.getWidth();
+        double height = size.getHeight();
+
+        // go through the board
         for (int i = 0; i < rows; ++i) {
             if (blackRow == true) {
                 blackCol = true;
@@ -121,6 +165,11 @@ public class Board extends JPanel {
             }
 
             for (int j = 0; j < cols ; ++j) {
+                // create the rect
+                double xPos = tileWidth * (j + widthOffset);
+                double yPos = tileHeight * (i + heightOffset);
+                rects[i][j] = new Rectangle2D.Double(xPos, yPos, tileWidth, tileHeight);
+
                 if (blackCol) {
                     tiles[i][j] = new Tile(Tile.Color.BLACK);
                 } else {
@@ -169,7 +218,6 @@ public class Board extends JPanel {
                 // set positions with scaling
                 double xPos = tileWidth * (j + widthOffset);
                 double yPos = tileHeight * (i + heightOffset);
-                Rectangle2D rect = new Rectangle2D.Double(xPos, yPos, tileWidth, tileHeight);
                 g2d.setStroke(new BasicStroke(1));
 
                 // set tile color
@@ -180,12 +228,13 @@ public class Board extends JPanel {
                     g2d.setColor(white);
                 }
 
-                // if selected, then it is red
+                // if selected or hovered, change to respective colors
                 if (tile == selectedTile) g2d.setColor(Color.red);
+                else if (tile == hoveredTile) g2d.setColor(Color.gray);
 
                 // color in the tile
                 //g2d.draw(rect);
-                g2d.fill(rect);
+                g2d.fill(rects[i][j]);
 
                 // draw the piece
                 Piece piece = tile.peek();

@@ -1,0 +1,4 @@
+Makefile provided by Joseph Anderson
+After building with "make"
+Run with "java -cp ./bin Runner"
+or "./run"

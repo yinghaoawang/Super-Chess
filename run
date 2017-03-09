@@ -1,0 +1,7 @@
+#!/bin/bash
+MAINCLASS="Runner"
+if [ ! -e "./bin/$MAINCLASS.class" ]; then
+    echo "$MAINCLASS not found, have you tried running \"make\"?"
+else
+    java -cp ./bin $MAINCLASS
+fi

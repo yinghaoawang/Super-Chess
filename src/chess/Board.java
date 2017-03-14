@@ -41,6 +41,7 @@ public class Board extends JPanel {
         init();
     }
 
+    // have the board move text area display the board moves
     void updateBoardMovesTextArea() {
         if (boardMovesTextArea == null) return;
         boardMovesTextArea.setText("");
@@ -58,18 +59,12 @@ public class Board extends JPanel {
             Tile tile = tiles[row][col];
             Piece piece = tile.peek();
             for (Move move: piece.getMoves()) {
-                Move transMove = move.toTransposed();
-                addMoveQuadrants(res, piece, row, col, move);
-                if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, transMove);
-
-                if (move.isUntilEnd()) {
-                    int multiplier = 2;
-                    while (multiplier < Math.max(rows, cols)) {
-                        addMoveQuadrants(res, piece, row, col, move, multiplier);
-                        if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, transMove, multiplier);
-                        ++multiplier;
-                    }
-                }
+                int multiplier = 1;
+                boolean[] blockedQuadrants = new boolean[] { false, false, false, false };
+                do {
+                    addMoveQuadrants(res, piece, row, col, move, multiplier, blockedQuadrants);
+                    if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, move.toTransposed(), multiplier, blockedQuadrants);
+                } while (move.isUntilEnd() && multiplier++ < Math.max(rows, cols));
             }
         } catch(Exception e) { Utilities.printException(e); }
         return res;
@@ -80,6 +75,9 @@ public class Board extends JPanel {
         addMoveQuadrants(res, piece, row, col, move, 1);
     }
     void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier) {
+        addMoveQuadrants(res, piece, row, col, move, multiplier, new boolean[] { false, false, false, false });
+    }
+    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier, boolean[] blockedQuadrants) {
         // scale here
         Point[] signConversion = new Point[] {
             new Point(multiplier, multiplier), // quadrant 1 (0)
@@ -95,7 +93,11 @@ public class Board extends JPanel {
         };
         boolean[] quadrants = move.getQuadrants();
         for (int i = 0; i < quadrants.length; ++i) {
+            // TODO RULES
+            // pre
             if (quadrants[i] == false) continue;
+            if (move.isBlockable() && blockedQuadrants[i]) continue;
+
             int destRow, destCol, rowMove, colMove;
             rowMove = move.getRowMove();
             colMove = move.getColMove();
@@ -111,11 +113,16 @@ public class Board extends JPanel {
             destRow = rowMove + row;
             destCol = colMove + col;
 
-            // TODO RULES MODULE ALL THIS
-            // System.out.println(destRow + ", " + destCol);
+            // TODO RULES
+            // post
             if (!isWithinBorders(destRow, destCol)) continue; // make sure tile is within board borders
 
             Tile destTile = tiles[destRow][destCol];
+
+            // set the qudrant blocked if is blocked
+            if (move.isBlockable() && destTile.peek() != null) {
+                blockedQuadrants[i] = true;
+            }
 
             if (!move.isAttacking() && (destTile.peek() != null)) continue; // if cannot attack, make sure there is no piece on tile
 

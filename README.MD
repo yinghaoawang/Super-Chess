@@ -1,20 +1,21 @@
 ### Chess
 - [ ] Base Chess Engine
-    - [ ] Create pieces with respective moves
-        - [x] Pieces
+    - [x] Create pieces with respective moves
+        - [ ] Pieces
             - [x] Colors
             - [x] Moves
                 - [x] Scaleable moves (i.e A knight that can move in constant Ls and can be blocked)
-                - [ ] Implementation of moves given characteristics
+                - [x] Implementation of moves given characteristics
+            - [ ] Pawn Moves
         - [x] Base chess Pieces (Knight, Rook, etc.)
     - [ ] GUI
         - [x] Chessboard tiles
-        - [x] Chesspiece drawing (Just settled on drawing text)
+        - [x] Chesspiece drawing (Just settled on drawing encodings)
             - [x] White
             - [x] Black
         - [ ] Piece moving (Click piece and click target tile)
             - [x] Initial piece selection
-            - [ ] Possible moves
+            - [x] Possible moves
         - [ ] Text
             - [ ] Tile names (A1, C5, etc.)
             - [ ] Previous moves
@@ -44,6 +45,7 @@
 
 ### Description:
 I make a scaleable chess engine such that it may be able to create awesome pieces with insane moves. First time making an actual graphical project from scratch. It is very satisfying thus far.  
+The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Queen (or any other piece) in no more than 5 lines of code!  
 This project first started as an attempt of a custom scaleable impementation for Stanford's CS106A.  
 To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
 

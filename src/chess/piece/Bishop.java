@@ -5,6 +5,11 @@ public class Bishop extends Piece {
         super(color);
     }
     void initSymbol() {
+        if (color == Color.WHITE)
+            encoding = '\u2657';
+        else if (color == Color.BLACK)
+            encoding = '\u265D';
+
         symbol = 'B';
     }
     void initName() {

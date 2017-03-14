@@ -15,6 +15,7 @@ public abstract class Piece {
     }
     String name = null;
     char symbol = '\0';
+    char encoding = '\0';
     Color color;
     List<Move> moves = new ArrayList<>();
     // Graphics2D g2d;
@@ -28,6 +29,7 @@ public abstract class Piece {
     public List<Move> getMoves() { return moves; }
     public String getName() { return name; }
     public char getSymbol() { return symbol; }
+    public char getEncoding() { if (encoding == '\0') return symbol; return encoding; }
     public String toString() { return color + " " + name; }
     // Graphics2D getG2D() { return g2d; }
     public boolean isBlack() { return color == Color.BLACK; }

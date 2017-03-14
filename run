@@ -3,5 +3,5 @@ MAINCLASS="Runner"
 if [ ! -e "./bin/$MAINCLASS.class" ]; then
     echo "$MAINCLASS not found, have you tried running \"make\"?"
 else
-    java -cp ./bin $MAINCLASS
+    java -Dfile.encoding="UTF-8" -cp ./bin $MAINCLASS
 fi

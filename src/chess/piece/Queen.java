@@ -5,6 +5,11 @@ public class Queen extends Piece {
         super(color);
     }
     void initSymbol() {
+        if (color == Color.WHITE)
+            encoding = '\u2655';
+        else if (color == Color.BLACK)
+            encoding = '\u265B';
+
         symbol = 'Q';
     }
     void initName() {

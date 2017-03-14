@@ -14,8 +14,8 @@ public class Board extends JPanel {
     int rows; // rows on board
     int cols; // columns on board
 
-    double tileWidth = 10; // width of tile
-    double tileHeight = 10; // height of tile
+    double tileWidth = 50; // width of tile
+    double tileHeight = 50; // height of tile
     double widthOffset = 1; // offset from left is widthOffset * tileWidth
     double heightOffset = 1; // offset from right is heightOffset * tileHeight
 
@@ -42,44 +42,62 @@ public class Board extends JPanel {
             Tile tile = tiles[row][col];
             Piece piece = tile.peek();
             for (Move move: piece.getMoves()) {
-                boolean[] quadrants = move.getQuadrants();
-                Point[] signConversion = new Point[] {
-                    new Point(1, 1), // quadrant 1 (0)
-                    new Point(1, -1), // quadrant 2 (1)
-                    new Point(-1, -1), // quadrant 3 (2)
-                    new Point(-1, 1) // quadrant 4 (3)
-                };
-                boolean[] swapConversion = new boolean[] {
-                    false, // quadrant 1
-                    true, // quadrant 2
-                    false, // quadrant 3
-                    true // quadrant 4
-                };
-                // scale here
-                for (int i = 0; i < quadrants.length; ++i) {
-                    if (quadrants[i] == false) continue;
-                    int destRow, destCol, rowMove, colMove;
-                    rowMove = move.getRowMove();
-                    colMove = move.getColMove();
+                Move transMove = move.toTransposed();
+                addMoveDiagonals(res, row, col, move);
+                if (move.isTransposed()) addMoveDiagonals(res, row, col, transMove);
 
-                    if (swapConversion[i] == true) {
-                        int tmp = rowMove;
-                        rowMove = colMove;
-                        colMove = tmp;
+                if (move.isUntilEnd()) {
+                    int multiplier = 2;
+                    while (multiplier < Math.max(rows, cols)) {
+                        addMoveDiagonals(res, row, col, move, multiplier);
+                        if (move.isTransposed()) addMoveDiagonals(res, row, col, transMove, multiplier);
+                        ++multiplier;
                     }
-                    rowMove *= signConversion[i].x; // not really x, just using point for 2 ints
-                    colMove *= signConversion[i].y;
-
-                    destRow = rowMove + row;
-                    destCol = colMove + col;
-
-                    System.out.println(destRow + ", " + destCol);
-                    if (!isWithinBorders(destRow, destCol)) continue;
-                    res.add(tiles[destRow][destCol]);
                 }
             }
         } catch(Exception e) { }
         return res;
+    }
+
+    void addMoveDiagonals(List<Tile> res, int row, int col, Move move) {
+        addMoveDiagonals(res, row, col, move, 1);
+    }
+    void addMoveDiagonals(List<Tile> res, int row, int col, Move move, int multiplier) {
+        // scale here
+        Point[] signConversion = new Point[] {
+            new Point(multiplier, multiplier), // quadrant 1 (0)
+            new Point(multiplier, -1 * multiplier), // quadrant 2 (1)
+            new Point(-1 * multiplier, -1 * multiplier), // quadrant 3 (2)
+            new Point(-1 * multiplier, multiplier) // quadrant 4 (3)
+        };
+        boolean[] swapConversion = new boolean[] {
+            false, // quadrant 1
+            true, // quadrant 2
+            false, // quadrant 3
+            true // quadrant 4
+        };
+        boolean[] quadrants = move.getQuadrants();
+        for (int i = 0; i < quadrants.length; ++i) {
+            if (quadrants[i] == false) continue;
+            int destRow, destCol, rowMove, colMove;
+            rowMove = move.getRowMove();
+            colMove = move.getColMove();
+
+            if (swapConversion[i] == true) {
+                int tmp = rowMove;
+                rowMove = colMove;
+                colMove = tmp;
+            }
+            rowMove *= signConversion[i].x; // not really x, just using point for 2 ints
+            colMove *= signConversion[i].y;
+
+            destRow = rowMove + row;
+            destCol = colMove + col;
+
+            System.out.println(destRow + ", " + destCol);
+            if (!isWithinBorders(destRow, destCol)) continue;
+            if (!res.contains(tiles[destRow][destCol])) res.add(tiles[destRow][destCol]);
+        }
     }
 
     // set selected tile to designated coordinate
@@ -263,7 +281,7 @@ public class Board extends JPanel {
 
         Color black = new Color(51, 25, 0); // dark brown for black
         Color white = new Color(204, 102, 0); // light brown for white
-        Color pieceBlack = new Color(155, 155, 155); // gray for black pieces
+        Color pieceBlack = new Color(115, 115, 115); // gray for black pieces
         Color pieceWhite = new Color(255, 255, 255); // white for white pieces
 
         // draw the mxn board
@@ -296,7 +314,8 @@ public class Board extends JPanel {
                 if (!tile.isEmpty()) {
                     if (piece.isBlack()) g2d.setColor(pieceBlack);
                     else g2d.setColor(pieceWhite);
-                    g2d.drawString(piece.getSymbol() + "", (int)xPos, (int)(yPos + tileHeight));
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2)));
+                    g2d.drawString(piece.getEncoding() + "", (int)xPos, (int)(yPos + tileHeight));
                 }
             }
         }

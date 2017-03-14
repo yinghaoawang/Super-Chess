@@ -5,6 +5,11 @@ public class Rook extends Piece {
         super(color);
     }
     void initSymbol() {
+        if (color == Color.WHITE)
+            encoding = '\u2656';
+        else if (color == Color.BLACK)
+            encoding = '\u265C';
+
         symbol = 'R';
     }
     void initName() {

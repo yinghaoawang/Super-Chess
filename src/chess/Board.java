@@ -184,13 +184,14 @@ public class Board extends JPanel {
                         Rectangle2D rect = rects[i][j];
                         if (rect.contains(me.getPoint())) {
                             unhoverTile();
-                            if (moveTiles == null || !moveTiles.contains(tiles[i][j]) ||
-                                    selectedTile == null && selectedTile != tiles[i][j]) {
-                                selectTile(i, j);
-                            } else {
+                            if (moveTiles != null && moveTiles.contains(tiles[i][j]) &&
+                                    selectedTile != null && selectedTile != tiles[i][j]) {
                                 movePiece(selectedRow, selectedCol, i, j);
-                                deselectTile();
                             }
+                            if (selectedTile == null) {
+                                selectTile(i, j);
+                            } else
+                                deselectTile();
                         }
                         //repaint();
                     }
@@ -309,8 +310,8 @@ public class Board extends JPanel {
 
         Color black = new Color(51, 25, 0); // dark brown for black
         Color white = new Color(204, 102, 0); // light brown for white
-        Color pieceBlack = new Color(115, 115, 115); // gray for black pieces
-        Color pieceWhite = new Color(255, 255, 255); // white for white pieces
+        Color pieceBlack = new Color(255, 228, 198); // gray for black pieces
+        Color pieceWhite = new Color(255, 248, 220); // white for white pieces
 
         // draw the mxn board
         for (int i = 0; i < rows; ++i) {
@@ -328,10 +329,14 @@ public class Board extends JPanel {
                     g2d.setColor(white);
                 }
 
+                Color hoverColor = new Color(100, 100, 100, (int)(0.25 * 255));
+                Color selectedColor = new Color(100, 0, 0, (int)(0.75 * 255));
+                Color moveTileColor = new Color(0, 0, 255, (int)(0.5 * 255));
+
                 // if selected or hovered, change to respective colors
-                if (tile == selectedTile) g2d.setColor(Color.red);
-                else if (isAMoveTile(tile)) g2d.setColor(Color.blue);
-                else if (tile == hoveredTile) g2d.setColor(Color.gray);
+                if (tile == selectedTile) g2d.setColor(selectedColor);
+                else if (isAMoveTile(tile)) g2d.setColor(moveTileColor);
+                else if (tile == hoveredTile) g2d.setColor(hoverColor);
 
                 // color in the tile
                 //g2d.draw(rect);

@@ -6,6 +6,7 @@ public class ChessApp extends JFrame {
     Board board;
     public ChessApp() {
         initUI();
+        /*
         board.movePiece(0, 2, 2, 0); // move bishop
         board.movePiece(1, 0, 2, 0); // pawn crushes bishop
         board.movePiece(0, 0, 2, 0); // rook crushes pawn
@@ -15,6 +16,7 @@ public class ChessApp extends JFrame {
         board.movePiece(-1, 2, 0, 3); // out of bounds error catch
         board.movePiece(3, 3, 0, 3); // out of bounds error catch
         board.selectTile(2, 0);
+        */
     }
 
     private void initUI() {

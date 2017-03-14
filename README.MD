@@ -61,6 +61,9 @@ If one wants to dissect the code, here is a simple path one may take:
 ### 3/14
 ![3/14](gifs/super-chess_3-14-17.gif)
 
+*Base: Initial pieces. Board, tile, piece, move classes and subclasses  
+Additional: Visual GUI with mouse events, board movement determination, piece encoding display*
+
 ### Things learned:
 - Due to packaging, I now learn of the importance of class access. Especially package-private.
 - Using a different Makefile given a package with subdirectories (i think that's what you call them, i.e chess/piece/\* etc)

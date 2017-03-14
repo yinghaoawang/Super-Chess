@@ -1,4 +1,4 @@
-### Chess
+## Chess Checklist
 - [ ] Base Chess Engine
     - [x] Create pieces with respective moves
         - [ ] Pieces
@@ -57,9 +57,9 @@ If one wants to dissect the code, here is a simple path one may take:
             * chess/piece/Piece.java
             * chess/move/Move.java
 
-### Progress GIFs
-##### 3/14
-![Alt Text](https://github.com/yinghaoawang/super-chess/raw/master/super-chess_3-14-17.gif)
+## Progress GIFs
+### 3/14
+![3/14](gifs/super-chess_3-14-17.gif)
 
 ### Things learned:
 - Due to packaging, I now learn of the importance of class access. Especially package-private.

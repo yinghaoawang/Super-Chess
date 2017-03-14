@@ -9,6 +9,7 @@ public class Pawn extends Piece {
             encoding = '\u265F';
 
         symbol = 'P';
+        displaySequence = "";
     }
     void initName() { name = "Pawn"; }
     void initMoves() {
@@ -30,7 +31,7 @@ public class Pawn extends Piece {
         attack.setQuadrants(true, true, false, false);
         attack.setAttackToMove(true);
 
-        if (color == Piece.Color.WHITE) {
+        if (color == Piece.Color.BLACK) {
             move = move.toInvertedQuadrants();
             doubleMove = doubleMove.toInvertedQuadrants();
             attack = attack.toInvertedQuadrants();

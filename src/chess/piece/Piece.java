@@ -15,6 +15,7 @@ public abstract class Piece {
     }
     String name = null;
     char symbol = '\0';
+    String displaySequence = null;
     char encoding = '\0';
     public int moveCount = 0;
     Color color;
@@ -30,6 +31,7 @@ public abstract class Piece {
     public List<Move> getMoves() { return moves; }
     public String getName() { return name; }
     public char getSymbol() { return symbol; }
+    public String getDisplaySequence() { if (displaySequence == null) return Character.toString(symbol); return displaySequence; }
     public char getEncoding() { if (encoding == '\0') return symbol; return encoding; }
     public String toString() { return color + " " + name; }
     // Graphics2D getG2D() { return g2d; }

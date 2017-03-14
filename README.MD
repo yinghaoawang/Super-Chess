@@ -16,9 +16,9 @@
         - [x] Piece moving (Click piece and click target tile)
             - [x] Initial piece selection
             - [x] Possible moves
-        - [ ] Text
-            - [ ] Tile names (A1, C5, etc.)
-            - [ ] Previous moves
+        - [x] Text
+            - [x] Tile names (A1, C5, etc.)
+            - [x] Previous moves
     - [ ] Rules module
         - [ ] Blocking
         - [ ] Check

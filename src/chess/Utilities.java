@@ -49,4 +49,16 @@ public class Utilities {
         if (c >= 'a' && c <= 'z') return (char)(c + ('A' - 'a'));
         return c;
     }
+    public static char rowToChar(int row) {
+        try {
+            return (char)(row + '1');
+        } catch (Exception e) { Utilities.printException(e); }
+        return '\0';
+    }
+    public static char colToChar(int col) {
+        try {
+            return (char)(col + 'a');
+        } catch (Exception e) { Utilities.printException(e); }
+        return '\0';
+    }
 }

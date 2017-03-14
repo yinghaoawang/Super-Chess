@@ -1,12 +1,14 @@
 package chess;
+import chess.BoardMove;
 import chess.piece.*;
 import chess.move.*;
 import chess.Utilities;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.awt.event.*;
 
 public class Board extends JPanel {
@@ -15,8 +17,8 @@ public class Board extends JPanel {
 
     double tileWidth = 50; // width of tile
     double tileHeight = 50; // height of tile
-    double widthOffset = 1; // offset from left is widthOffset * tileWidth
-    double heightOffset = 1; // offset from right is heightOffset * tileHeight
+    double widthOffset = .75; // offset from left is widthOffset * tileWidth
+    double heightOffset = .75; // offset from right is heightOffset * tileHeight
 
     Tile[][] tiles;
     Rectangle2D[][] rects;
@@ -25,6 +27,8 @@ public class Board extends JPanel {
     int selectedCol = -1;
     Tile hoveredTile = null;
     List<Tile> moveTiles = null;
+    List<BoardMove> boardMoves = new LinkedList<>();
+    JTextArea boardMovesTextArea = null;
 
     // constructor that calls init
     Board() { this(8); }
@@ -35,6 +39,16 @@ public class Board extends JPanel {
         tiles = new Tile[rows][cols];
         rects = new Rectangle2D[rows][cols];
         init();
+    }
+
+    void updateBoardMovesTextArea() {
+        if (boardMovesTextArea == null) return;
+        boardMovesTextArea.setText("");
+        if (boardMoves == null || boardMoves.size() <= 0) return;
+        int i = 1;
+        for (BoardMove bm: boardMoves) {
+            boardMovesTextArea.append(i++ + " " + bm + "\n");
+        }
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
@@ -97,11 +111,13 @@ public class Board extends JPanel {
             destRow = rowMove + row;
             destCol = colMove + col;
 
-
+            // TODO RULES MODULE ALL THIS
             // System.out.println(destRow + ", " + destCol);
             if (!isWithinBorders(destRow, destCol)) continue; // make sure tile is within board borders
 
             Tile destTile = tiles[destRow][destCol];
+
+            if (!move.isAttacking() && (destTile.peek() != null)) continue; // if cannot attack, make sure there is no piece on tile
 
             if (move.isAttackToMove() && (destTile.peek() == null || // if attackToMove, make sure there is a piece to attack
                     destTile.peek().getColor() == selectedTile.peek().getColor()))
@@ -125,7 +141,6 @@ public class Board extends JPanel {
             moveTiles = getMoveTiles(row, col);
             selectedRow = row;
             selectedCol = col;
-            System.out.println(selectedTile.peek().getName());
         } catch (Exception e) {}
     }
     void hoverTile(int row, int col) {
@@ -180,8 +195,10 @@ public class Board extends JPanel {
 
     // initiates board by calling other inits
     void init() {
+         setLayout(null);
         initTiles();
         initPieces();
+        initBoardMoves();
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -195,8 +212,10 @@ public class Board extends JPanel {
                                     selectedTile != null && selectedTile != tiles[i][j]) {
                                 movePiece(selectedRow, selectedCol, i, j);
                                 ++tiles[i][j].peek().moveCount;
+                                boardMoves.add(new BoardMove(tiles[i][j].peek(), selectedRow, selectedCol, i, j));
+                                updateBoardMovesTextArea();
                             }
-                            if (selectedTile == null) {
+                            if (selectedTile == null && tiles[i][j].peek() != null) {
                                 selectTile(i, j);
                             } else
                                 deselectTile();
@@ -229,36 +248,44 @@ public class Board extends JPanel {
 
     // places pieces on the chess board as they should be
     void initPieces() {
-        addPiece(new Rook(Piece.Color.BLACK), 0, 0);
-        addPiece(new Knight(Piece.Color.BLACK), 0, 1);
-        addPiece(new Bishop(Piece.Color.BLACK), 0, 2);
-        addPiece(new Queen(Piece.Color.BLACK), 0, 3);
-        addPiece(new King(Piece.Color.BLACK), 0, 4);
-        addPiece(new Bishop(Piece.Color.BLACK), 0, 5);
-        addPiece(new Knight(Piece.Color.BLACK), 0, 6);
-        addPiece(new Rook(Piece.Color.BLACK), 0, 7);
+        addPiece(new Rook(Piece.Color.WHITE), 0, 0);
+        addPiece(new Knight(Piece.Color.WHITE), 0, 1);
+        addPiece(new Bishop(Piece.Color.WHITE), 0, 2);
+        addPiece(new Queen(Piece.Color.WHITE), 0, 3);
+        addPiece(new King(Piece.Color.WHITE), 0, 4);
+        addPiece(new Bishop(Piece.Color.WHITE), 0, 5);
+        addPiece(new Knight(Piece.Color.WHITE), 0, 6);
+        addPiece(new Rook(Piece.Color.WHITE), 0, 7);
         for (int i = 0; i < 8; ++i) {
-            addPiece(new Pawn(Piece.Color.BLACK), 1, i);
+            addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
 
-        addPiece(new Rook(Piece.Color.WHITE), 7, 0);
-        addPiece(new Knight(Piece.Color.WHITE), 7, 1);
-        addPiece(new Bishop(Piece.Color.WHITE), 7, 2);
-        addPiece(new Queen(Piece.Color.WHITE), 7, 3);
-        addPiece(new King(Piece.Color.WHITE), 7, 4);
-        addPiece(new Bishop(Piece.Color.WHITE), 7, 5);
-        addPiece(new Knight(Piece.Color.WHITE), 7, 6);
-        addPiece(new Rook(Piece.Color.WHITE), 7, 7);
+        addPiece(new Rook(Piece.Color.BLACK), 7, 0);
+        addPiece(new Knight(Piece.Color.BLACK), 7, 1);
+        addPiece(new Bishop(Piece.Color.BLACK), 7, 2);
+        addPiece(new Queen(Piece.Color.BLACK), 7, 3);
+        addPiece(new King(Piece.Color.BLACK), 7, 4);
+        addPiece(new Bishop(Piece.Color.BLACK), 7, 5);
+        addPiece(new Knight(Piece.Color.BLACK), 7, 6);
+        addPiece(new Rook(Piece.Color.BLACK), 7, 7);
         for (int i = 0; i < 8; ++i) {
-            addPiece(new Pawn(Piece.Color.WHITE), 6, i);
+            addPiece(new Pawn(Piece.Color.BLACK), 6, i);
         }
+    }
+
+    void initBoardMoves() {
+        boardMovesTextArea = new JTextArea("");
+        boardMovesTextArea.setEditable(false);
+        JScrollPane scroll = new JScrollPane(boardMovesTextArea);
+        scroll.setBounds(447, 37, 129, 402);
+        add(scroll);
     }
 
     // inits and colors the tiles as a chessboard design
     void initTiles() {
         // begin first tile as black
-        boolean blackRow = false;
-        boolean blackCol = false;
+        boolean blackRow = true;
+        boolean blackCol = true;
 
         // needed for rects
         Dimension size = getSize();
@@ -324,14 +351,14 @@ public class Board extends JPanel {
         g2d.setStroke(new BasicStroke(1));
         g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
         for (int i = 0; i < rows; ++i) {
-            double xPos = tileWidth * .5;
-            double yPos = tileHeight * (i + heightOffset);
-            g2d.drawString(Character.toString(rowToChar(i)), (int)(xPos + tileWidth/7), (int)(yPos + (tileHeight* 2/3)));
+            double xPos = tileWidth - 30;
+            double yPos = tileHeight * (i + heightOffset) - 15;
+            g2d.drawString(Character.toString(Utilities.rowToChar(i)), (int)(xPos), (int)(yPos + (tileHeight)));
         }
         for (int j = 0; j < cols; ++j) {
-            double xPos = tileWidth * (j + widthOffset);
-            double yPos = tileHeight * .5;
-            g2d.drawString(Character.toString(colToChar(j)), (int)(xPos + (tileWidth * 1/3)), (int)(yPos + ((tileHeight) * 3/7)));
+            double xPos = tileWidth * (j + widthOffset) + 20;
+            double yPos = tileHeight - 20;
+            g2d.drawString(Character.toString(Utilities.colToChar(j)), (int)(xPos + 0), (int)(yPos));
         }
         // draw the mxn board
         for (int i = 0; i < rows; ++i) {
@@ -384,17 +411,5 @@ public class Board extends JPanel {
             if (t == tile) return true;
         }
         return false;
-    }
-    char rowToChar(int row) {
-        try {
-            return (char)(row + '1');
-        } catch (Exception e) { Utilities.printException(e); }
-        return '\0';
-    }
-    char colToChar(int col) {
-        try {
-            return (char)(col + 'a');
-        } catch (Exception e) { Utilities.printException(e); }
-        return '\0';
     }
 }

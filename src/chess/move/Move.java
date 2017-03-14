@@ -36,5 +36,8 @@ public class Move {
     public boolean isInQ1() { return quadrants[0]; }
     public boolean isInQ2() { return quadrants[1]; }
     public boolean isInQ3() { return quadrants[2]; }
-    public boolean isInQ4() { return quadrants[4]; }
+    public boolean isInQ4() { return quadrants[3]; }
+    public int getRowMove() { return rowMove; }
+    public int getColMove() { return colMove; }
+    public boolean[] getQuadrants() { return quadrants.clone(); }
 }

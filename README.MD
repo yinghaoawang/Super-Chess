@@ -1,5 +1,5 @@
 ### Chess
-- [ ] Build Chess Engine
+- [ ] Base Chess Engine
     - [ ] Create pieces with respective moves
         - [x] Pieces
             - [x] Colors
@@ -13,7 +13,7 @@
             - [x] White
             - [x] Black
         - [ ] Piece moving (Click piece and click target tile)
-            - [ ] Initial piece selection
+            - [x] Initial piece selection
             - [ ] Possible moves
         - [ ] Text
             - [ ] Tile names (A1, C5, etc.)
@@ -22,8 +22,8 @@
         - [ ] Blocking
         - [ ] Check
         - [ ] Checkmate
-        - [ ] Turn
     - [ ] 2 players
+        - [ ] Turns
 
 - [ ] Chess Engine Extras
     - [ ] Rules
@@ -44,7 +44,8 @@
 
 ### Description:
 I make a scaleable chess engine such that it may be able to create awesome pieces with insane moves. First time making an actual graphical project from scratch. It is very satisfying thus far.  
-This project first started as an attempt of a custom scaleable impementation for Stanford's CS106A. To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
+This project first started as an attempt of a custom scaleable impementation for Stanford's CS106A.  
+To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
 
 ### Understanding the code:
 If one wants to dissect the code, here is a simple path one may take:

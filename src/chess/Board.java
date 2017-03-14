@@ -1,9 +1,12 @@
 package chess;
 import chess.piece.*;
+import chess.move.*;
 import chess.Utilities;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.awt.event.*;
 
@@ -20,6 +23,7 @@ public class Board extends JPanel {
     Rectangle2D[][] rects;
     Tile selectedTile = null;
     Tile hoveredTile = null;
+    List<Tile> moveTiles = null;
 
     // constructor that calls init
     Board() { this(8); }
@@ -32,10 +36,58 @@ public class Board extends JPanel {
         init();
     }
 
+    List<Tile> getMoveTiles(int row, int col) {
+        List<Tile> res = new ArrayList<Tile>();
+        try {
+            Tile tile = tiles[row][col];
+            Piece piece = tile.peek();
+            for (Move move: piece.getMoves()) {
+                boolean[] quadrants = move.getQuadrants();
+                Point[] signConversion = new Point[] {
+                    new Point(1, 1), // quadrant 1 (0)
+                    new Point(1, -1), // quadrant 2 (1)
+                    new Point(-1, -1), // quadrant 3 (2)
+                    new Point(-1, 1) // quadrant 4 (3)
+                };
+                boolean[] swapConversion = new boolean[] {
+                    false, // quadrant 1
+                    true, // quadrant 2
+                    false, // quadrant 3
+                    true // quadrant 4
+                };
+                // scale here
+                for (int i = 0; i < quadrants.length; ++i) {
+                    if (quadrants[i] == false) continue;
+                    int destRow, destCol, rowMove, colMove;
+                    rowMove = move.getRowMove();
+                    colMove = move.getColMove();
+
+                    if (swapConversion[i] == true) {
+                        int tmp = rowMove;
+                        rowMove = colMove;
+                        colMove = tmp;
+                    }
+                    rowMove *= signConversion[i].x; // not really x, just using point for 2 ints
+                    colMove *= signConversion[i].y;
+
+                    destRow = rowMove + row;
+                    destCol = colMove + col;
+
+                    System.out.println(destRow + ", " + destCol);
+                    if (!isWithinBorders(destRow, destCol)) continue;
+                    res.add(tiles[destRow][destCol]);
+                }
+            }
+        } catch(Exception e) { }
+        return res;
+    }
+
     // set selected tile to designated coordinate
     void selectTile(int row, int col) {
         try {
             selectedTile = tiles[row][col];
+            // test
+            moveTiles = getMoveTiles(row, col);
             System.out.println(selectedTile.peek().getName());
         } catch (Exception e) {}
     }
@@ -93,12 +145,14 @@ public class Board extends JPanel {
             public void mouseClicked(MouseEvent me) {
                 super.mouseClicked(me);
                 for (int i = 0; i < rows; ++i)
-                    for (int j = 0; j < cols; ++j)
-                        if (rects[i][j].contains(me.getPoint())) {
+                    for (int j = 0; j < cols; ++j) {
+                        Rectangle2D rect = rects[i][j];
+                        if (rect.contains(me.getPoint())) {
                             unhoverTile();
                             selectTile(i, j);
                             repaint();
                         }
+                    }
             }
         });
         addMouseMotionListener(new MouseAdapter() {
@@ -230,6 +284,7 @@ public class Board extends JPanel {
 
                 // if selected or hovered, change to respective colors
                 if (tile == selectedTile) g2d.setColor(Color.red);
+                else if (isAMoveTile(tile)) g2d.setColor(Color.blue);
                 else if (tile == hoveredTile) g2d.setColor(Color.gray);
 
                 // color in the tile
@@ -243,8 +298,17 @@ public class Board extends JPanel {
                     else g2d.setColor(pieceWhite);
                     g2d.drawString(piece.getSymbol() + "", (int)xPos, (int)(yPos + tileHeight));
                 }
-
             }
         }
+    }
+    boolean isWithinBorders(int row, int col) {
+        if (row >= rows || col >= cols || row < 0 || col < 0) return false;
+        return true;
+    }
+    boolean isAMoveTile(Tile tile) {
+        for (Tile t: moveTiles) {
+            if (t == tile) return true;
+        }
+        return false;
     }
 }

@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.List;
 import java.util.ArrayList;
-
 import java.awt.event.*;
 
 public class Board extends JPanel {
@@ -22,6 +21,8 @@ public class Board extends JPanel {
     Tile[][] tiles;
     Rectangle2D[][] rects;
     Tile selectedTile = null;
+    int selectedRow = -1;
+    int selectedCol = -1;
     Tile hoveredTile = null;
     List<Tile> moveTiles = null;
 
@@ -55,7 +56,7 @@ public class Board extends JPanel {
                     }
                 }
             }
-        } catch(Exception e) { }
+        } catch(Exception e) { Utilities.printException(e); }
         return res;
     }
 
@@ -106,6 +107,8 @@ public class Board extends JPanel {
             selectedTile = tiles[row][col];
             // test
             moveTiles = getMoveTiles(row, col);
+            selectedRow = row;
+            selectedCol = col;
             System.out.println(selectedTile.peek().getName());
         } catch (Exception e) {}
     }
@@ -114,7 +117,12 @@ public class Board extends JPanel {
             hoveredTile = tiles[row][col];
         } catch (Exception e) {}
     }
-    void deselectTile() { selectedTile = null; }
+    void deselectTile() {
+        selectedTile = null;
+        selectedRow = -1;
+        selectedCol = -1;
+        moveTiles = null;
+    }
     void unhoverTile() { hoveredTile = null; }
 
     // moves piece at top of src to top of dest
@@ -167,9 +175,15 @@ public class Board extends JPanel {
                         Rectangle2D rect = rects[i][j];
                         if (rect.contains(me.getPoint())) {
                             unhoverTile();
-                            selectTile(i, j);
-                            repaint();
+                            if (moveTiles == null || !moveTiles.contains(tiles[i][j]) ||
+                                    selectedTile == null && selectedTile != tiles[i][j]) {
+                                selectTile(i, j);
+                            } else {
+                                movePiece(selectedRow, selectedCol, i, j);
+                                deselectTile();
+                            }
                         }
+                        repaint();
                     }
             }
         });
@@ -315,7 +329,7 @@ public class Board extends JPanel {
                     if (piece.isBlack()) g2d.setColor(pieceBlack);
                     else g2d.setColor(pieceWhite);
                     g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2)));
-                    g2d.drawString(piece.getEncoding() + "", (int)xPos, (int)(yPos + tileHeight));
+                    g2d.drawString(piece.getEncoding() + "", (int)(xPos + tileWidth/4), (int)(yPos + (tileHeight* 3/4)));
                 }
             }
         }
@@ -325,6 +339,8 @@ public class Board extends JPanel {
         return true;
     }
     boolean isAMoveTile(Tile tile) {
+        if (moveTiles == null) return false;
+
         for (Tile t: moveTiles) {
             if (t == tile) return true;
         }

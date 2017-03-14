@@ -13,7 +13,7 @@
         - [x] Chesspiece drawing (Just settled on drawing encodings)
             - [x] White
             - [x] Black
-        - [ ] Piece moving (Click piece and click target tile)
+        - [x] Piece moving (Click piece and click target tile)
             - [x] Initial piece selection
             - [x] Possible moves
         - [ ] Text
@@ -57,16 +57,17 @@ If one wants to dissect the code, here is a simple path one may take:
             * chess/piece/Piece.java
             * chess/move/Move.java
 
+### Things learned:
+- Due to packaging, I now learn of the importance of class access. Especially package-private.
+- Using a different Makefile given a package with subdirectories (i think that's what you call them, i.e chess/piece/\* etc)
+- Further solidified the concept of mapping x to columns, and y to rows
+- Slightly better understanding of the placement of try catch blocks and throwing error exceptions
+- Basics of character encodings in java
+- Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
+
 ## Progress GIFs
 ### 3/14
 ![3/14](gifs/super-chess_3-14-17.gif)
 
 *Base: Initial pieces. Board, tile, piece, move classes and subclasses  
 Additional: Visual GUI with mouse events, board movement determination, piece encoding display*
-
-### Things learned:
-- Due to packaging, I now learn of the importance of class access. Especially package-private.
-- Using a different Makefile given a package with subdirectories (i think that's what you call them, i.e chess/piece/\* etc)
-- Further solidified the concept of mapping x to columns, and y to rows
-- Slightly better understanding of the placement of try catch blocks and throwing error exceptions
-

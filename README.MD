@@ -1,12 +1,12 @@
 ## Chess Checklist
 - [ ] Base Chess Engine
     - [x] Create pieces with respective moves
-        - [ ] Pieces
+        - [x] Pieces
             - [x] Colors
             - [x] Moves
                 - [x] Scaleable moves (i.e A knight that can move in constant Ls and can be blocked)
                 - [x] Implementation of moves given characteristics
-            - [ ] Pawn Moves
+            - [x] Pawn Moves
         - [x] Base chess Pieces (Knight, Rook, etc.)
     - [ ] GUI
         - [x] Chessboard tiles

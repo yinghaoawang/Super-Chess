@@ -37,6 +37,7 @@ public class Board extends JPanel {
         init();
     }
 
+    // returns a Tile List of all the possible moves on the board of the selected piece
     List<Tile> getMoveTiles(int row, int col) {
         List<Tile> res = new ArrayList<Tile>();
         try {
@@ -44,14 +45,14 @@ public class Board extends JPanel {
             Piece piece = tile.peek();
             for (Move move: piece.getMoves()) {
                 Move transMove = move.toTransposed();
-                addMoveDiagonals(res, row, col, move);
-                if (move.isTransposed()) addMoveDiagonals(res, row, col, transMove);
+                addMoveQuadrants(res, row, col, move);
+                if (move.isTransposed()) addMoveQuadrants(res, row, col, transMove);
 
                 if (move.isUntilEnd()) {
                     int multiplier = 2;
                     while (multiplier < Math.max(rows, cols)) {
-                        addMoveDiagonals(res, row, col, move, multiplier);
-                        if (move.isTransposed()) addMoveDiagonals(res, row, col, transMove, multiplier);
+                        addMoveQuadrants(res, row, col, move, multiplier);
+                        if (move.isTransposed()) addMoveQuadrants(res, row, col, transMove, multiplier);
                         ++multiplier;
                     }
                 }
@@ -60,10 +61,11 @@ public class Board extends JPanel {
         return res;
     }
 
-    void addMoveDiagonals(List<Tile> res, int row, int col, Move move) {
-        addMoveDiagonals(res, row, col, move, 1);
+    // addMoveQuadrants adds to the Tile List res the respective moves a multiplier times its movement
+    void addMoveQuadrants(List<Tile> res, int row, int col, Move move) {
+        addMoveQuadrants(res, row, col, move, 1);
     }
-    void addMoveDiagonals(List<Tile> res, int row, int col, Move move, int multiplier) {
+    void addMoveQuadrants(List<Tile> res, int row, int col, Move move, int multiplier) {
         // scale here
         Point[] signConversion = new Point[] {
             new Point(multiplier, multiplier), // quadrant 1 (0)
@@ -95,9 +97,16 @@ public class Board extends JPanel {
             destRow = rowMove + row;
             destCol = colMove + col;
 
-            System.out.println(destRow + ", " + destCol);
-            if (!isWithinBorders(destRow, destCol)) continue;
-            if (!res.contains(tiles[destRow][destCol])) res.add(tiles[destRow][destCol]);
+
+            // System.out.println(destRow + ", " + destCol);
+            if (!isWithinBorders(destRow, destCol)) continue; // make sure tile is within board borders
+
+            Tile destTile = tiles[destRow][destCol];
+            if (move.isAttackToMove() && (destTile.peek() == null || // if attackToMove, make sure there is a piece to attack
+                    destTile.peek().getColor() != selectedTile.peek().getColor()))
+                continue;
+
+            if (!res.contains(destTile)) res.add(destTile);
         }
     }
 
@@ -168,8 +177,8 @@ public class Board extends JPanel {
         initPieces();
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent me) {
-                super.mouseClicked(me);
+            public void mousePressed(MouseEvent me) {
+                super.mousePressed(me);
                 for (int i = 0; i < rows; ++i)
                     for (int j = 0; j < cols; ++j) {
                         Rectangle2D rect = rects[i][j];
@@ -183,8 +192,13 @@ public class Board extends JPanel {
                                 deselectTile();
                             }
                         }
-                        repaint();
+                        //repaint();
                     }
+            }
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                super.mouseReleased(me);
+                repaint();
             }
         });
         addMouseMotionListener(new MouseAdapter() {

@@ -14,15 +14,30 @@ public class Pawn extends Piece {
     void initMoves() {
         Move move = new Move();
         move.setRowMove(1);
-        move.setQuadrants(true);
+        move.setQuadrants(true, false, false, false);
         move.setAttacking(false);
-        moves.add(move);
+
+        Move doubleMove = new Move();
+        doubleMove.setRowMove(2);
+        doubleMove.setQuadrants(true, false, false, false);
+        doubleMove.setBlockable(true);
+        doubleMove.setAttacking(false);
+        doubleMove.setFirstMove(true);
 
         Move attack = new Move();
         attack.setRowMove(1);
         attack.setColMove(1);
-        attack.setQuadrants(true, true);
+        attack.setQuadrants(true, true, false, false);
         attack.setAttackToMove(true);
+
+        if (color == Piece.Color.WHITE) {
+            move = move.toInvertedQuadrants();
+            doubleMove = doubleMove.toInvertedQuadrants();
+            attack = attack.toInvertedQuadrants();
+        }
+
+        moves.add(move);
         moves.add(attack);
+        moves.add(doubleMove);
     }
 }

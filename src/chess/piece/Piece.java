@@ -16,6 +16,7 @@ public abstract class Piece {
     String name = null;
     char symbol = '\0';
     char encoding = '\0';
+    public int moveCount = 0;
     Color color;
     List<Move> moves = new ArrayList<>();
     // Graphics2D g2d;

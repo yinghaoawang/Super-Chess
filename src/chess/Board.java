@@ -45,14 +45,14 @@ public class Board extends JPanel {
             Piece piece = tile.peek();
             for (Move move: piece.getMoves()) {
                 Move transMove = move.toTransposed();
-                addMoveQuadrants(res, row, col, move);
-                if (move.isTransposed()) addMoveQuadrants(res, row, col, transMove);
+                addMoveQuadrants(res, piece, row, col, move);
+                if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, transMove);
 
                 if (move.isUntilEnd()) {
                     int multiplier = 2;
                     while (multiplier < Math.max(rows, cols)) {
-                        addMoveQuadrants(res, row, col, move, multiplier);
-                        if (move.isTransposed()) addMoveQuadrants(res, row, col, transMove, multiplier);
+                        addMoveQuadrants(res, piece, row, col, move, multiplier);
+                        if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, transMove, multiplier);
                         ++multiplier;
                     }
                 }
@@ -62,10 +62,10 @@ public class Board extends JPanel {
     }
 
     // addMoveQuadrants adds to the Tile List res the respective moves a multiplier times its movement
-    void addMoveQuadrants(List<Tile> res, int row, int col, Move move) {
-        addMoveQuadrants(res, row, col, move, 1);
+    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move) {
+        addMoveQuadrants(res, piece, row, col, move, 1);
     }
-    void addMoveQuadrants(List<Tile> res, int row, int col, Move move, int multiplier) {
+    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier) {
         // scale here
         Point[] signConversion = new Point[] {
             new Point(multiplier, multiplier), // quadrant 1 (0)
@@ -102,9 +102,16 @@ public class Board extends JPanel {
             if (!isWithinBorders(destRow, destCol)) continue; // make sure tile is within board borders
 
             Tile destTile = tiles[destRow][destCol];
+
             if (move.isAttackToMove() && (destTile.peek() == null || // if attackToMove, make sure there is a piece to attack
-                    destTile.peek().getColor() != selectedTile.peek().getColor()))
+                    destTile.peek().getColor() == selectedTile.peek().getColor()))
                 continue;
+
+            if (!move.isTeamAttacking() && (destTile.peek() != null && // unless it is team attacking, it cannot move to tile with same color piece
+                    destTile.peek().getColor() == selectedTile.peek().getColor()))
+                continue; 
+
+            if (move.isFirstMove() && piece.moveCount != 0) continue;
 
             if (!res.contains(destTile)) res.add(destTile);
         }
@@ -187,6 +194,7 @@ public class Board extends JPanel {
                             if (moveTiles != null && moveTiles.contains(tiles[i][j]) &&
                                     selectedTile != null && selectedTile != tiles[i][j]) {
                                 movePiece(selectedRow, selectedCol, i, j);
+                                ++tiles[i][j].peek().moveCount;
                             }
                             if (selectedTile == null) {
                                 selectTile(i, j);
@@ -313,6 +321,18 @@ public class Board extends JPanel {
         Color pieceBlack = new Color(255, 228, 198); // gray for black pieces
         Color pieceWhite = new Color(255, 248, 220); // white for white pieces
 
+        g2d.setStroke(new BasicStroke(1));
+        g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
+        for (int i = 0; i < rows; ++i) {
+            double xPos = tileWidth * .5;
+            double yPos = tileHeight * (i + heightOffset);
+            g2d.drawString(Character.toString(rowToChar(i)), (int)(xPos + tileWidth/7), (int)(yPos + (tileHeight* 2/3)));
+        }
+        for (int j = 0; j < cols; ++j) {
+            double xPos = tileWidth * (j + widthOffset);
+            double yPos = tileHeight * .5;
+            g2d.drawString(Character.toString(colToChar(j)), (int)(xPos + (tileWidth * 1/3)), (int)(yPos + ((tileHeight) * 3/7)));
+        }
         // draw the mxn board
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols ; ++j) {
@@ -347,8 +367,8 @@ public class Board extends JPanel {
                 if (!tile.isEmpty()) {
                     if (piece.isBlack()) g2d.setColor(pieceBlack);
                     else g2d.setColor(pieceWhite);
-                    g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2)));
-                    g2d.drawString(piece.getEncoding() + "", (int)(xPos + tileWidth/4), (int)(yPos + (tileHeight* 3/4)));
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/1.3)));
+                    g2d.drawString(Character.toString(piece.getEncoding()), (int)(xPos + tileWidth/8.5), (int)(yPos + (tileHeight* 4/5)));
                 }
             }
         }
@@ -364,5 +384,17 @@ public class Board extends JPanel {
             if (t == tile) return true;
         }
         return false;
+    }
+    char rowToChar(int row) {
+        try {
+            return (char)(row + '1');
+        } catch (Exception e) { Utilities.printException(e); }
+        return '\0';
+    }
+    char colToChar(int col) {
+        try {
+            return (char)(col + 'a');
+        } catch (Exception e) { Utilities.printException(e); }
+        return '\0';
     }
 }

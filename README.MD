@@ -19,12 +19,10 @@
         - [x] Text
             - [x] Tile names (A1, C5, etc.)
             - [x] Previous moves
-    - [ ] Game Rules module
+    - [ ] Rules
         - [ ] Check
         - [ ] Checkmate
-    - [ ] Moving Rules module
         - [x] Blocking
-        - [ ] All others
     - [ ] 2 players
         - [ ] Turns
 
@@ -33,6 +31,7 @@
         - [ ] Draw
         - [ ] En passant
         - [ ] Castling
+    - [ ] Modularize rules (somehow)
     - [ ] State saving
         - [ ] Loadable chess board from text file
         - [ ] Save/load user state
@@ -71,17 +70,16 @@ If one wants to dissect the code, here is a simple path one may take:
 ### 3/15
 ![3/15](gifs/super-chess_3-15-17.gif)
 
-*Moveable pieces and most piece move logic (blocking, extending of moves, etc.)  
+*Update: Moveable pieces and most piece move logic (blocking, extending of moves, etc.)  
 List of board moves displayed in text area*
 
 ### 3/14
 ![3/14](gifs/super-chess_3-14-17.gif)
 
-*Base: Initial pieces. Board, tile, piece, move classes and subclasses  
-Additional: Visual GUI with mouse events, board movement determination, piece encoding display*
+*Update: Visual GUI with mouse events, board movement determination, piece encoding display*
 
 ### 3/09
 ![3/09](gifs/super-chess_3-09-17.gif)
 
-*Board, tile, selected tile, move, and piece base logic  
+*Initial: Board, tile, selected tile, move, and piece base logic  
 Graphics for chessboard tiles, and drawn symbols for pieces*

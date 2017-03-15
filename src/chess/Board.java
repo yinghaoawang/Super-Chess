@@ -30,6 +30,9 @@ public class Board extends JPanel {
     List<BoardMove> boardMoves = new LinkedList<>();
     JTextArea boardMovesTextArea = null;
 
+    Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
+    int currentPlayerIndex = 0;
+
     // constructor that calls init
     Board() { this(8); }
     Board(int cols) { this(cols, cols); }
@@ -39,6 +42,13 @@ public class Board extends JPanel {
         tiles = new Tile[rows][cols];
         rects = new Rectangle2D[rows][cols];
         init();
+    }
+
+    // on to the next player
+    void nextPlayer() {
+        if (++currentPlayerIndex >= playerColor.length)
+            currentPlayerIndex = 0;
+        System.out.println(currentPlayerIndex);
     }
 
     // have the board move text area display the board moves
@@ -95,7 +105,7 @@ public class Board extends JPanel {
         };
         boolean[] quadrants = move.getQuadrants();
         for (int i = 0; i < quadrants.length; ++i) {
-            // TODO RULES
+            // TODO RULES -- HOW DO I MODULARIZE THIS?!?!
             // pre
             if (quadrants[i] == false) continue;
             if (move.isBlockable() && blockedQuadrants[i]) continue;
@@ -146,8 +156,8 @@ public class Board extends JPanel {
     void selectTile(int row, int col) {
         try {
             selectedTile = tiles[row][col];
-            // test
-            moveTiles = getMoveTiles(row, col);
+            if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
+                moveTiles = getMoveTiles(row, col);
             selectedRow = row;
             selectedCol = col;
         } catch (Exception e) {}
@@ -209,6 +219,7 @@ public class Board extends JPanel {
         initPieces();
         initBoardMoves();
         addMouseListener(new MouseAdapter() {
+            // TODO refactor this somehow?
             @Override
             public void mousePressed(MouseEvent me) {
                 super.mousePressed(me);
@@ -223,6 +234,7 @@ public class Board extends JPanel {
                                 ++tiles[i][j].peek().moveCount;
                                 boardMoves.add(new BoardMove(tiles[i][j].peek(), selectedRow, selectedCol, i, j));
                                 updateBoardMovesTextArea();
+                                nextPlayer();
                             }
                             if (selectedTile == null && tiles[i][j].peek() != null) {
                                 selectTile(i, j);
@@ -290,6 +302,7 @@ public class Board extends JPanel {
         add(scroll);
     }
 
+    // TODO refactor
     // inits and colors the tiles as a chessboard design
     void initTiles() {
         // begin first tile as black
@@ -335,6 +348,7 @@ public class Board extends JPanel {
         drawTiles(g);
     }
 
+    // TODO refactor
     // draws the tiles and pieces on the tiles
     private void drawTiles(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -409,11 +423,13 @@ public class Board extends JPanel {
             }
         }
     }
-    boolean isWithinBorders(int row, int col) {
+
+    // helpers, self explanatory names
+    private boolean isWithinBorders(int row, int col) {
         if (row >= rows || col >= cols || row < 0 || col < 0) return false;
         return true;
     }
-    boolean isAMoveTile(Tile tile) {
+    private boolean isAMoveTile(Tile tile) {
         if (moveTiles == null) return false;
 
         for (Tile t: moveTiles) {

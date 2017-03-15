@@ -16,7 +16,7 @@ public class King extends Piece {
         name = "King";
     }
     void initMoves() {
-        moves.add(new SingleStraightMove());
-        moves.add(new SingleDiagonalMove());
+        addMove(new SingleStraightMove());
+        addMove(new SingleDiagonalMove());
     }
 }

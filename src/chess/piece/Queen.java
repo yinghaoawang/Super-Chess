@@ -16,7 +16,7 @@ public class Queen extends Piece {
         name = "Queen";
     }
     void initMoves() {
-        moves.add(new StraightMove());
-        moves.add(new DiagonalMove());
+        addMove(new StraightMove());
+        addMove(new DiagonalMove());
     }
 }

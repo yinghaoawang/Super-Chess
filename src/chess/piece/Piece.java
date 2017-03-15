@@ -54,4 +54,27 @@ public abstract class Piece {
         if (moves.size() <= 0) Utilities.printErrorAndExit("Piece has no moves");
         // if (g2d == null) throw new Exception("Piece has no g2d");
     }
+    protected void addMove(Move move) {
+        int rowMove = move.getRowMove();
+        int colMove= move.getColMove();
+        int i = 0;
+        int j = 0;
+        Move newMove = null;
+        if (move.isAllPath()) {
+            while (++i <= rowMove) {
+                newMove = new Move(move);
+                newMove.setMove(i, j);
+                moves.add(newMove);
+            }
+            i = rowMove;
+            while (++j <= colMove) {
+                newMove = new Move(move);
+                newMove.setMove(i, j);
+                moves.add(newMove);
+            }
+            return;
+        }
+        // for non all path
+        moves.add(move);
+    }
 }

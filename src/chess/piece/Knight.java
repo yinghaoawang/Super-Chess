@@ -17,6 +17,6 @@ public class Knight extends Piece {
         name = "Knight";
     }
     void initMoves() {
-        moves.add(new LMove());
+        addMove(new LMove());
     }
 }

@@ -8,7 +8,7 @@
                 - [x] Implementation of moves given characteristics
             - [x] Pawn Moves
         - [x] Base chess Pieces (Knight, Rook, etc.)
-    - [ ] GUI
+    - [x] GUI
         - [x] Chessboard tiles
         - [x] Chesspiece drawing (Just settled on drawing encodings)
             - [x] White
@@ -19,10 +19,12 @@
         - [x] Text
             - [x] Tile names (A1, C5, etc.)
             - [x] Previous moves
-    - [ ] Rules module
-        - [ ] Blocking
+    - [ ] Game Rules module
         - [ ] Check
         - [ ] Checkmate
+    - [ ] Moving Rules module
+        - [x] Blocking
+        - [ ] All others
     - [ ] 2 players
         - [ ] Turns
 

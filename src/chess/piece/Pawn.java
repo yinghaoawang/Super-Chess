@@ -37,8 +37,8 @@ public class Pawn extends Piece {
             attack = attack.toInvertedQuadrants();
         }
 
-        moves.add(move);
-        moves.add(attack);
-        moves.add(doubleMove);
+        addMove(move);
+        addMove(attack);
+        addMove(doubleMove);
     }
 }

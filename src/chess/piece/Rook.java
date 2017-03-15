@@ -16,6 +16,6 @@ public class Rook extends Piece {
         name = "Rook";
     }
     void initMoves() {
-        moves.add(new StraightMove());
+        addMove(new StraightMove());
     }
 }

@@ -16,6 +16,6 @@ public class Bishop extends Piece {
         name = "Bishop";
     }
     void initMoves() {
-        moves.add(new DiagonalMove());
+        addMove(new DiagonalMove());
     }
 }

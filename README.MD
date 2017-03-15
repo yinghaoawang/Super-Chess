@@ -71,7 +71,7 @@ If one wants to dissect the code, here is a simple path one may take:
 ### 3/15
 ![3/15](gifs/super-chess_3-15-17.gif)
 
-*Update: Moveable pieces and most piece move logic (blocking, extending of moves, etc.  
+*Moveable pieces and most piece move logic (blocking, extending of moves, etc.)  
 List of board moves displayed in text area*
 
 ### 3/14
@@ -79,3 +79,9 @@ List of board moves displayed in text area*
 
 *Base: Initial pieces. Board, tile, piece, move classes and subclasses  
 Additional: Visual GUI with mouse events, board movement determination, piece encoding display*
+
+### 3/09
+![3/09](gifs/super-chess_3-09-17.gif)
+
+*Board, tile, selected tile, move, and piece base logic  
+Graphics for chessboard tiles, and drawn symbols for pieces*

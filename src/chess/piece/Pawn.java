@@ -24,6 +24,7 @@ public class Pawn extends Piece {
         doubleMove.setBlockable(true);
         doubleMove.setAttacking(false);
         doubleMove.setFirstMove(true);
+        doubleMove.setAllPath(true);
 
         Move attack = new Move();
         attack.setRowMove(1);

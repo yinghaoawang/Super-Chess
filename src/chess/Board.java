@@ -58,9 +58,11 @@ public class Board extends JPanel {
         try {
             Tile tile = tiles[row][col];
             Piece piece = tile.peek();
+            boolean[] allPathBlockedQuadrants = new boolean[] { false, false, false, false };
             for (Move move: piece.getMoves()) {
                 int multiplier = 1;
                 boolean[] blockedQuadrants = new boolean[] { false, false, false, false };
+                if (move.isAllPath()) blockedQuadrants = allPathBlockedQuadrants;
                 do {
                     addMoveQuadrants(res, piece, row, col, move, multiplier, blockedQuadrants);
                     if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, move.toTransposed(), multiplier, blockedQuadrants);

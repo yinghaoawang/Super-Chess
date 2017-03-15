@@ -54,6 +54,8 @@ public abstract class Piece {
         if (moves.size() <= 0) Utilities.printErrorAndExit("Piece has no moves");
         // if (g2d == null) throw new Exception("Piece has no g2d");
     }
+
+    // add move to piece's moves
     protected void addMove(Move move) {
         int rowMove = move.getRowMove();
         int colMove= move.getColMove();

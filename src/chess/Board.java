@@ -31,6 +31,7 @@ public class Board extends JPanel {
     JTextArea boardMovesTextArea = null;
 
     Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
+    List<List<Piece>> grave = new ArrayList<List<Piece>>();
     int currentPlayerIndex = 0;
 
     // constructor that calls init
@@ -48,7 +49,16 @@ public class Board extends JPanel {
     void nextPlayer() {
         if (++currentPlayerIndex >= playerColor.length)
             currentPlayerIndex = 0;
-        System.out.println(currentPlayerIndex);
+    }
+
+    // finds first player with same color as piece, then puts it into that grave
+    void putToGrave(Tile tile, Piece piece) {
+        for (int i = 0; i < playerColor.length; ++i) {
+            if (playerColor[i] == piece.getColor()) {
+                grave.get(i).add(tile.remove(piece));
+                break;
+            }
+        }
     }
 
     // have the board move text area display the board moves
@@ -195,6 +205,10 @@ public class Board extends JPanel {
         try {
             Tile tile = tiles[srcRow][srcCol];
             Tile destTile = tiles[destRow][destCol];
+
+            Piece destPiece = destTile.peek();
+            if (destPiece != null) putToGrave(destTile, destPiece);
+
             Piece piece = tile.remove(index);
             destTile.push(piece);
         } catch (Exception e) {
@@ -214,10 +228,11 @@ public class Board extends JPanel {
 
     // initiates board by calling other inits
     void init() {
-         setLayout(null);
+        setLayout(null);
         initTiles();
         initPieces();
         initBoardMoves();
+        for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
         addMouseListener(new MouseAdapter() {
             // TODO refactor this somehow?
             @Override

@@ -27,7 +27,17 @@ class Tile {
     void push(Piece piece) {
         ((LinkedList<Piece>)pieces).push(piece);
     }
-    Piece remove(int index) { return pieces.remove(index); }
+    Piece remove() { return remove(0); }
+    Piece remove(Piece piece) {
+        return remove(indexOf(piece));
+    }
+    Piece remove(int index) {
+        Piece res = null;
+        try {
+            res = pieces.remove(index);
+        } catch (Exception e) { Utilities.printException(e); }
+        return res;
+    }
     int size() { return pieces.size(); }
     int indexOf(Piece piece) { return pieces.indexOf(piece); }
     int indexOfName(Piece piece) {

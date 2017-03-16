@@ -69,6 +69,11 @@ If one wants to dissect the code, here is a simple path one may take:
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
 
 ## Progress GIFs
+### 3/16
+![3/16](gifs/super-chess_3-16-17.gif)
+
+*Update: Graveyard and display added*
+
 ### 3/15
 ![3/15](gifs/super-chess_3-15-17.gif)
 

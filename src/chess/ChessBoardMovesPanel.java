@@ -1,16 +1,13 @@
 package chess;
 import chess.BoardMove;
-import chess.piece.*;
-import chess.move.*;
 import chess.Utilities;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.event.*;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
+/* This panel is for display the list of move made on a board. It passes
+ * in a ChessBoardPanel in order to interact with its mouse events */
 public class ChessBoardMovesPanel extends JPanel {
     // fields
     int fontSize = 12;

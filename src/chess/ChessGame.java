@@ -3,15 +3,14 @@ import chess.BoardMove;
 import chess.piece.*;
 import chess.move.*;
 import chess.Utilities;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.awt.event.*;
+import java.awt.Point;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class ChessGame extends JPanel {
+/* The logic of this program. It holds pieces together all the pieces
+ * that include the moves, pieces, board, board moves, graves, and players */
+public class ChessGame {
     Board board = null;
     Tile[][] tiles = null;
     int rows, cols;
@@ -26,10 +25,10 @@ public class ChessGame extends JPanel {
     JTextArea blackGraveTextArea = null;
     */
 
-    // TODO maybe better solution than putting this here
-    // colors for pieces
-
+    // player
     Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
+
+    // grave
     List<List<Piece>> grave = new ArrayList<List<Piece>>();
     int currentPlayerIndex = 0;
 
@@ -184,6 +183,8 @@ public class ChessGame extends JPanel {
             selectedCol = col;
         } catch (Exception e) {}
     }
+
+    // what to do when deselecting a tile
     void deselectTile() {
         selectedTile = null;
         selectedRow = -1;
@@ -193,13 +194,11 @@ public class ChessGame extends JPanel {
 
     // initiates board by calling other inits
     void init() {
-        setLayout(null);
         initTiles();
         initPieces();
         initBoardMoves();
         initGraves();
     }
-
 
     // places pieces on the chess board as they should be
     void initPieces() {

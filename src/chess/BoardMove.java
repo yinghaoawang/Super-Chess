@@ -1,6 +1,8 @@
 package chess;
 import chess.Utilities;
 import chess.piece.Piece;
+
+/* Documents the history of a chess game. Holds which piece moved from which position to which */
 class BoardMove {
     Piece piece;
     int srcRow, srcCol, destRow, destCol;

@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+/* This panel is for displaying the Chess' Board */
 public class ChessBoardPanel extends JPanel {
     // sizes for the coordinates (a, b, ..., 1, 2, ...)
     int pieceFontSize = 39;

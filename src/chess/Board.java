@@ -2,6 +2,7 @@ package chess;
 import chess.piece.*;
 import chess.Utilities;
 
+/* The setting where pieces interact with each other. Contains methods required to move them around */
 public class Board {
     int rows; // rows on board
     int cols; // columns on board

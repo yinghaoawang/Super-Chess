@@ -1,17 +1,10 @@
 package chess;
 import java.io.*;
+
+// A helper class, it is composed of static functions
 public class Utilities {
+    // custom controlled printing of stack trace
     public static void printException(Exception e) {
-        /* printing entire stack, it was too long
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw));
-        printError(sw.toString());
-        */
-
-        /* this seems useful for later
-        String exceptionName = e.getClass().getSimpleName();
-        */
-
         StackTraceElement ste = null;
 
         // this loop is important to find the proper stack trace element
@@ -33,14 +26,17 @@ public class Utilities {
         printError("\tat " + className + "." + methodName + "(" + fileName + ":" + lineNumber + ")");
     }
 
-    // self explanatory function
+    // prints errors
     public static void printError(String message) {
         System.err.println(message);
     }
+    // prints error and exist
     public static void printErrorAndExit(String message) {
         printError(message);
         System.exit(1);
     }
+
+    // return case equivalent of letter. returns same char otherwise
     public static char charToLowerCase(char c) {
         if (c >= 'A' && c <= 'Z') return (char)(c - ('A' - 'a'));
         return c;
@@ -49,6 +45,8 @@ public class Utilities {
         if (c >= 'a' && c <= 'z') return (char)(c + ('A' - 'a'));
         return c;
     }
+
+    // return row/col's respective chess character. i.e 00 -> a1, 13 -> c2
     public static char rowToChar(int row) {
         try {
             return (char)(row + '1');

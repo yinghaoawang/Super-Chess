@@ -3,6 +3,7 @@ import chess.piece.*;
 import javax.swing.*;
 import java.awt.*;
 
+/* The frame holding the Chess Game panel */
 public class ChessGameFrame extends JFrame {
     public ChessGameFrame() {
         init();

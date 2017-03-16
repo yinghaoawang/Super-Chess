@@ -67,6 +67,7 @@ To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
 - Slightly better understanding of the placement of try catch blocks and throwing error exceptions
 - Basics of character encodings in java
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
+- The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
 ## Progress GIFs
 ### 3/16 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)

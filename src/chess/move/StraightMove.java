@@ -1,4 +1,6 @@
 package chess.move;
+
+/* A constant straight move of all quadrants; a rook move in chess */
 public class StraightMove extends Move {
     public StraightMove() {
         attacking = true;

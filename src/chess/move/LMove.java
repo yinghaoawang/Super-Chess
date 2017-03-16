@@ -1,4 +1,6 @@
 package chess.move;
+
+/* A knight move in chess */
 public class LMove extends Move {
     public LMove() {
         attacking = true;

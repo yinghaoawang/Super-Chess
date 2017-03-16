@@ -1,6 +1,9 @@
 package chess.move;
 import chess.Utilities;
 import java.util.Arrays;
+
+/* A move that a designated piece is capable of making. Contains many
+ * characteristics that are to be translated to board movements in the Board class */
 public class Move {
     public Move() {} // empty constructor
     /* dont forget to put into copy constructor when adding new fields */

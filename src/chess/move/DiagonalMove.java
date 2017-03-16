@@ -1,4 +1,6 @@
 package chess.move;
+
+/* A constant diagonal move of all quadrants; a bishop move in chess */
 public class DiagonalMove extends Move {
     public DiagonalMove() {
         attacking = true;

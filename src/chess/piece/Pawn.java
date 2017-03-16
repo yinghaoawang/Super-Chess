@@ -1,12 +1,11 @@
 package chess.piece;
 import chess.move.*;
+
+// TODO en passant.
 public class Pawn extends Piece {
     public Pawn(Color color) { super(color); }
     void initSymbol() {
-        //if (color == Color.WHITE)
-            //encoding = '\u2659';
-        //else if (color == Color.BLACK)
-            encoding = '\u265F';
+        encoding = '\u265F';
 
         symbol = 'P';
         displaySequence = "";

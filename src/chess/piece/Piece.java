@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.awt.*;
 import java.awt.geom.*;
 
+/* A piece with its attribute. Contains moves that it is able to make. */
 public abstract class Piece {
     public enum Color {
         BLACK("Black"), WHITE("White");
@@ -20,7 +21,6 @@ public abstract class Piece {
     public int moveCount = 0;
     Color color;
     List<Move> moves = new ArrayList<>();
-    // Graphics2D g2d;
     public Piece(Color color) {
         this.color = color;
         init();
@@ -34,18 +34,15 @@ public abstract class Piece {
     public String getDisplaySequence() { if (displaySequence == null) return Character.toString(symbol); return displaySequence; }
     public char getEncoding() { if (encoding == '\0') return symbol; return encoding; }
     public String toString() { return color + " " + name; }
-    // Graphics2D getG2D() { return g2d; }
     public boolean isBlack() { return color == Color.BLACK; }
     public boolean isWhite() { return color == Color.WHITE; }
     abstract void initSymbol();
     abstract void initName();
     abstract void initMoves();
-    // abstract void initGraphics();
     void init() {
         initSymbol();
         initName();
         initMoves();
-        // initGraphics();
         assertIntegrity();
     }
     void assertIntegrity() {

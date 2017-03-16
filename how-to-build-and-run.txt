@@ -1,3 +1,6 @@
 Makefile provided by Joseph Anderson
+
+When building, make sure there is a "bin/" directory in the current directory
+
 After building with "make"
 Run with "./run"

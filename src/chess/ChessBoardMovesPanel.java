@@ -13,39 +13,37 @@ import java.util.LinkedList;
 
 public class ChessBoardMovesPanel extends JPanel {
     // fields
+    int fontSize = 12;
     ChessGame game = null;
     JTextArea boardMovesTextArea = null;
 
     // constructor
-    public ChessBoardMovesPanel(ChessGame game) {
+    public ChessBoardMovesPanel(ChessGame game, ChessBoardPanel boardPanel) {
         this.game = game;
         init();
+        initEventListeners(boardPanel);
     }
 
     // initialization invoker
     void init() {
         initBoardMoves();
-        initEventListeners();
     }
 
     // creates board moves
     void initBoardMoves() {
-        boardMovesTextArea = new JTextArea(20, 100);
+        boardMovesTextArea = new JTextArea(26, 8);
         boardMovesTextArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane(boardMovesTextArea);
-        scroll.setBackground(Color.black);
-        //scroll.setBounds(447, 37, 129, 402); // guessing i dont need this if i'm using relative placement
-        add(scroll);
+        JScrollPane scrollPane = new JScrollPane(boardMovesTextArea);
+        add(scrollPane);
     }
 
-    // adds event listener(s)
-    void initEventListeners() {
-        addMouseListener(new MouseAdapter() {
+    // adds event listener(s), passes in a board panel to get when mouse is released on the board
+    public void initEventListeners(ChessBoardPanel boardPanel) {
+        boardPanel.addMouseListener(new MouseAdapter() {
             // when mouse is released, update board moves panel
             @Override
             public void mouseReleased(MouseEvent me) {
                 super.mouseReleased(me);
-                System.out.println("release");
                 update();
             }
         });
@@ -53,6 +51,7 @@ public class ChessBoardMovesPanel extends JPanel {
 
     // have the board move text area display the board moves
     void update() {
+        boardMovesTextArea.setFont(new Font("Arial", Font.PLAIN, fontSize));
         List<BoardMove> boardMoves = game.boardMoves;
         if (boardMovesTextArea == null) return;
         boardMovesTextArea.setText("");
@@ -61,7 +60,11 @@ public class ChessBoardMovesPanel extends JPanel {
         for (BoardMove bm: boardMoves) {
             boardMovesTextArea.append(i++ + " " + bm + "\n");
         }
-        repaint();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
     }
 
     @Override

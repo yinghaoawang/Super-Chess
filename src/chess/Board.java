@@ -57,11 +57,6 @@ public class Board {
             Tile tile = tiles[srcRow][srcCol];
             Tile destTile = tiles[destRow][destCol];
 
-            /* TODO move this logic to chess game
-            Piece destPiece = destTile.peek();
-            if (destPiece != null) putToGrave(destTile, destPiece);
-            */
-
             Piece piece = tile.remove(index);
             destTile.push(piece);
         } catch (Exception e) {

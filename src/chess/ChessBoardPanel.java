@@ -149,7 +149,7 @@ public class ChessBoardPanel extends JPanel {
                 if (tile == game.selectedTile) {
                     g2d.setColor(selectedColor);
                 }
-                else if (game.isAMoveTile(tile)) g2d.setColor(moveTileColor);
+                else if (game.isInMoveTiles(tile)) g2d.setColor(moveTileColor);
                 else if (tile == hoveredTile) g2d.setColor(hoverColor);
 
                 // color in the tile
@@ -237,7 +237,6 @@ public class ChessBoardPanel extends JPanel {
     public Dimension getPreferredSize() {
         int width = (int)(tileWidth * cols + tileWidthOffset);
         int height = (int)(tileHeight * rows + tileHeightOffset);
-        System.out.println(width + " " + height);
         return new Dimension(width, height);
     }
 }

@@ -5,14 +5,14 @@ import java.awt.*;
 
 public class ChessGamePanel extends JPanel {
     ChessGame game = null;
-    ChessBoardPanel bp = null;
-    ChessBoardMovesPanel cbmp = null;
+    ChessBoardPanel boardPanel = null;
+    ChessBoardMovesPanel boardMovesPanel = null;
     public ChessGamePanel() {
-        //super(new BorderLayout());
+        FlowLayout layout = new FlowLayout(FlowLayout.LEADING, 20, 10);
         game = new ChessGame();
-        bp = new ChessBoardPanel(game);
-        cbmp = new ChessBoardMovesPanel(game);
-        add(bp);
-        add(cbmp);
+        boardPanel = new ChessBoardPanel(game);
+        boardMovesPanel = new ChessBoardMovesPanel(game, boardPanel);
+        add(boardPanel);
+        add(boardMovesPanel);
     }
 }

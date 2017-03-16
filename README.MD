@@ -31,9 +31,9 @@
         - Chess game
             - [ ] Chess game
         - Displays
-            - [ ] Chess game frame
-            - [ ] Chess board panel
-            - [ ] Chess board move panel
+            - [x] Chess game frame
+            - [x] Chess board panel
+            - [x] Chess board move panel
             - [ ] Chess grave panel
             - [ ] Player panel
 

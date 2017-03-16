@@ -269,7 +269,12 @@ public class ChessGame extends JPanel {
         // if clicked on a move tile, then move the piece and update stuff
         if (moveTiles != null && moveTiles.contains(tile) &&
                 selectedTile != null && selectedTile != tile) {
+
+            Piece destPiece = tile.peek();
+            if (destPiece != null) putToGrave(tile, destPiece);
+
             board.movePiece(selectedRow, selectedCol, row, col);
+
             ++tile.peek().moveCount;
             boardMoves.add(new BoardMove(tile.peek(), selectedRow, selectedCol, row, col));
             nextPlayer();
@@ -307,7 +312,8 @@ public class ChessGame extends JPanel {
         }
     }
 
-    boolean isAMoveTile(Tile tile) {
+    // determines if the tile is a tile in moveTiles
+    boolean isInMoveTiles(Tile tile) {
         if (moveTiles == null) return false;
 
         for (Tile t: moveTiles) {

@@ -1,5 +1,5 @@
 #!/bin/bash
-MAINCLASS="Runner"
+MAINCLASS="ChessGameApp"
 if [ ! -e "./bin/$MAINCLASS.class" ]; then
     echo "$MAINCLASS not found, have you tried running \"make\"?"
 else

@@ -7,8 +7,15 @@ class Tile {
     enum Color {
         WHITE, BLACK
     }
+
+    // fields
     List<Piece> pieces = new LinkedList<>();
     Color color;
+
+    // constructor
+    Tile() {
+        this(Color.WHITE);
+    }
     Tile(Color color) {
         this.color = color;
     }

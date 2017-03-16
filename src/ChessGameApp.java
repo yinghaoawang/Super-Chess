@@ -1,11 +1,11 @@
 import chess.*;
 import java.awt.EventQueue;
-public class Runner {
+public class ChessGameApp {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ChessApp game = new ChessApp();
+                ChessGameFrame game = new ChessGameFrame();
                 game.setVisible(true);
             }
         });

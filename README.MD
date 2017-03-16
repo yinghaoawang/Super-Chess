@@ -60,14 +60,6 @@ The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Q
 This project first started as an attempt of a custom scaleable impementation for Stanford's CS106A.  
 To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
 
-### Understanding the code:
-If one wants to dissect the code, here is a simple path one may take:
-* Runner.java
-    * chess/ChessApp.java
-        * chess/Board.java
-            * chess/piece/Piece.java
-            * chess/move/Move.java
-
 ### Things learned:
 - Due to packaging, I now learn of the importance of class access. Especially package-private.
 - Using a different Makefile given a package with subdirectories (i think that's what you call them, i.e chess/piece/\* etc)
@@ -77,8 +69,7 @@ If one wants to dissect the code, here is a simple path one may take:
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
 
 ## Progress GIFs
-### 3/16 modularity blueprint
-#### [blueprint](images/blueprint_3-16-17.gif)
+### 3/16 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)
 
 ### 3/16
 ![3/16](images/gifs/super-chess_3-16-17.gif)

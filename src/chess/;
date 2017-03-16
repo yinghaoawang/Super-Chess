@@ -7,36 +7,28 @@ import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 public class ChessBoardPanel extends JPanel {
-    // sizes for the coordinates (a, b, ..., 1, 2, ...)
-    int pieceFontSize = 39;
-    int coordFontSize = 20;
-    double rowCoordWidthOffset = 0;
-    double rowCoordHeightOffset = 6;
-    double colCoordWidthOffset = 38;
-    double colCoordHeightOffset = 18;
+    ChessGame game = null;
+    Board board = null;
+    Tile hoveredTile = null;
+    List<BoardMove> boardMoves = null;
+    Rectangle2D[][] rects = null;
 
-    // sizes for the tiles on the board
+    int rows, cols;
+
+    // TODO tempo?
     double tileWidth = 50; // width of tile
     double tileHeight = 50; // height of tile
-    double tileWidthOffset = 18; // offset from left
-    double tileHeightOffset = 25; // offset from top
+    double widthOffset = 25; // offset from left is widthOffset * tileWidth
+    double heightOffset = 25; // offset from right is heightOffset * tileHeight
+    int pieceFontSize = 39;
 
     // colors for board
     Color black = new Color(121, 95, 70);
     Color white = new Color(205, 122, 20);
-    Color tileLineColor = new Color(55, 55, 55);
 
     // colors for pieces
     Color pieceBlackColor = new Color(0, 0, 0);
     Color pieceWhiteColor = new Color(215, 215, 215);
-
-    // non hardcoded fields
-    ChessGame game = null;
-    Board board = null;
-    Tile hoveredTile = null;
-    Rectangle2D[][] rects = null;
-
-    int rows, cols;
 
     public ChessBoardPanel(ChessGame game) {
         this.game = game;
@@ -48,7 +40,7 @@ public class ChessBoardPanel extends JPanel {
 
     void init() {
         initRects();
-        initEventListeners();
+        initMouseEvents();
     }
     void initRects() {
         rects = new Rectangle2D[rows][cols];
@@ -60,48 +52,10 @@ public class ChessBoardPanel extends JPanel {
 
         // create the rect
         for (int i = 0; i < rows; ++i) {
-            double yPos = tileHeight * i + tileHeightOffset;
+            double yPos = tileHeight * i + heightOffset;
             for (int j = 0; j < cols; ++j) {
-                double xPos = tileWidth * j + tileWidthOffset;
+                double xPos = tileWidth * j + widthOffset;
                 rects[i][j] = new Rectangle2D.Double(xPos, yPos, tileWidth, tileHeight);
-            }
-        }
-    }
-
-    private void drawCoords(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        // draw coordinates a1, etc.
-        g2d.setStroke(new BasicStroke());
-        g.setFont(new Font("Arial", Font.PLAIN, (int)(coordFontSize)));
-        for (int i = 0; i < rows; ++i) {
-            double xPos = rowCoordWidthOffset;
-            double yPos = rowCoordHeightOffset + tileHeight * i;
-            g2d.drawString(Character.toString(Utilities.rowToChar(i)), (int)(xPos), (int)(yPos + (tileHeight)));
-        }
-        for (int j = 0; j < cols; ++j) {
-            double xPos = colCoordWidthOffset + tileWidth * j;
-            double yPos = colCoordHeightOffset;
-            g2d.drawString(Character.toString(Utilities.colToChar(j)), (int)(xPos), (int)(yPos));
-        }
-    }
-
-    private void drawPieces(Graphics g) {
-        Tile[][] tiles = board.tiles;
-        Graphics2D g2d = (Graphics2D) g;
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols ; ++j) {
-                double xPos = tileWidth * j + tileWidthOffset;
-                double yPos = tileHeight * i + tileHeightOffset;
-
-                // draw the piece
-                Tile tile = tiles[i][j];
-                Piece piece = tile.peek();
-                if (!tile.isEmpty()) {
-                    if (piece.isBlack()) g2d.setColor(pieceBlackColor);
-                    else g2d.setColor(pieceWhiteColor);
-                    g2d.setFont(new Font("TimesRoman", Font.PLAIN, pieceFontSize));
-                    g2d.drawString(Character.toString(piece.getEncoding()), (int)(xPos + tileWidth/8.5), (int)(yPos + (tileHeight* 4/5)));
-                }
             }
         }
     }
@@ -125,12 +79,24 @@ public class ChessBoardPanel extends JPanel {
         double width = size.getWidth();
         double height = size.getHeight();
 
+        g2d.setStroke(new BasicStroke(1));
+        g.setFont(new Font("Arial", Font.PLAIN, (int)(tileHeight/2.5)));
+        for (int i = 0; i < rows; ++i) {
+            double xPos = tileWidth - 30;
+            double yPos = tileHeight * i + heightOffset - 15;
+            g2d.drawString(Character.toString(Utilities.rowToChar(i)), (int)(xPos), (int)(yPos + (tileHeight)));
+        }
+        for (int j = 0; j < cols; ++j) {
+            double xPos = tileWidth * j + widthOffset + 20;
+            double yPos = tileHeight - 20;
+            g2d.drawString(Character.toString(Utilities.colToChar(j)), (int)(xPos + 0), (int)(yPos));
+        }
         // draw the mxn board
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols ; ++j) {
                 // set positions with scaling
-                double xPos = tileWidth * j + tileWidthOffset;
-                double yPos = tileHeight * i + tileHeightOffset;
+                double xPos = tileWidth * j + widthOffset;
+                double yPos = tileHeight * i + heightOffset;
                 g2d.setStroke(new BasicStroke(1));
 
                 // set tile color
@@ -155,16 +121,22 @@ public class ChessBoardPanel extends JPanel {
                 // color in the tile
                 g2d.fill(rects[i][j]);
 
-                g2d.setColor(tileLineColor);
-                g2d.draw(rects[i][j]);
-
+                // draw the piece
+                Piece piece = tile.peek();
+                if (!tile.isEmpty()) {
+                    if (piece.isBlack()) g2d.setColor(pieceBlackColor);
+                    else g2d.setColor(pieceWhiteColor);
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, pieceFontSize));
+                    g2d.drawString(Character.toString(piece.getEncoding()), (int)(xPos + tileWidth/8.5), (int)(yPos + (tileHeight* 4/5)));
+                }
             }
         }
     }
 
     // add mouse listeners and events
-    void initEventListeners() {
+    void initMouseEvents() {
         addMouseListener(new MouseAdapter() {
+            // TODO refactor this somehow?
             @Override
             public void mousePressed(MouseEvent me) {
                 super.mousePressed(me);
@@ -205,7 +177,7 @@ public class ChessBoardPanel extends JPanel {
         });
     }
 
-    // action for mouseevent
+    // action for when mouse hovers over a tile
     void tileHovered(int row, int col) {
         Tile[][] tiles = board.tiles;
         if (game.selectedTile != tiles[row][col])
@@ -221,23 +193,12 @@ public class ChessBoardPanel extends JPanel {
             hoveredTile = tiles[row][col];
         } catch (Exception e) {}
     }
-    //  action for when mouse no longer hovers over tile
     void unhoverTile() { hoveredTile = null; }
 
     // add necessary things to draw
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawCoords(g);
         drawTiles(g);
-        drawPieces(g);
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        int width = (int)(tileWidth * cols + tileWidthOffset);
-        int height = (int)(tileHeight * rows + tileHeightOffset);
-        System.out.println(width + " " + height);
-        return new Dimension(width, height);
     }
 }

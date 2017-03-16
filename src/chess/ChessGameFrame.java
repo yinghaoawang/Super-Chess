@@ -1,18 +1,16 @@
 package chess;
 import chess.piece.*;
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public class ChessGameFrame extends JFrame {
-    ChessGame game;
     public ChessGameFrame() {
-        initUI();
+        init();
     }
-
-    private void initUI() {
-        game = new ChessGame();
-        ChessBoardPanel boardPanel = new ChessBoardPanel(game);
-
-        add(boardPanel);
+    void init() {
+        ChessGamePanel panel = new ChessGamePanel();
+        getContentPane().add(panel);
+        setVisible(true);
         setSize(600, 700);
         setTitle("Chess Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

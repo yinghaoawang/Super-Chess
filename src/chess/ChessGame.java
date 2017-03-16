@@ -16,35 +16,27 @@ public class ChessGame extends JPanel {
     Tile[][] tiles = null;
     int rows, cols;
 
-
-    double tileWidth = 50; // width of tile
-    double tileHeight = 50; // height of tile
-    double widthOffset = .75; // offset from left is widthOffset * tileWidth
-    double heightOffset = .75; // offset from right is heightOffset * tileHeight
-
     Tile selectedTile = null;
     int selectedRow = -1;
     int selectedCol = -1;
     List<Tile> moveTiles = null;
-    List<BoardMove> boardMoves = new LinkedList<>();
-    JTextArea boardMovesTextArea = null;
+    List<BoardMove> boardMoves = null;
+    /*
     JTextArea whiteGraveTextArea = null;
     JTextArea blackGraveTextArea = null;
+    */
 
     // TODO maybe better solution than putting this here
     // colors for pieces
-    Color pieceBlackColor = new Color(0, 0, 0);
-    Color pieceWhiteColor = new Color(215, 215, 215);
 
     Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
     List<List<Piece>> grave = new ArrayList<List<Piece>>();
     int currentPlayerIndex = 0;
 
     ChessGame() {
-        board = new Board(8);
+        rows = cols = 8; // a chessboard has 8 rows and 8 cols
+        board = new Board(rows);
         tiles = board.getTiles();
-        rows = board.getRows();
-        cols = board.getCols();
         init();
     }
 
@@ -64,19 +56,9 @@ public class ChessGame extends JPanel {
         }
     }
 
-    // have the board move text area display the board moves
-    void updateBoardMovesTextArea() {
-        if (boardMovesTextArea == null) return;
-        boardMovesTextArea.setText("");
-        if (boardMoves == null) return;
-        int i = 1;
-        for (BoardMove bm: boardMoves) {
-            boardMovesTextArea.append(i++ + " " + bm + "\n");
-        }
-    }
-
     // have graves of white and black display dead pieces
     void updateGravesTextAreas() {
+        /*
         if (blackGraveTextArea == null || whiteGraveTextArea == null || grave == null) return;
         blackGraveTextArea.setText("");
         // whiteGraveTextArea.setText("");
@@ -99,6 +81,7 @@ public class ChessGame extends JPanel {
             whiteGraveTextArea.setText(whiteText);
         if (!blackText.equals(blackGraveTextArea.getText()))
             blackGraveTextArea.setText(blackText);
+            */
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
@@ -247,17 +230,14 @@ public class ChessGame extends JPanel {
 
     // create text areas for board moves
     void initBoardMoves() {
-        boardMovesTextArea = new JTextArea("");
-        boardMovesTextArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane(boardMovesTextArea);
-        scroll.setBounds(447, 37, 129, 402);
-        add(scroll);
+        boardMoves = new ArrayList<BoardMove>();
     }
     // create text area as well as the list for graves of black and white
     void initGraves() {
         // create grave piece list
         for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
 
+        /*
         // create grave text areas
         whiteGraveTextArea = new JTextArea("");
         whiteGraveTextArea.setEditable(false);
@@ -280,6 +260,7 @@ public class ChessGame extends JPanel {
         blackGraveTextArea.setHighlighter(null);
         add(blackGraveTextArea);
         // note: i tried to put the text area creating into a separate function, but that didn't work
+        */
     }
 
     // action for mouse presses a tile

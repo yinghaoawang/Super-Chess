@@ -5,9 +5,9 @@ public class King extends Piece {
         super(color);
     }
     void initSymbol() {
-        if (color == Color.WHITE)
-            encoding = '\u2654';
-        else if (color == Color.BLACK)
+        //if (color == Color.WHITE)
+            //encoding = '\u2654';
+        //else if (color == Color.BLACK)
             encoding = '\u265A';
 
         symbol = 'K';

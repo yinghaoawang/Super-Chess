@@ -19,12 +19,14 @@
         - [x] Text
             - [x] Tile names (A1, C5, etc.)
             - [x] Previous moves
+        - [x] Graves (eaten pieces)
     - [ ] Rules
         - [ ] Check
         - [ ] Checkmate
         - [x] Blocking
-    - [ ] 2 players
-        - [ ] Turns
+    - [x] 2 players
+        - [x] Turns
+        - [x] Graves
 
 - [ ] Chess Engine Extras
     - [ ] Rules

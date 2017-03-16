@@ -29,6 +29,13 @@ public class Board extends JPanel {
     List<Tile> moveTiles = null;
     List<BoardMove> boardMoves = new LinkedList<>();
     JTextArea boardMovesTextArea = null;
+    JTextArea whiteGraveTextArea = null;
+    JTextArea blackGraveTextArea = null;
+
+    // TODO maybe better solution than putting this here
+    // colors for pieces
+    Color pieceBlackColor = new Color(0, 0, 0);
+    Color pieceWhiteColor = new Color(215, 215, 215);
 
     Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
     List<List<Piece>> grave = new ArrayList<List<Piece>>();
@@ -56,6 +63,11 @@ public class Board extends JPanel {
         for (int i = 0; i < playerColor.length; ++i) {
             if (playerColor[i] == piece.getColor()) {
                 grave.get(i).add(tile.remove(piece));
+                /*
+                for (Piece p: grave.get(i))
+                    System.out.print(p + " ");
+                System.out.println();
+                */
                 break;
             }
         }
@@ -65,11 +77,36 @@ public class Board extends JPanel {
     void updateBoardMovesTextArea() {
         if (boardMovesTextArea == null) return;
         boardMovesTextArea.setText("");
-        if (boardMoves == null || boardMoves.size() <= 0) return;
+        if (boardMoves == null) return;
         int i = 1;
         for (BoardMove bm: boardMoves) {
             boardMovesTextArea.append(i++ + " " + bm + "\n");
         }
+    }
+
+    void updateGravesTextAreas() {
+        if (blackGraveTextArea == null || whiteGraveTextArea == null || grave == null) return;
+        blackGraveTextArea.setText("");
+        // whiteGraveTextArea.setText("");
+        // whiteGraveTextArea.getText();
+        List<Piece> whiteGrave = grave.get(0);
+        List<Piece> blackGrave = grave.get(1);
+        if (whiteGrave == null || blackGrave == null) return;
+
+        // text setting only if change is to remove this buggy thing on gui, also an optimization albeit minor
+        String whiteText = "";
+        String blackText = "";
+        for (Piece piece: whiteGrave) {
+            whiteText += Character.toString(piece.getEncoding());
+        }
+        for (Piece piece: blackGrave) {
+            blackText += Character.toString(piece.getEncoding());
+        }
+
+        if (!whiteText.equals(whiteGraveTextArea.getText()))
+            whiteGraveTextArea.setText(whiteText);
+        if (!blackText.equals(blackGraveTextArea.getText()))
+            blackGraveTextArea.setText(blackText);
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
@@ -232,36 +269,45 @@ public class Board extends JPanel {
         initTiles();
         initPieces();
         initBoardMoves();
-        for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
+        initGraves();
+        initMouseEvents();
+    }
+
+    // add mouse listeners and events
+    void initMouseEvents() {
         addMouseListener(new MouseAdapter() {
             // TODO refactor this somehow?
             @Override
             public void mousePressed(MouseEvent me) {
                 super.mousePressed(me);
+                // check if mouse clicked on a tile (rect representing the tile)
                 for (int i = 0; i < rows; ++i)
                     for (int j = 0; j < cols; ++j) {
                         Rectangle2D rect = rects[i][j];
                         if (rect.contains(me.getPoint())) {
                             unhoverTile();
+                            // if clicked on a move tile, then move the piece and update stuff
                             if (moveTiles != null && moveTiles.contains(tiles[i][j]) &&
                                     selectedTile != null && selectedTile != tiles[i][j]) {
                                 movePiece(selectedRow, selectedCol, i, j);
                                 ++tiles[i][j].peek().moveCount;
                                 boardMoves.add(new BoardMove(tiles[i][j].peek(), selectedRow, selectedCol, i, j));
-                                updateBoardMovesTextArea();
                                 nextPlayer();
                             }
-                            if (selectedTile == null && tiles[i][j].peek() != null) {
-                                selectTile(i, j);
-                            } else
-                                deselectTile();
+
+                            // if there is no selected tile on a click, then you select the tile. deselect if you do have a selected tile
+                            if (selectedTile == null && tiles[i][j].peek() != null) selectTile(i, j);
+                            else deselectTile();
                         }
-                        //repaint();
+                        // repaint // moved to mouseReleased for smoother clicking
                     }
             }
+            // text updates and repainting moved to mouse release due to bugginess if in pressed
             @Override
             public void mouseReleased(MouseEvent me) {
                 super.mouseReleased(me);
+                updateBoardMovesTextArea();
+                updateGravesTextAreas();
                 repaint();
             }
         });
@@ -269,6 +315,7 @@ public class Board extends JPanel {
             @Override
             public void mouseMoved(MouseEvent me) {
                 super.mouseMoved(me);
+                // check if mouse is hovering over a tile (rect representing the tile, since rect is a component)
                 for (int i = 0; i < rows; ++i)
                     for (int j = 0; j < cols; ++j)
                         if (rects[i][j].contains(me.getPoint())) {
@@ -309,12 +356,41 @@ public class Board extends JPanel {
         }
     }
 
+    // create text areas for board moves
     void initBoardMoves() {
         boardMovesTextArea = new JTextArea("");
         boardMovesTextArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(boardMovesTextArea);
         scroll.setBounds(447, 37, 129, 402);
         add(scroll);
+    }
+    // create text area as well as the list for graves of black and white
+    void initGraves() {
+        // create grave piece list
+        for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
+
+        // create grave text areas
+        whiteGraveTextArea = new JTextArea("");
+        whiteGraveTextArea.setEditable(false);
+        whiteGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
+        whiteGraveTextArea.setWrapStyleWord(true);
+        whiteGraveTextArea.setLineWrap(true);
+        whiteGraveTextArea.setBounds(37, 450, 100, 100);
+        whiteGraveTextArea.setForeground(pieceWhiteColor);
+        whiteGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
+        whiteGraveTextArea.setHighlighter(null);
+        add(whiteGraveTextArea);
+
+        blackGraveTextArea = new JTextArea("");
+        blackGraveTextArea.setEditable(false);
+        blackGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
+        blackGraveTextArea.setLineWrap(true);
+        blackGraveTextArea.setBounds(157, 450, 100, 100);
+        blackGraveTextArea.setForeground(pieceBlackColor);
+        blackGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
+        blackGraveTextArea.setHighlighter(null);
+        add(blackGraveTextArea);
+        // note: i tried to put the text area creating into a separate function, but that didn't work
     }
 
     // TODO refactor
@@ -381,13 +457,12 @@ public class Board extends JPanel {
         double width = size.getWidth();
         double height = size.getHeight();
 
-        Color black = new Color(51, 25, 0); // dark brown for black
-        Color white = new Color(204, 102, 0); // light brown for white
-        Color pieceBlack = new Color(255, 228, 198); // gray for black pieces
-        Color pieceWhite = new Color(255, 248, 220); // white for white pieces
+        // colors for board
+        Color black = new Color(121, 95, 70);
+        Color white = new Color(205, 122, 20);
 
         g2d.setStroke(new BasicStroke(1));
-        g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
+        g.setFont(new Font("Arial", Font.PLAIN, (int)(tileHeight/2.5)));
         for (int i = 0; i < rows; ++i) {
             double xPos = tileWidth - 30;
             double yPos = tileHeight * (i + heightOffset) - 15;
@@ -414,9 +489,9 @@ public class Board extends JPanel {
                     g2d.setColor(white);
                 }
 
-                Color hoverColor = new Color(100, 100, 100, (int)(0.25 * 255));
+                Color hoverColor = new Color(50, 50, 50, (int)(0.45 * 255));
                 Color selectedColor = new Color(100, 0, 0, (int)(0.75 * 255));
-                Color moveTileColor = new Color(0, 0, 255, (int)(0.5 * 255));
+                Color moveTileColor = new Color(0, 0, 255, (int)(0.45 * 255));
 
                 // if selected or hovered, change to respective colors
                 if (tile == selectedTile) g2d.setColor(selectedColor);
@@ -430,8 +505,8 @@ public class Board extends JPanel {
                 // draw the piece
                 Piece piece = tile.peek();
                 if (!tile.isEmpty()) {
-                    if (piece.isBlack()) g2d.setColor(pieceBlack);
-                    else g2d.setColor(pieceWhite);
+                    if (piece.isBlack()) g2d.setColor(pieceBlackColor);
+                    else g2d.setColor(pieceWhiteColor);
                     g.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/1.3)));
                     g2d.drawString(Character.toString(piece.getEncoding()), (int)(xPos + tileWidth/8.5), (int)(yPos + (tileHeight* 4/5)));
                 }

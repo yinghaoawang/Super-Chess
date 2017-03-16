@@ -27,13 +27,21 @@
     - [x] 2 players
         - [x] Turns
         - [x] Graves
+    - [ ] Modularize
+        - Chess game
+            - [ ] Chess game
+        - Displays
+            - [ ] Chess game frame
+            - [ ] Chess board panel
+            - [ ] Chess board move panel
+            - [ ] Chess grave panel
+            - [ ] Player panel
 
 - [ ] Chess Engine Extras
     - [ ] Rules
         - [ ] Draw
         - [ ] En passant
         - [ ] Castling
-    - [ ] Modularize rules (somehow)
     - [ ] State saving
         - [ ] Loadable chess board from text file
         - [ ] Save/load user state
@@ -69,24 +77,27 @@ If one wants to dissect the code, here is a simple path one may take:
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
 
 ## Progress GIFs
+### 3/16 modularity blueprint
+#### [blueprint](images/blueprint_3-16-17.gif)
+
 ### 3/16
-![3/16](gifs/super-chess_3-16-17.gif)
+![3/16](images/gifs/super-chess_3-16-17.gif)
 
 *Update: Graveyard and display added*
 
 ### 3/15
-![3/15](gifs/super-chess_3-15-17.gif)
+![3/15](images/gifs/super-chess_3-15-17.gif)
 
 *Update: Moveable pieces and most piece move logic (blocking, extending of moves, etc.)  
 List of board moves displayed in text area*
 
 ### 3/14
-![3/14](gifs/super-chess_3-14-17.gif)
+![3/14](images/gifs/super-chess_3-14-17.gif)
 
 *Update: Visual GUI with mouse events, board movement determination, piece encoding display*
 
 ### 3/09
-![3/09](gifs/super-chess_3-09-17.gif)
+![3/09](images/gifs/super-chess_3-09-17.gif)
 
 *Initial: Board, tile, selected tile, move, and piece base logic  
 Graphics for chessboard tiles, and drawn symbols for pieces*

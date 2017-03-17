@@ -20,10 +20,6 @@ public class ChessGame {
     int selectedCol = -1;
     List<Tile> moveTiles = null;
     List<BoardMove> boardMoves = null;
-    /*
-    JTextArea whiteGraveTextArea = null;
-    JTextArea blackGraveTextArea = null;
-    */
 
     // player
     Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
@@ -53,34 +49,6 @@ public class ChessGame {
                 break;
             }
         }
-    }
-
-    // have graves of white and black display dead pieces
-    void updateGravesTextAreas() {
-        /*
-        if (blackGraveTextArea == null || whiteGraveTextArea == null || grave == null) return;
-        blackGraveTextArea.setText("");
-        // whiteGraveTextArea.setText("");
-        // whiteGraveTextArea.getText();
-        List<Piece> whiteGrave = grave.get(0);
-        List<Piece> blackGrave = grave.get(1);
-        if (whiteGrave == null || blackGrave == null) return;
-
-        // text setting only if change is to remove this buggy thing on gui, also an optimization albeit minor
-        String whiteText = "";
-        String blackText = "";
-        for (Piece piece: whiteGrave) {
-            whiteText += Character.toString(piece.getEncoding());
-        }
-        for (Piece piece: blackGrave) {
-            blackText += Character.toString(piece.getEncoding());
-        }
-
-        if (!whiteText.equals(whiteGraveTextArea.getText()))
-            whiteGraveTextArea.setText(whiteText);
-        if (!blackText.equals(blackGraveTextArea.getText()))
-            blackGraveTextArea.setText(blackText);
-            */
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
@@ -200,6 +168,11 @@ public class ChessGame {
         initGraves();
     }
 
+    void initGraves() {
+        // create grave piece list
+        for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
+    }
+
     // places pieces on the chess board as they should be
     void initPieces() {
         board.addPiece(new Rook(Piece.Color.WHITE), 0, 0);
@@ -231,37 +204,6 @@ public class ChessGame {
     void initBoardMoves() {
         boardMoves = new ArrayList<BoardMove>();
     }
-    // create text area as well as the list for graves of black and white
-    void initGraves() {
-        // create grave piece list
-        for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
-
-        /*
-        // create grave text areas
-        whiteGraveTextArea = new JTextArea("");
-        whiteGraveTextArea.setEditable(false);
-        whiteGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
-        whiteGraveTextArea.setWrapStyleWord(true);
-        whiteGraveTextArea.setLineWrap(true);
-        whiteGraveTextArea.setBounds(37, 450, 100, 100);
-        whiteGraveTextArea.setForeground(pieceWhiteColor);
-        whiteGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
-        whiteGraveTextArea.setHighlighter(null);
-        add(whiteGraveTextArea);
-
-        blackGraveTextArea = new JTextArea("");
-        blackGraveTextArea.setEditable(false);
-        blackGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(tileHeight/2.5)));
-        blackGraveTextArea.setLineWrap(true);
-        blackGraveTextArea.setBounds(157, 450, 100, 100);
-        blackGraveTextArea.setForeground(pieceBlackColor);
-        blackGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
-        blackGraveTextArea.setHighlighter(null);
-        add(blackGraveTextArea);
-        // note: i tried to put the text area creating into a separate function, but that didn't work
-        */
-    }
-
     // action for mouse presses a tile
     void tilePressed(int row, int col) {
         Tile tile = tiles[row][col];

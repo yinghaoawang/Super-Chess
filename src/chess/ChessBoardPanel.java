@@ -184,8 +184,6 @@ public class ChessBoardPanel extends JPanel {
             @Override
             public void mouseReleased(MouseEvent me) {
                 super.mouseReleased(me);
-                //updateBoardMovesTextArea();
-                //updateGravesTextAreas();
                 repaint();
             }
         });

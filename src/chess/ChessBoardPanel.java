@@ -89,6 +89,7 @@ public class ChessBoardPanel extends JPanel {
     private void drawPieces(Graphics g) {
         Tile[][] tiles = board.tiles;
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setStroke(new BasicStroke());
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols ; ++j) {
                 double xPos = tileWidth * j + tileWidthOffset;
@@ -107,7 +108,6 @@ public class ChessBoardPanel extends JPanel {
         }
     }
 
-    // TODO refactor
     // draws the tiles and pieces on the tiles
     private void drawTiles(Graphics g) {
         Tile[][] tiles = board.tiles;

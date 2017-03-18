@@ -31,6 +31,7 @@ public class ChessBoardMovesPanel extends JPanel {
         boardMovesTextArea = new JTextArea(26, 8);
         boardMovesTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(boardMovesTextArea);
+        //scrollPane.setViewportBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(scrollPane);
     }
 
@@ -61,6 +62,6 @@ public class ChessBoardMovesPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(100, 495);
+        return new Dimension(150, 425);
     }
 }

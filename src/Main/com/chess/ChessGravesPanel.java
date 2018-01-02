@@ -40,7 +40,7 @@ public class ChessGravesPanel extends JPanel {
     void initGraves() {
         Color pieceBlackColor = boardPanel.pieceBlackColor;
         Color pieceWhiteColor = boardPanel.pieceWhiteColor;
-        /*
+
         // create grave text areas
         whiteGraveTextArea = new JTextArea("");
         whiteGraveTextArea.setEditable(false);
@@ -64,7 +64,7 @@ public class ChessGravesPanel extends JPanel {
         blackGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
         blackGraveTextArea.setHighlighter(null);
         add(blackGraveTextArea);
-        */
+
     }
 
     // have graves of white and black display dead pieces
@@ -112,6 +112,6 @@ public class ChessGravesPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(100, 500);
+        return new Dimension(500, 100);
     }
 }

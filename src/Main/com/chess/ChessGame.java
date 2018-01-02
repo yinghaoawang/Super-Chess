@@ -1,7 +1,11 @@
 package com.chess;
 
+import com.chess.board.Board;
+import com.chess.board.BoardMove;
+import com.chess.board.Tile;
 import com.chess.move.*;
 import com.chess.piece.*;
+import com.chess.util.Utilities;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,12 +31,19 @@ public class ChessGame {
     List<List<Piece>> grave = new ArrayList<List<Piece>>();
     int currentPlayerIndex = 0;
 
-    ChessGame() {
+    public ChessGame() {
         rows = cols = 8; // a chessboard has 8 rows and 8 cols
         board = new Board(rows);
         tiles = board.getTiles();
         init();
     }
+    public int getCols() { return this.cols; }
+    public int getRows() { return this.rows; }
+
+    public Board getBoard() { return board; }
+    public Tile getSelectedTile() { return selectedTile; }
+    public List<List<Piece>> getGrave() { return grave; }
+    public List<BoardMove> getBoardMoves() { return boardMoves; }
 
     // on to the next player
     void nextPlayer() {
@@ -51,7 +62,7 @@ public class ChessGame {
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
-    List<Tile> getMoveTiles(int row, int col) {
+    public List<Tile> getMoveTiles(int row, int col) {
         List<Tile> res = new ArrayList<Tile>();
         try {
             Tile tile = tiles[row][col];
@@ -141,7 +152,7 @@ public class ChessGame {
     }
 
     // set selected tile to designated coordinate
-    void selectTile(int row, int col) {
+    public void selectTile(int row, int col) {
         try {
             selectedTile = tiles[row][col];
             if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
@@ -152,7 +163,7 @@ public class ChessGame {
     }
 
     // what to do when deselecting a tile
-    void deselectTile() {
+    public void deselectTile() {
         selectedTile = null;
         selectedRow = -1;
         selectedCol = -1;
@@ -204,7 +215,7 @@ public class ChessGame {
         boardMoves = new ArrayList<BoardMove>();
     }
     // action for mouse presses a tile
-    void tilePressed(int row, int col) {
+    public void tilePressed(int row, int col) {
         Tile tile = tiles[row][col];
         // if clicked on a move tile, then move the piece and update stuff
         if (moveTiles != null && moveTiles.contains(tile) &&
@@ -253,7 +264,7 @@ public class ChessGame {
     }
 
     // determines if the tile is a tile in moveTiles
-    boolean isInMoveTiles(Tile tile) {
+    public boolean isInMoveTiles(Tile tile) {
         if (moveTiles == null) return false;
 
         for (Tile t: moveTiles) {

@@ -1,4 +1,4 @@
-import com.chess.ChessGameFrame;
+import com.chess.graphics.ChessGameFrame;
 
 import java.awt.EventQueue;
 public class ChessGameApp {

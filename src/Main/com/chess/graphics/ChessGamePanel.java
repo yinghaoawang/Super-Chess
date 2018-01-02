@@ -1,4 +1,6 @@
-package com.chess;
+package com.chess.graphics;
+import com.chess.ChessGame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,10 +19,7 @@ public class ChessGamePanel extends JPanel {
         gravesPanel = new ChessGravesPanel(game, boardPanel);
 
         boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        boardMovesPanel.setBorder(BorderFactory.createCompoundBorder(
-              BorderFactory.createEmptyBorder(0, 0, 0, 0),
-              BorderFactory.createLineBorder(Color.black)
-            ));
+        boardMovesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         gravesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         setLayout(new GridBagLayout());

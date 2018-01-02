@@ -1,4 +1,4 @@
-package com.chess;
+package com.chess.util;
 
 // A helper class, it is composed of static functions
 public class Utilities {

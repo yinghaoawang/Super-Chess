@@ -1,4 +1,7 @@
-package com.chess;
+package com.chess.graphics;
+import com.chess.board.BoardMove;
+import com.chess.ChessGame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,7 +29,7 @@ public class ChessBoardMovesPanel extends JPanel {
 
     // creates board moves
     void initBoardMoves() {
-        boardMovesTextArea = new JTextArea(26, 8);
+        boardMovesTextArea = new JTextArea(30, 8);
         boardMovesTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(boardMovesTextArea);
         //scrollPane.setViewportBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -48,7 +51,7 @@ public class ChessBoardMovesPanel extends JPanel {
     // have the board move text area display the board moves
     void update() {
         boardMovesTextArea.setFont(new Font("Arial", Font.PLAIN, fontSize));
-        List<BoardMove> boardMoves = game.boardMoves;
+        List<BoardMove> boardMoves = game.getBoardMoves();
         if (boardMovesTextArea == null) return;
         boardMovesTextArea.setText("");
         if (boardMoves == null) return;

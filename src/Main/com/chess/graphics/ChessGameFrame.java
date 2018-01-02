@@ -1,4 +1,4 @@
-package com.chess;
+package com.chess.graphics;
 import javax.swing.*;
 
 /* The frame holding the Chess Game panel */

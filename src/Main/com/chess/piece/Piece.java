@@ -1,5 +1,5 @@
 package com.chess.piece;
-import com.chess.Utilities;
+import com.chess.util.Utilities;
 import com.chess.move.*;
 import java.util.List;
 import java.util.ArrayList;

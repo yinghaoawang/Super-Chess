@@ -1,4 +1,5 @@
-package com.chess;
+package com.chess.graphics;
+import com.chess.ChessGame;
 import com.chess.piece.Piece;
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +71,7 @@ public class ChessGravesPanel extends JPanel {
     // have graves of white and black display dead pieces
     private void drawGraves(Graphics g) {
         // try to get graves
-        List<List<Piece>> grave = game.grave;
+        List<List<Piece>> grave = game.getGrave();
         if (blackGraveTextArea == null || whiteGraveTextArea == null || grave == null) return;
 
         List<Piece> whiteGrave = grave.get(0);

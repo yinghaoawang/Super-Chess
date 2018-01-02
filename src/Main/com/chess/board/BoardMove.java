@@ -1,11 +1,12 @@
-package com.chess;
+package com.chess.board;
+import com.chess.util.Utilities;
 import com.chess.piece.Piece;
 
 /* Documents the history of a chess game. Holds which piece moved from which position to which */
-class BoardMove {
+public class BoardMove {
     Piece piece;
     int srcRow, srcCol, destRow, destCol;
-    BoardMove(Piece piece, int srcRow, int srcCol, int destRow, int destCol) {
+    public BoardMove(Piece piece, int srcRow, int srcCol, int destRow, int destCol) {
         this.piece = piece;
         this.srcRow = srcRow;
         this.srcCol = srcCol;

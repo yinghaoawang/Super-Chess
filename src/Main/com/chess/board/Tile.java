@@ -1,12 +1,13 @@
-package com.chess;
+package com.chess.board;
+import com.chess.util.Utilities;
 import com.chess.piece.Piece;
 import java.util.List;
 import java.util.LinkedList;
 
 /* The tile of a chess board. Has a color (represented by a nested enum), and has
  * lists of pieces such that they are able to stack on top of each other */
-class Tile {
-    enum Color {
+public class Tile {
+    public enum Color {
         WHITE, BLACK
     }
 
@@ -15,47 +16,47 @@ class Tile {
     Color color;
 
     // constructor
-    Tile() {
+    public Tile() {
         this(Color.WHITE);
     }
-    Tile(Color color) {
+    public Tile(Color color) {
         this.color = color;
     }
 
     // getters
-    boolean isBlack() { return color == Color.BLACK; }
-    boolean isWhite() { return color == Color.WHITE; }
-    boolean isEmpty() { return pieces.size() == 0; }
-    int size() { return pieces.size(); }
+    public boolean isBlack() { return color == Color.BLACK; }
+    public boolean isWhite() { return color == Color.WHITE; }
+    public boolean isEmpty() { return pieces.size() == 0; }
+    public int size() { return pieces.size(); }
 
     // list operations
 
     // returns the piece at given index
-    Piece get(int index) { return pieces.get(index); }
+    public Piece get(int index) { return pieces.get(index); }
 
     // uses queue's peek
-    Piece peek() {
+    public Piece peek() {
         if (pieces.size() <= 0) return null;
         return (Piece)((LinkedList)pieces).peek();
     }
 
     // uses linked list's pop
-    Piece pop() throws Exception {
+    public Piece pop() throws Exception {
         if (peek() == null) throw new Exception("No pieces on tile");
         return (Piece)((LinkedList<Piece>)pieces).pop();
     }
 
     // uses linked list's push
-    void push(Piece piece) {
+    public void push(Piece piece) {
         ((LinkedList<Piece>)pieces).push(piece);
     }
 
     // remove and returns the piece in the tile
-    Piece remove() { return remove(0); }
-    Piece remove(Piece piece) {
+    public Piece remove() { return remove(0); }
+    public Piece remove(Piece piece) {
         return remove(indexOf(piece));
     }
-    Piece remove(int index) {
+    public Piece remove(int index) {
         Piece res = null;
         try {
             res = pieces.remove(index);
@@ -64,16 +65,16 @@ class Tile {
     }
 
     // get the index of a piece if it exists in the tile
-    int indexOf(Piece piece) { return pieces.indexOf(piece); }
+    public int indexOf(Piece piece) { return pieces.indexOf(piece); }
 
     // get the index of a piece of the same name as the passed piece's name, -1 if not found
-    int indexOfName(Piece piece) {
+    public int indexOfName(Piece piece) {
         if (piece == null) return -1;
         return indexOfName(piece.getName());
     }
 
     // get the index of a piece of the same name as the passed name, -1 if not found
-    int indexOfName(String name) {
+    public int indexOfName(String name) {
         for (int i = 0; i < pieces.size(); ++i) {
             if (pieces.get(i).getName().equals(name)) {
                 return i;

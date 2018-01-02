@@ -1,4 +1,5 @@
-package com.chess;
+package com.chess.board;
+import com.chess.util.Utilities;
 import com.chess.piece.*;
 
 /* The setting where pieces interact with each other. Contains methods required to move them around */
@@ -37,7 +38,7 @@ public class Board {
     public int getCols() { return cols; }
 
     // moves piece at top of src to top of dest
-    void movePiece(int srcRow, int srcCol, int destRow, int destCol) {
+    public void movePiece(int srcRow, int srcCol, int destRow, int destCol) {
         movePiece(0, srcRow, srcCol, destRow, destCol);
     }
     // overloaded- finds the piece at src with the given name
@@ -65,7 +66,7 @@ public class Board {
     }
 
     // puts a piece to the top of the tile
-    void addPiece(Piece piece, int row, int col) {
+    public void addPiece(Piece piece, int row, int col) {
         tiles[row][col].push(piece);
     }
 

@@ -1,5 +1,5 @@
-package chess;
-import chess.piece.Piece;
+package com.chess;
+import com.chess.piece.Piece;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

@@ -1,5 +1,5 @@
-package chess.piece;
-import chess.move.*;
+package com.chess.piece;
+import com.chess.move.*;
 
 // TODO en passant.
 public class Pawn extends Piece {

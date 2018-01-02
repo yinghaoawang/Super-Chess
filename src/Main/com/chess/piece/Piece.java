@@ -1,10 +1,8 @@
-package chess.piece;
-import chess.*;
-import chess.move.*;
+package com.chess.piece;
+import com.chess.Utilities;
+import com.chess.move.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.awt.*;
-import java.awt.geom.*;
 
 /* A piece with its attribute. Contains moves that it is able to make. */
 public abstract class Piece {

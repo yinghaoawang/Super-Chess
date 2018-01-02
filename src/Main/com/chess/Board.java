@@ -1,6 +1,5 @@
-package chess;
-import chess.piece.*;
-import chess.Utilities;
+package com.chess;
+import com.chess.piece.*;
 
 /* The setting where pieces interact with each other. Contains methods required to move them around */
 public class Board {

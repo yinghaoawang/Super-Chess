@@ -1,6 +1,5 @@
-package chess;
-import chess.Utilities;
-import chess.piece.Piece;
+package com.chess;
+import com.chess.piece.Piece;
 
 /* Documents the history of a chess game. Holds which piece moved from which position to which */
 class BoardMove {

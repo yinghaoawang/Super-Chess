@@ -1,10 +1,9 @@
-package chess;
-import chess.piece.Piece;
+package com.chess;
+import com.chess.piece.Piece;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
-import java.util.List;
 
 /* This panel is for displaying the Chess' Board */
 public class ChessBoardPanel extends JPanel {

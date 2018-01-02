@@ -1,4 +1,5 @@
-import chess.*;
+import com.chess.ChessGameFrame;
+
 import java.awt.EventQueue;
 public class ChessGameApp {
     public static void main(String[] args) {

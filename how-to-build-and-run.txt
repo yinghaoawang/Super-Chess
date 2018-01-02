@@ -1,4 +1,5 @@
 Makefile provided by Joseph Anderson
+Change JVM variable in Makefile to corresponding jdk version.
 
 When building, make sure there is a "bin/" directory in the current directory
 

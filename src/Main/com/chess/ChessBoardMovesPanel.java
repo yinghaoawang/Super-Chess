@@ -1,6 +1,4 @@
-package chess;
-import chess.BoardMove;
-import chess.Utilities;
+package com.chess;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

@@ -1,5 +1,5 @@
-package chess;
-import chess.piece.Piece;
+package com.chess;
+import com.chess.piece.Piece;
 import java.util.List;
 import java.util.LinkedList;
 

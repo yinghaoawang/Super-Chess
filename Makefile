@@ -8,7 +8,7 @@ PACKAGES = chess chess/move chess/piece
 
 # Java compiler
 JAVAC = javac
-JVM = 1.8
+JVM = 1.9
 
 # Directory for compiled binaries
 # - trailing slash is important!
@@ -16,7 +16,7 @@ BIN = ./bin/
 
 # Directory of source files
 # - trailing slash is important!
-SRC = ./src/
+SRC = ./src/Main/
 
 # Java compiler flags
 JAVAFLAGS = -Xlint:unchecked -g -d $(BIN) -cp $(SRC) -target $(JVM)

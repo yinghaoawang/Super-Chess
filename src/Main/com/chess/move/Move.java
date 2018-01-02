@@ -1,5 +1,4 @@
-package chess.move;
-import chess.Utilities;
+package com.chess.move;
 import java.util.Arrays;
 
 /* A move that a designated piece is capable of making. Contains many

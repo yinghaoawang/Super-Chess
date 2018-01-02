@@ -1,12 +1,11 @@
-package chess;
-import chess.BoardMove;
-import chess.piece.*;
-import chess.move.*;
-import chess.Utilities;
-import java.awt.Point;
-import java.util.List;
+package com.chess;
+
+import com.chess.move.*;
+import com.chess.piece.*;
+
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 /* The logic of this program. It holds pieces together all the pieces
  * that include the moves, pieces, board, board moves, graves, and players */

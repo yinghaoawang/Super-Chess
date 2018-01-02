@@ -1,5 +1,5 @@
-package chess.piece;
-import chess.move.*;
+package com.chess.piece;
+import com.chess.move.*;
 
 public class Queen extends Piece {
     public Queen(Color color) {

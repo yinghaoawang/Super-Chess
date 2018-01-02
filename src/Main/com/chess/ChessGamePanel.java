@@ -1,4 +1,4 @@
-package chess;
+package com.chess;
 import javax.swing.*;
 import java.awt.Color;
 

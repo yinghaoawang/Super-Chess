@@ -1,4 +1,4 @@
-package chess.move;
+package com.chess.move;
 
 /* A constant diagonal move of all quadrants; a bishop move in chess */
 public class DiagonalMove extends Move {

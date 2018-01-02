@@ -1,5 +1,4 @@
-package chess;
-import java.io.*;
+package com.chess;
 
 // A helper class, it is composed of static functions
 public class Utilities {

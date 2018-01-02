@@ -1,5 +1,5 @@
-package chess.piece;
-import chess.move.*;
+package com.chess.piece;
+import com.chess.move.*;
 
 public class Rook extends Piece {
     public Rook(Color color) {

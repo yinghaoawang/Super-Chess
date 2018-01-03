@@ -12,35 +12,35 @@ import java.awt.geom.Rectangle2D;
 /* This panel is for displaying the Chess' Board */
 public class ChessBoardPanel extends JPanel {
     // sizes for the coordinates (a, b, ..., 1, 2, ...)
-    int pieceFontSize = 39;
-    int coordFontSize = 20;
-    double rowCoordWidthOffset = 0;
-    double rowCoordHeightOffset = 6;
-    double colCoordWidthOffset = 38;
-    double colCoordHeightOffset = 18;
+    private int pieceFontSize = 39;
+    private int coordFontSize = 20;
+    private double rowCoordWidthOffset = 0;
+    private double rowCoordHeightOffset = 6;
+    private double colCoordWidthOffset = 38;
+    private double colCoordHeightOffset = 18;
 
     // sizes for the tiles on the board
-    double tileWidth = 50; // width of tile
-    double tileHeight = 50; // height of tile
-    double tileWidthOffset = 18; // offset from left
-    double tileHeightOffset = 25; // offset from top
+    private double tileWidth = 50; // width of tile
+    private double tileHeight = 50; // height of tile
+    private double tileWidthOffset = 18; // offset from left
+    private double tileHeightOffset = 25; // offset from top
 
     // colors for board
-    Color black = new Color(121, 95, 70);
-    Color white = new Color(205, 122, 20);
-    Color tileLineColor = new Color(55, 55, 55);
+    private Color black = new Color(121, 95, 70);
+    private Color white = new Color(205, 122, 20);
+    private Color tileLineColor = new Color(55, 55, 55);
 
     // colors for pieces
     Color pieceBlackColor = new Color(0, 0, 0);
     Color pieceWhiteColor = new Color(215, 215, 215);
 
     // non hardcoded fields
-    ChessGame game = null;
-    Board board = null;
-    Tile hoveredTile = null;
-    Rectangle2D[][] rects = null;
+    private ChessGame game = null;
+    private Board board = null;
+    private Tile hoveredTile = null;
+    private Rectangle2D[][] rects = null;
 
-    int rows, cols;
+    private int rows, cols;
 
     public ChessBoardPanel(ChessGame game) {
         this.game = game;
@@ -208,7 +208,7 @@ public class ChessBoardPanel extends JPanel {
     }
 
     // action for mouseevent
-    void tileHovered(int row, int col) {
+    private void tileHovered(int row, int col) {
         Tile[][] tiles = board.getTiles();
         if (game.getSelectedTile() != tiles[row][col])
             hoverTile(row, col);
@@ -217,14 +217,14 @@ public class ChessBoardPanel extends JPanel {
     }
 
     // action for when mouse hovers over tile
-    void hoverTile(int row, int col) {
+    private void hoverTile(int row, int col) {
         Tile[][] tiles = board.getTiles();
         try {
             hoveredTile = tiles[row][col];
         } catch (Exception e) {}
     }
     //  action for when mouse no longer hovers over tile
-    void unhoverTile() { hoveredTile = null; }
+    private void unhoverTile() { hoveredTile = null; }
 
     // add necessary things to draw
     @Override

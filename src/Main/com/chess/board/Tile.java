@@ -12,8 +12,8 @@ public class Tile {
     }
 
     // fields
-    List<Piece> pieces = new LinkedList<>();
-    Color color;
+    private List<Piece> pieces = new LinkedList<>();
+    private Color color;
 
     // constructor
     public Tile() {

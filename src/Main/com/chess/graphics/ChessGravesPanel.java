@@ -9,11 +9,11 @@ import java.util.List;
 /* Displays two text areas representing the graves of the chess game */
 public class ChessGravesPanel extends JPanel {
     // fields
-    ChessGame game = null;
-    ChessBoardPanel boardPanel = null;
-    JTextArea whiteGraveTextArea = null;
-    JTextArea blackGraveTextArea = null;
-    int pieceFontSize = 20;
+    private ChessGame game = null;
+    private ChessBoardPanel boardPanel = null;
+    private JTextArea whiteGraveTextArea = null;
+    private JTextArea blackGraveTextArea = null;
+    private int pieceFontSize = 20;
 
     ChessGravesPanel(ChessGame game, ChessBoardPanel boardPanel) {
         this.game = game;

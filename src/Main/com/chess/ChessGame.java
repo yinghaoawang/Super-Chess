@@ -14,22 +14,22 @@ import java.util.List;
 /* The logic of this program. It holds pieces together all the pieces
  * that include the moves, pieces, board, board moves, graves, and players */
 public class ChessGame {
-    Board board = null;
-    Tile[][] tiles = null;
-    int rows, cols;
+    private Board board = null;
+    private Tile[][] tiles = null;
+    private int rows, cols;
 
-    Tile selectedTile = null;
-    int selectedRow = -1;
-    int selectedCol = -1;
-    List<Tile> moveTiles = null;
-    List<BoardMove> boardMoves = null;
+    private Tile selectedTile = null;
+    private int selectedRow = -1;
+    private int selectedCol = -1;
+    private List<Tile> moveTiles = null;
+    private List<BoardMove> boardMoves = null;
 
     // player
-    Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
+    private Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
 
     // grave
-    List<List<Piece>> grave = new ArrayList<List<Piece>>();
-    int currentPlayerIndex = 0;
+    private List<List<Piece>> grave = new ArrayList<List<Piece>>();
+    private int currentPlayerIndex = 0;
 
     public ChessGame() {
         rows = cols = 8; // a chessboard has 8 rows and 8 cols
@@ -46,13 +46,13 @@ public class ChessGame {
     public List<BoardMove> getBoardMoves() { return boardMoves; }
 
     // on to the next player
-    void nextPlayer() {
+    public void nextPlayer() {
         if (++currentPlayerIndex >= playerColor.length)
             currentPlayerIndex = 0;
     }
 
     // finds first player with same color as piece, then puts it into that grave
-    void putToGrave(Tile tile, Piece piece) {
+    public void putToGrave(Tile tile, Piece piece) {
         for (int i = 0; i < playerColor.length; ++i) {
             if (playerColor[i] == piece.getColor()) {
                 grave.get(i).add(tile.remove(piece));
@@ -82,13 +82,13 @@ public class ChessGame {
     }
 
     // addMoveQuadrants adds to the Tile List res the respective moves a multiplier times its movement
-    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move) {
+    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move) {
         addMoveQuadrants(res, piece, row, col, move, 1);
     }
-    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier) {
+    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier) {
         addMoveQuadrants(res, piece, row, col, move, multiplier, new boolean[] { false, false, false, false });
     }
-    void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier, boolean[] blockedQuadrants) {
+    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier, boolean[] blockedQuadrants) {
         // scale here
         Point[] signConversion = new Point[] {
             new Point(multiplier, multiplier), // quadrant 1 (0)
@@ -152,7 +152,7 @@ public class ChessGame {
     }
 
     // set selected tile to designated coordinate
-    public void selectTile(int row, int col) {
+    private void selectTile(int row, int col) {
         try {
             selectedTile = tiles[row][col];
             if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
@@ -163,7 +163,7 @@ public class ChessGame {
     }
 
     // what to do when deselecting a tile
-    public void deselectTile() {
+    private void deselectTile() {
         selectedTile = null;
         selectedRow = -1;
         selectedCol = -1;

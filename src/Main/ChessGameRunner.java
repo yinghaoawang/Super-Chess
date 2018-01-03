@@ -1,7 +1,7 @@
 import com.chess.graphics.ChessGameFrame;
 
 import java.awt.EventQueue;
-public class ChessGameApp {
+public class ChessGameRunner {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override

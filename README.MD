@@ -34,7 +34,7 @@
             - [x] Chess game frame
             - [x] Chess board panel
             - [x] Chess board move panel
-            - [ ] Chess grave panel
+            - [x] Chess grave panel
             - [ ] Player panel
 
 - [ ] Chess Engine Extras

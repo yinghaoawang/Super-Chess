@@ -4,10 +4,10 @@ import com.chess.piece.*;
 
 /* The setting where pieces interact with each other. Contains methods required to move them around */
 public class Board {
-    int rows; // rows on board
-    int cols; // columns on board
+    private int rows; // rows on board
+    private int cols; // columns on board
 
-    Tile[][] tiles;
+    private Tile[][] tiles;
 
     // constructor that calls init
     public Board(int cols) { this(cols, cols); }
@@ -42,7 +42,7 @@ public class Board {
         movePiece(0, srcRow, srcCol, destRow, destCol);
     }
     // overloaded- finds the piece at src with the given name
-    void movePiece(String name, int srcRow, int srcCol, int destRow, int destCol) {
+    public void movePiece(String name, int srcRow, int srcCol, int destRow, int destCol) {
         try {
             int index = tiles[srcRow][srcCol].indexOfName(name);
             if (index < 0)
@@ -53,7 +53,7 @@ public class Board {
         }
     }
     // overloaded- finds the piece at src with the index and moves that one
-    void movePiece(int index, int srcRow, int srcCol, int destRow, int destCol) {
+    public void movePiece(int index, int srcRow, int srcCol, int destRow, int destCol) {
         try {
             Tile tile = tiles[srcRow][srcCol];
             Tile destTile = tiles[destRow][destCol];
@@ -71,7 +71,7 @@ public class Board {
     }
 
     // removes and returns the piece at the top of the tile
-    Piece removePiece(int row, int col) throws Exception {
+    public Piece removePiece(int row, int col) throws Exception {
         return tiles[row][col].pop();
     }
 

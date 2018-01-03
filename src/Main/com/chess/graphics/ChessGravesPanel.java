@@ -13,7 +13,7 @@ public class ChessGravesPanel extends JPanel {
     private ChessBoardPanel boardPanel = null;
     private JTextArea whiteGraveTextArea = null;
     private JTextArea blackGraveTextArea = null;
-    private int pieceFontSize = 20;
+    private int pieceFontSize = 25;
 
     ChessGravesPanel(ChessGame game, ChessBoardPanel boardPanel) {
         this.game = game;
@@ -42,6 +42,7 @@ public class ChessGravesPanel extends JPanel {
         Color pieceBlackColor = boardPanel.pieceBlackColor;
         Color pieceWhiteColor = boardPanel.pieceWhiteColor;
 
+        /*
         // create grave text areas
         whiteGraveTextArea = new JTextArea("");
         whiteGraveTextArea.setEditable(false);
@@ -65,21 +66,23 @@ public class ChessGravesPanel extends JPanel {
         blackGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
         blackGraveTextArea.setHighlighter(null);
         add(blackGraveTextArea);
-
+        */
     }
 
     // have graves of white and black display dead pieces
     private void drawGraves(Graphics g) {
         // try to get graves
         List<List<Piece>> grave = game.getGrave();
-        if (blackGraveTextArea == null || whiteGraveTextArea == null || grave == null) return;
+        if (grave == null) return;
 
         List<Piece> whiteGrave = grave.get(0);
         List<Piece> blackGrave = grave.get(1);
-        if (whiteGrave == null || blackGrave == null) return;
+        if (whiteGrave == null || blackGrave == null) { return; } // error
+
 
         Color pieceWhiteColor = boardPanel.pieceWhiteColor;
         Color pieceBlackColor = boardPanel.pieceBlackColor;
+
         Graphics2D g2d = (Graphics2D) g;
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, pieceFontSize));
         g2d.setStroke(new BasicStroke(1));
@@ -87,22 +90,35 @@ public class ChessGravesPanel extends JPanel {
         // text setting only if change
         String whiteText = "";
         String blackText = "";
-        g2d.setColor(pieceWhiteColor);
+
         for (int i = 0; i < whiteGrave.size(); ++i) {
             Piece piece = whiteGrave.get(i);
             whiteText += Character.toString(piece.getEncoding());
-            if (i % 4 == 0) whiteText += "\n";
+            if ((i+1) % 10 == 0) whiteText += "\n";
         }
 
-        g2d.setColor(pieceBlackColor);
         for (int i = 0; i < blackGrave.size(); ++i) {
             Piece piece = blackGrave.get(i);
             blackText += Character.toString(piece.getEncoding());
-            if (i % 4 == 0) blackText += "\n";
+            if ((i+1) % 10 == 0) blackText += "\n";
         }
 
-        g2d.drawString(whiteText, 0, 0);
-        g2d.drawString(blackText, 55, 0);
+        System.out.println("-----------");
+        System.out.println(whiteText);
+        System.out.println(blackText);
+
+        g2d.setColor(pieceWhiteColor);
+        int x, y;
+        x = 10;
+        y = 0;
+        for (String line : whiteText.split("\n"))
+            g2d.drawString(line, x, y += + g2d.getFontMetrics().getHeight());
+
+        g2d.setColor(pieceBlackColor);
+        x = 270;
+        y = 0;
+        for (String line : blackText.split("\n"))
+            g2d.drawString(line, x, y += g2d.getFontMetrics().getHeight());
     }
 
     @Override
@@ -113,6 +129,6 @@ public class ChessGravesPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(500, 100);
+        return new Dimension(500, 80);
     }
 }

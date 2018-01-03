@@ -57,8 +57,18 @@
 ### Description:
 I make a scaleable chess engine such that it may be able to create awesome pieces with insane moves. First time making an actual graphical project from scratch. It is very satisfying thus far.  
 The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Queen (or any other piece) in no more than 5 lines of code!  
-This project first started as an attempt of a custom scaleable impementation for Stanford's CS106A.  
-To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
+
+### How to run
+- Download/clone the program
+
+#### On command line:
+- Enter the directory containing the Makefile
+- Run the command "Make"
+- Run the command "./run"
+
+#### On Intellij IDEA:
+- Open the project folder
+- Compile and run ChessGameRunner
 
 ### Things learned:
 - Due to packaging, I now learn of the importance of class access. Especially package-private.
@@ -70,25 +80,29 @@ To see the others click [here](https://github.com/yinghaoawang/DIY-CS106A.git)
 - The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
 ## Progress GIFs
-### 3/16 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)
+### 1/2/18
+![1/2](https://i.imgur.com/37ZuYo2.png)
+*Update: Layout made smooth, twitchy graveyard fix*
 
-### 3/16
+### 3/16/17 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)
+
+### 3/16/17
 ![3/16](images/gifs/super-chess_3-16-17.gif)
 
 *Update: Graveyard and display added*
 
-### 3/15
+### 3/15/17
 ![3/15](images/gifs/super-chess_3-15-17.gif)
 
 *Update: Moveable pieces and most piece move logic (blocking, extending of moves, etc.)  
 List of board moves displayed in text area*
 
-### 3/14
+### 3/14/17
 ![3/14](images/gifs/super-chess_3-14-17.gif)
 
 *Update: Visual GUI with mouse events, board movement determination, piece encoding display*
 
-### 3/09
+### 3/09/17
 ![3/09](images/gifs/super-chess_3-09-17.gif)
 
 *Initial: Board, tile, selected tile, move, and piece base logic  

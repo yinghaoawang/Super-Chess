@@ -32,7 +32,7 @@ public class ChessBoardPanel extends JPanel {
 
     // colors for pieces
     Color pieceBlackColor = new Color(0, 0, 0);
-    Color pieceWhiteColor = new Color(215, 215, 215);
+    Color pieceWhiteColor = new Color(255, 255, 255);
 
     // non hardcoded fields
     private ChessGame game = null;

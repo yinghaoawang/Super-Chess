@@ -169,20 +169,21 @@ public class ChessGame {
             if (piece != null && piece.getColor() == currPlayerColor) {
                 selectedMoveTiles = getPieceMoveTiles(row, col);
 
-                // determine moves if player is currently is in check
-                if (isColorCheck(currPlayerColor)) {
-                    for (int i = 0; i < selectedMoveTiles.size(); ++i) {
-                        Tile t = selectedMoveTiles.get(i);
-                        board.movePiece(piece, t);
+                // makes sure that when moving, the king is not endangered
+                for (int i = 0; i < selectedMoveTiles.size(); ++i) {
+                    Tile t = selectedMoveTiles.get(i);
+                    // let them try moves temporarily to see if it protects king
+                    board.movePiece(piece, t);
 
-                        if (isColorCheck(currPlayerColor)) {
-                            selectedMoveTiles.remove(t);
-                            --i;
-                        }
-
-                        board.movePiece(piece, selectedTile);
+                    if (isColorCheck(currPlayerColor)) { // if it does not protect king, then remove it from possible moves
+                        selectedMoveTiles.remove(t);
+                        --i;
                     }
+
+                    // move piece back to original spot
+                    board.movePiece(piece, selectedTile);
                 }
+
             }
             selectedRow = row;
             selectedCol = col;

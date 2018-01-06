@@ -82,4 +82,10 @@ public class Tile {
         }
         return -1;
     }
+
+    public List<Piece> getPieces() { return pieces; }
+
+    public boolean contains(Piece piece) {
+        return indexOf(piece) != -1;
+    }
 }

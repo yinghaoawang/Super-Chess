@@ -24,6 +24,9 @@
         - [ ] Check
         - [ ] Checkmate
         - [x] Blocking
+        - [ ] En Passant
+        - [ ] Castling
+        - [ ] Draw
     - [x] 2 players
         - [x] Turns
         - [x] Graves
@@ -37,11 +40,8 @@
             - [x] Chess grave panel
             - [ ] Player panel
 
+<!---
 - [ ] Chess Engine Extras
-    - [ ] Rules
-        - [ ] Draw
-        - [ ] En passant
-        - [ ] Castling
     - [ ] State saving
         - [ ] Loadable chess board from text file
         - [ ] Save/load user state
@@ -53,6 +53,7 @@
     - [ ] Network
         - [ ] Play over local network
         - [ ] Play over TCP
+-->
 
 ### Description:
 I make a scaleable chess engine such that it may be able to create awesome pieces with insane moves. First time making an actual graphical project from scratch. It is very satisfying thus far.  

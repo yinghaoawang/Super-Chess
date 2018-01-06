@@ -32,43 +32,12 @@ public class ChessGravesPanel extends JPanel {
         });
     }
 
-    // standard initialization invoking others
+    // standard initialization
     void init() {
-        initGraves();
-    }
-
-    // create text areas for graves of black and white
-    void initGraves() {
         Color pieceBlackColor = boardPanel.pieceBlackColor;
         Color pieceWhiteColor = boardPanel.pieceWhiteColor;
-
-        /*
-        // create grave text areas
-        whiteGraveTextArea = new JTextArea("");
-        whiteGraveTextArea.setEditable(false);
-        whiteGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(pieceFontSize)));
-
-        whiteGraveTextArea.setWrapStyleWord(true);
-        whiteGraveTextArea.setLineWrap(true);
-
-        //whiteGraveTextArea.setBounds(37, 450, 100, 100);
-        whiteGraveTextArea.setForeground(pieceWhiteColor);
-        whiteGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
-        whiteGraveTextArea.setHighlighter(null);
-        add(whiteGraveTextArea);
-
-        blackGraveTextArea = new JTextArea("");
-        blackGraveTextArea.setEditable(false);
-        blackGraveTextArea.setFont(new Font("TimesRoman", Font.PLAIN, (int)(pieceFontSize)));
-        //blackGraveTextArea.setLineWrap(true);
-        //blackGraveTextArea.setBounds(157, 450, 100, 100);
-        blackGraveTextArea.setForeground(pieceBlackColor);
-        blackGraveTextArea.setBackground(new Color(0,0,0,0)); // transparent background
-        blackGraveTextArea.setHighlighter(null);
-        add(blackGraveTextArea);
-        */
     }
-
+    
     // have graves of white and black display dead pieces
     private void drawGraves(Graphics g) {
         // try to get graves
@@ -102,10 +71,6 @@ public class ChessGravesPanel extends JPanel {
             blackText += Character.toString(piece.getEncoding());
             if ((i+1) % 10 == 0) blackText += "\n";
         }
-
-        System.out.println("-----------");
-        System.out.println(whiteText);
-        System.out.println(blackText);
 
         g2d.setColor(pieceWhiteColor);
         int x, y;

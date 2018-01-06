@@ -3,6 +3,7 @@ package com.chess;
 import com.chess.board.Board;
 import com.chess.board.BoardMove;
 import com.chess.board.Tile;
+import com.chess.board.TileCollection;
 import com.chess.move.*;
 import com.chess.piece.*;
 import com.chess.util.Utilities;
@@ -15,7 +16,7 @@ import java.util.List;
  * that include the moves, pieces, board, board moves, graves, and players */
 public class ChessGame {
     private Board board = null;
-    private Tile[][] tiles = null;
+    private TileCollection tiles = null;
     private int rows, cols;
 
     private Tile selectedTile = null;
@@ -65,7 +66,7 @@ public class ChessGame {
     public List<Tile> getMoveTiles(int row, int col) {
         List<Tile> res = new ArrayList<Tile>();
         try {
-            Tile tile = tiles[row][col];
+            Tile tile = tiles.get(row, col);
             Piece piece = tile.peek();
             boolean[] allPathBlockedQuadrants = new boolean[] { false, false, false, false };
             for (Move move: piece.getMoves()) {
@@ -128,7 +129,7 @@ public class ChessGame {
             // post
             if (!board.isWithinBorders(destRow, destCol)) continue; // make sure tile is within board borders
 
-            Tile destTile = tiles[destRow][destCol];
+            Tile destTile = tiles.get(destRow, destCol);
 
             // set the qudrant blocked if is blocked
             if (move.isBlockable() && destTile.peek() != null) {
@@ -143,7 +144,7 @@ public class ChessGame {
 
             if (!move.isTeamAttacking() && (destTile.peek() != null && // unless it is team attacking, it cannot move to tile with same color piece
                     destTile.peek().getColor() == selectedTile.peek().getColor()))
-                continue; 
+                continue;
 
             if (move.isFirstMove() && piece.moveCount != 0) continue;
 
@@ -154,7 +155,7 @@ public class ChessGame {
     // set selected tile to designated coordinate
     private void selectTile(int row, int col) {
         try {
-            selectedTile = tiles[row][col];
+            selectedTile = tiles.get(row, col);
             if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
                 moveTiles = getMoveTiles(row, col);
             selectedRow = row;
@@ -216,7 +217,7 @@ public class ChessGame {
     }
     // action for mouse presses a tile
     public void tilePressed(int row, int col) {
-        Tile tile = tiles[row][col];
+        Tile tile = tiles.get(row, col);
         // if clicked on a move tile, then move the piece and update stuff
         if (moveTiles != null && moveTiles.contains(tile) &&
                 selectedTile != null && selectedTile != tile) {
@@ -252,10 +253,11 @@ public class ChessGame {
                 blackCol = false;
             }
             for (int j = 0; j < cols ; ++j) {
+                Tile t = tiles.get(i, j);
                 if (blackCol) {
-                    tiles[i][j] = new Tile(Tile.Color.BLACK);
+                    t = new Tile(Tile.Color.BLACK);
                 } else {
-                    tiles[i][j] = new Tile(Tile.Color.WHITE);
+                    t = new Tile(Tile.Color.WHITE);
                 }
                 blackCol = !blackCol;
             }
@@ -269,6 +271,19 @@ public class ChessGame {
 
         for (Tile t: moveTiles) {
             if (t == tile) return true;
+        }
+        return false;
+    }
+
+    private boolean isInCheck(Piece piece) {
+        Tile target = board.findTile(piece);
+        if (target == null) return false;
+        for (Tile t : tiles) {
+            if (t == target) continue;
+            for (Piece p : t.getPieces()) {
+                // TODO asdf
+                return true;
+            }
         }
         return false;
     }

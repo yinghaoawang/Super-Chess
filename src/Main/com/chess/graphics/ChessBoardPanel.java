@@ -2,6 +2,7 @@ package com.chess.graphics;
 import com.chess.board.Board;
 import com.chess.ChessGame;
 import com.chess.board.Tile;
+import com.chess.board.TileCollection;
 import com.chess.util.Utilities;
 import com.chess.piece.Piece;
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class ChessBoardPanel extends JPanel {
 
     // colors for pieces
     Color pieceBlackColor = new Color(0, 0, 0);
-    Color pieceWhiteColor = new Color(255, 255, 255);
+    Color pieceWhiteColor = new Color(225, 225, 225);
 
     // non hardcoded fields
     private ChessGame game = null;
@@ -90,7 +91,7 @@ public class ChessBoardPanel extends JPanel {
     }
 
     private void drawPieces(Graphics g) {
-        Tile[][] tiles = board.getTiles();
+        TileCollection tiles = board.getTiles();
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke());
         for (int i = 0; i < rows; ++i) {
@@ -99,7 +100,7 @@ public class ChessBoardPanel extends JPanel {
                 double yPos = tileHeight * i + tileHeightOffset;
 
                 // draw the piece
-                Tile tile = tiles[i][j];
+                Tile tile = tiles.get(i, j);
                 Piece piece = tile.peek();
                 if (!tile.isEmpty()) {
                     if (piece.isBlack()) g2d.setColor(pieceBlackColor);
@@ -113,7 +114,7 @@ public class ChessBoardPanel extends JPanel {
 
     // draws the tiles and pieces on the tiles
     private void drawTiles(Graphics g) {
-        Tile[][] tiles = board.getTiles();
+        TileCollection tiles = board.getTiles();
         Graphics2D g2d = (Graphics2D) g;
 
         // rh makes drawing smooth
@@ -138,7 +139,7 @@ public class ChessBoardPanel extends JPanel {
                 g2d.setStroke(new BasicStroke(1));
 
                 // set tile color
-                Tile tile = tiles[i][j];
+                Tile tile = tiles.get(i, j);
                 if (tile.isBlack()) {
                     g2d.setColor(black);
                 } else {
@@ -209,8 +210,8 @@ public class ChessBoardPanel extends JPanel {
 
     // action for mouseevent
     private void tileHovered(int row, int col) {
-        Tile[][] tiles = board.getTiles();
-        if (game.getSelectedTile() != tiles[row][col])
+        TileCollection tiles = board.getTiles();
+        if (game.getSelectedTile() != tiles.get(row, col))
             hoverTile(row, col);
         else
             unhoverTile();
@@ -218,9 +219,9 @@ public class ChessBoardPanel extends JPanel {
 
     // action for when mouse hovers over tile
     private void hoverTile(int row, int col) {
-        Tile[][] tiles = board.getTiles();
+        TileCollection tiles = board.getTiles();
         try {
-            hoveredTile = tiles[row][col];
+            hoveredTile = tiles.get(row, col);
         } catch (Exception e) {}
     }
     //  action for when mouse no longer hovers over tile

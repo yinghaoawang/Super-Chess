@@ -76,21 +76,23 @@ public class ChessGame {
             for (Move move: piece.getMoves()) {
                 boolean[] blockedQuadrants = new boolean[] { false, false, false, false };
                 if (move.isAllPath()) blockedQuadrants = allPathBlockedQuadrants;
+                // multiplier is needed for the pieces that move until it reaches corner of map
+                int multiplier = 1;
                 do {
-                    addMoveQuadrants(res, piece, move, blockedQuadrants);
-                    if (move.isTransposed()) addMoveQuadrants(res, piece, move.toTransposed(), blockedQuadrants);
-                } while (move.isUntilEnd());
+                    addMoveQuadrants(res, piece, move, multiplier, blockedQuadrants);
+                    if (move.isTransposed()) addMoveQuadrants(res, piece, move.toTransposed(), multiplier, blockedQuadrants);
+                } while (move.isUntilEnd() && multiplier++ < Math.max(rows, cols)); // only when piece moves until edge does this loop
             }
         } catch(Exception e) { Utilities.printException(e); }
         return res;
     }
 
 
-    // addMoveQuadrants adds to the Tile List res the respective moves (helper for getTargetMoveTiles
-    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move) {
-        addMoveQuadrants(res, piece, move, new boolean[] { false, false, false, false });
+    // addMoveQuadrants adds to the Tile List res the respective moves (helper for getTargetMoveTiles)
+    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, int multiplier) {
+        addMoveQuadrants(res, piece, move, multiplier, new boolean[] { false, false, false, false });
     }
-    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, boolean[] blockedQuadrants) {
+    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, int multiplier, boolean[] blockedQuadrants) {
         Tile pTile = board.findTile(piece);
         Point pCoord = board.findCoord(piece);
 
@@ -100,10 +102,10 @@ public class ChessGame {
 
         // scale here
         Point[] signConversion = new Point[] {
-                new Point(1, 1), // quadrant 1 (0)
-                new Point(1, -1), // quadrant 2 (1)
-                new Point(-1, -1), // quadrant 3 (2)
-                new Point(-1, 1) // quadrant 4 (3)
+                new Point(multiplier, multiplier), // quadrant 1 (0)
+                new Point(multiplier, -1 * multiplier), // quadrant 2 (1)
+                new Point(-1 * multiplier, -1 * multiplier), // quadrant 3 (2)
+                new Point(-1 * multiplier, multiplier) // quadrant 4 (3)
         };
 
         boolean[] quadrants = move.getQuadrants();
@@ -235,10 +237,12 @@ public class ChessGame {
         }
 
         // if there is no selected tile on a click, then you select the tile. deselect if you do have a selected tile
-        if (selectedTile == null && tile.peek() != null)
+        if (selectedTile == null && tile.peek() != null) {
             selectTile(row, col);
-        else
+            System.out.println(isInDanger(tile.peek()));
+        } else {
             deselectTile();
+        }
     }
 
     // inits and colors the tiles as a chessboard design
@@ -277,14 +281,16 @@ public class ChessGame {
         return false;
     }
 
-    private boolean isInCheck(Piece piece) {
+    // determines if a piece can be eaten by any piece on the boards
+    private boolean isInDanger(Piece piece) {
         Tile target = board.findTile(piece);
         if (target == null) return false;
         for (Tile t : tiles) {
-            if (t == target) continue;
+            if (t == target || t.isEmpty()) continue;
             for (Piece p : t.getPieces()) {
-                // TODO asdf
-                return true;
+                for (Tile moveTile : getPieceMoveTiles(p)) {
+                    if (moveTile == target) return true;
+                }
             }
         }
         return false;

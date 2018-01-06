@@ -35,6 +35,12 @@ public class ChessBoardPanel extends JPanel {
     Color pieceBlackColor = new Color(0, 0, 0);
     Color pieceWhiteColor = new Color(225, 225, 225);
 
+    // colors for tiles
+    Color hoverColor = new Color(50, 50, 50, (int)(0.45 * 255));
+    Color selectedColor = new Color(100, 0, 0, (int)(0.75 * 255));
+    Color moveTileColor = new Color(0, 0, 255, (int)(0.45 * 255));
+    Color checkColor = new Color(175, 0, 0, (int)(.85 * 255));
+
     // non hardcoded fields
     private ChessGame game = null;
     private Board board = null;
@@ -125,17 +131,10 @@ public class ChessBoardPanel extends JPanel {
                 RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHints(rh);
 
-        // size values
-        Dimension size = getSize();
-        double width = size.getWidth();
-        double height = size.getHeight();
-
         // draw the mxn board
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols ; ++j) {
                 // set positions with scaling
-                double xPos = tileWidth * j + tileWidthOffset;
-                double yPos = tileHeight * i + tileHeightOffset;
                 g2d.setStroke(new BasicStroke(1));
 
                 // set tile color
@@ -146,15 +145,15 @@ public class ChessBoardPanel extends JPanel {
                     g2d.setColor(white);
                 }
 
-                Color hoverColor = new Color(50, 50, 50, (int)(0.45 * 255));
-                Color selectedColor = new Color(100, 0, 0, (int)(0.75 * 255));
-                Color moveTileColor = new Color(0, 0, 255, (int)(0.45 * 255));
+                Piece p = tile.peek();
+                boolean isCheck = game.isAnyCheck();
 
                 // if selected or hovered, change to respective colors
                 if (tile == game.getSelectedTile()) {
                     g2d.setColor(selectedColor);
                 }
                 else if (game.isInMoveTiles(tile)) g2d.setColor(moveTileColor);
+                else if (isCheck && p != null && p.getName() == "King" && game.isInDanger(p)) g2d.setColor(checkColor);
                 else if (tile == hoveredTile) g2d.setColor(hoverColor);
 
                 // color in the tile

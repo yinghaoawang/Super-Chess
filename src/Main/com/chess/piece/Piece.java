@@ -9,7 +9,7 @@ public abstract class Piece {
     public enum Color {
         BLACK("Black"), WHITE("White");
         private final String name;
-        private Color(String name) { this.name = name; }
+        Color(String name) { this.name = name; }
         public String toString() { return this.name; }
     }
     String name = null;

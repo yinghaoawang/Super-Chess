@@ -76,7 +76,7 @@ public class ChessGame {
             for (Move move: piece.getMoves()) {
                 boolean[] blockedQuadrants = new boolean[] { false, false, false, false };
                 if (move.isAllPath()) blockedQuadrants = allPathBlockedQuadrants;
-                // multiplier is needed for the pieces that move until it reaches corner of map
+                // multiplier is needed for the pieces that move until it reaches corner of map (each iteration is for row/col increment)
                 int multiplier = 1;
                 do {
                     addMoveQuadrants(res, piece, move, multiplier, blockedQuadrants);
@@ -93,14 +93,16 @@ public class ChessGame {
         addMoveQuadrants(res, piece, move, multiplier, new boolean[] { false, false, false, false });
     }
     private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, int multiplier, boolean[] blockedQuadrants) {
+        // the tile and coords of the given piece
         Tile pTile = board.findTile(piece);
         Point pCoord = board.findCoord(piece);
 
+        // no moves if the tile could not be found
         if (pTile == null || pCoord == null) {
             return;
         }
 
-        // scale here
+        // used for converting direction of each quadrant for movement
         Point[] signConversion = new Point[] {
                 new Point(multiplier, multiplier), // quadrant 1 (0)
                 new Point(multiplier, -1 * multiplier), // quadrant 2 (1)
@@ -108,6 +110,7 @@ public class ChessGame {
                 new Point(-1 * multiplier, multiplier) // quadrant 4 (3)
         };
 
+        // changes direction of moves for different quadrants and gets the tiles that the piece can move to
         boolean[] quadrants = move.getQuadrants();
         for (int i = 0; i < quadrants.length; ++i) {
             // pre
@@ -135,7 +138,7 @@ public class ChessGame {
 
             Tile destTile = tiles.get(destRow, destCol);
 
-            // set the qudrant blocked if is blocked
+            // set the quadrant blocked if is blocked
             if (move.isBlockable() && destTile.peek() != null) {
                 blockedQuadrants[i] = true;
             }
@@ -160,8 +163,27 @@ public class ChessGame {
     private void selectTile(int row, int col) {
         try {
             selectedTile = tiles.get(row, col);
-            if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
+            Piece piece = selectedTile.peek();
+            Piece.Color currPlayerColor = playerColor[currentPlayerIndex];
+
+            if (piece != null && piece.getColor() == currPlayerColor) {
                 selectedMoveTiles = getPieceMoveTiles(row, col);
+
+                // determine moves if player is currently is in check
+                if (isColorCheck(currPlayerColor)) {
+                    for (int i = 0; i < selectedMoveTiles.size(); ++i) {
+                        Tile t = selectedMoveTiles.get(i);
+                        board.movePiece(piece, t);
+
+                        if (isColorCheck(currPlayerColor)) {
+                            selectedMoveTiles.remove(t);
+                            --i;
+                        }
+
+                        board.movePiece(piece, selectedTile);
+                    }
+                }
+            }
             selectedRow = row;
             selectedCol = col;
         } catch (Exception e) {}
@@ -281,8 +303,25 @@ public class ChessGame {
         return false;
     }
 
+    // determines if white or black king(s) is in danger
+    public boolean isAnyCheck() {
+        return isWhiteCheck() || isBlackCheck();
+    }
+    // determines if white king is in danger
+    public boolean isWhiteCheck() {
+        return isColorCheck(Piece.Color.WHITE);
+    }
+    // determines if black king is in danger
+    public boolean isBlackCheck() {
+        return isColorCheck(Piece.Color.BLACK);
+    }
+    // determines if a king of a certain color is in danger
+    public boolean isColorCheck(Piece.Color color) {
+        return isAnyInDanger("King", color);
+    }
+
     // determines if a piece can be eaten by any piece on the boards
-    private boolean isInDanger(Piece piece) {
+    public boolean isInDanger(Piece piece) {
         Tile target = board.findTile(piece);
         if (target == null) return false;
         for (Tile t : tiles) {
@@ -296,4 +335,22 @@ public class ChessGame {
         return false;
     }
 
+    // determines if any piece of a certain type and color can be eaten by any piece on the boards
+    public boolean isAnyInDanger(String name, Piece.Color color) {
+        List<Tile> targets = board.findTiles(name, color);
+        if (targets.isEmpty()) return false;
+
+        for (Tile target : targets) {
+            if (target == null) continue;
+            for (Tile t : tiles) {
+                if (t == target || t.isEmpty()) continue;
+                for (Piece p : t.getPieces()) {
+                    for (Tile moveTile : getPieceMoveTiles(p)) {
+                        if (moveTile == target) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

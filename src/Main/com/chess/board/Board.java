@@ -3,6 +3,8 @@ import com.chess.util.Utilities;
 import com.chess.piece.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /* The setting where pieces interact with each other. Contains methods required to move them around */
 public class Board {
@@ -35,7 +37,7 @@ public class Board {
     public int getRows() { return rows; }
     public int getCols() { return cols; }
 
-    // moves piece at top of src to topd of dest
+    // moves piece at top of src to top of dest
     public void movePiece(int srcRow, int srcCol, int destRow, int destCol) {
         movePiece(0, srcRow, srcCol, destRow, destCol);
     }
@@ -51,10 +53,25 @@ public class Board {
         }
     }
 
+    public Piece findPiece(String name, Piece.Color color) {
+        for (Tile t : tiles) {
+            for (Piece p : t.getPieces()) {
+                if (p.getName() == name && p.getColor() == color) return p;
+            }
+        }
+        return null;
+    }
+
     // finds the tile that contains the parameter piece
     public Tile findTile(Piece piece) {
         for (Tile t : tiles) if (t.contains(piece)) return t;
         return null;
+    }
+
+    public List<Tile> findTiles(String name, Piece.Color color) {
+        List<Tile> res = new ArrayList<>();
+        for (Tile t : tiles) if (t.contains(name, color)) res.add(t);
+        return res;
     }
 
     public Point findCoord(Piece piece) {
@@ -77,6 +94,11 @@ public class Board {
         } catch (Exception e) {
             Utilities.printException(e);
         }
+    }
+    public void movePiece(Piece piece, Tile tile) {
+        Tile prevTile = findTile(piece);
+        prevTile.remove(piece);
+        tile.addFirst(piece);
     }
 
     // puts a piece to the top of the tile

@@ -46,6 +46,10 @@ public class Tile {
         return (Piece)((LinkedList<Piece>)pieces).pop();
     }
 
+    public void addFirst(Piece piece) {
+        ((LinkedList<Piece>)pieces).addFirst(piece);
+    }
+
     // uses linked list's push
     public void push(Piece piece) {
         ((LinkedList<Piece>)pieces).push(piece);
@@ -87,5 +91,10 @@ public class Tile {
 
     public boolean contains(Piece piece) {
         return indexOf(piece) != -1;
+    }
+    public boolean contains(String name, Piece.Color color) {
+        int index = indexOfName(name);
+        if (index == -1) return false;
+        return pieces.get(index).getColor() == color;
     }
 }

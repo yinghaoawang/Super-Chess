@@ -80,10 +80,14 @@ The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Q
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
 - The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
-## Progress GIFs
+## Progress Visuals
+### 1/5/18
+![1/5](https://i.imgur.com/UJik6kw.png)
+*Update: Check added and working. Can block or move queen out of way for moves*
+
 ### 1/2/18
 ![1/2](https://i.imgur.com/37ZuYo2.png)
-*Update: Layout made smooth, twitchy graveyard fix*
+*Update: Layout made modular and smooth, twitchy graveyard fix*
 
 ### 3/16/17 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)
 

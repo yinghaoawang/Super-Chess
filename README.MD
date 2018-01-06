@@ -21,12 +21,16 @@
             - [x] Previous moves
         - [x] Graves (eaten pieces)
     - [ ] Rules
-        - [ ] Check
+        - [x] Check
         - [ ] Checkmate
         - [x] Blocking
         - [ ] En Passant
         - [ ] Castling
-        - [ ] Draw
+        - [ ] Game Staets
+            - [ ] Win
+            - [ ] Lost
+            - [ ] Draw
+            - [ ] Restart
     - [x] 2 players
         - [x] Turns
         - [x] Graves

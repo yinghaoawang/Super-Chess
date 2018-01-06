@@ -40,20 +40,11 @@ public class Tile {
         return (Piece)((LinkedList)pieces).peek();
     }
 
-    // uses linked list's pop
-    public Piece pop() throws Exception {
-        if (peek() == null) throw new Exception("No pieces on tile");
-        return (Piece)((LinkedList<Piece>)pieces).pop();
-    }
-
-    public void addFirst(Piece piece) {
-        ((LinkedList<Piece>)pieces).addFirst(piece);
-    }
-
     // uses linked list's push
     public void push(Piece piece) {
         ((LinkedList<Piece>)pieces).push(piece);
     }
+    public void add(int index, Piece piece) { ((LinkedList<Piece>)pieces).add(index, piece);}
 
     // remove and returns the piece in the tile
     public Piece remove() { return remove(0); }

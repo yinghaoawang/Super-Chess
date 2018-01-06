@@ -1,7 +1,6 @@
 package com.chess.board;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 /* Iterator for 2d array of tiles */
 public class TileCollection implements Iterable<Tile> {

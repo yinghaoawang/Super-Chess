@@ -327,10 +327,9 @@ public class ChessGame {
         if (target == null) return false;
         for (Tile t : tiles) {
             if (t == target || t.isEmpty()) continue;
-            for (Piece p : t.getPieces()) {
-                for (Tile moveTile : getPieceMoveTiles(p)) {
-                    if (moveTile == target) return true;
-                }
+            Piece p = t.peek();
+            for (Tile moveTile : getPieceMoveTiles(p)) {
+                if (moveTile == target) return true;
             }
         }
         return false;
@@ -345,9 +344,10 @@ public class ChessGame {
             if (target == null) continue;
             for (Tile t : tiles) {
                 if (t == target || t.isEmpty()) continue;
-                for (Piece p : t.getPieces()) {
-                    for (Tile moveTile : getPieceMoveTiles(p)) {
-                        if (moveTile == target) return true;
+                Piece p = t.peek();
+                for (Tile moveTile : getPieceMoveTiles(p)) {
+                    if (moveTile == target) {
+                        return true;
                     }
                 }
             }

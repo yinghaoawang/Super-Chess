@@ -98,7 +98,7 @@ public class Board {
     public void movePiece(Piece piece, Tile tile) {
         Tile prevTile = findTile(piece);
         prevTile.remove(piece);
-        tile.addFirst(piece);
+        tile.push(piece);
     }
 
     // puts a piece to the top of the tile
@@ -108,7 +108,7 @@ public class Board {
 
     // removes and returns the piece at the top of the tile
     public Piece removePiece(int row, int col) throws Exception {
-        return tiles.get(row, col).pop();
+        return tiles.get(row, col).remove();
     }
 
     // helpers, self explanatory names

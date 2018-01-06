@@ -87,11 +87,7 @@ public class ChessGame {
         return res;
     }
 
-
     // addMoveQuadrants adds to the Tile List res the respective moves (helper for getTargetMoveTiles)
-    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, int multiplier) {
-        addMoveQuadrants(res, piece, move, multiplier, new boolean[] { false, false, false, false });
-    }
     private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, int multiplier, boolean[] blockedQuadrants) {
         // the tile and coords of the given piece
         Tile pTile = board.findTile(piece);
@@ -161,33 +157,42 @@ public class ChessGame {
 
     // set selected tile to designated coordinate
     private void selectTile(int row, int col) {
-        try {
-            selectedTile = tiles.get(row, col);
-            Piece piece = selectedTile.peek();
-            Piece.Color currPlayerColor = playerColor[currentPlayerIndex];
+        selectedTile = tiles.get(row, col);
+        Piece piece = selectedTile.peek();
+        selectedMoveTiles = getPossibleMoves(piece);
 
-            if (piece != null && piece.getColor() == currPlayerColor) {
-                selectedMoveTiles = getPieceMoveTiles(row, col);
+        selectedRow = row;
+        selectedCol = col;
+    }
 
-                // makes sure that when moving, the king is not endangered
-                for (int i = 0; i < selectedMoveTiles.size(); ++i) {
-                    Tile t = selectedMoveTiles.get(i);
-                    // let them try moves temporarily to see if it protects king
-                    board.movePiece(piece, t);
+    // Gets the possible tiles a piece can move to
+    private List<Tile> getPossibleMoves(Piece piece) {
+        List<Tile> possibleMoves = new ArrayList<Tile>();
+        Tile pTile = board.findTile(piece);
 
-                    if (isColorCheck(currPlayerColor)) { // if it does not protect king, then remove it from possible moves
-                        selectedMoveTiles.remove(t);
-                        --i;
-                    }
+        Piece.Color currPlayerColor = playerColor[currentPlayerIndex];
 
-                    // move piece back to original spot
-                    board.movePiece(piece, selectedTile);
+        if (piece != null && piece.getColor() == currPlayerColor) {
+            possibleMoves = getPieceMoveTiles(piece);
+
+            // makes sure that when moving, the king is not endangered
+            for (int i = 0; i < possibleMoves.size(); ++i) {
+                Tile t = possibleMoves.get(i);
+                // let them try moves temporarily to see if it protects king
+                board.movePiece(piece, t);
+
+                if (isColorCheck(currPlayerColor)) { // if it does not protect king, then remove it from possible moves
+                    possibleMoves.remove(t);
+                    --i;
                 }
 
+                // move piece back to original spot
+                board.movePiece(piece, pTile);
             }
-            selectedRow = row;
-            selectedCol = col;
-        } catch (Exception e) {}
+
+        }
+        System.out.println(possibleMoves.size());
+        return possibleMoves;
     }
 
     // what to do when deselecting a tile

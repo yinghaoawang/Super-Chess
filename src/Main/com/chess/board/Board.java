@@ -18,7 +18,6 @@ public class Board {
     public Board(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-
         init();
     }
 

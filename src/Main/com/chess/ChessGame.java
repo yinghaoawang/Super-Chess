@@ -38,9 +38,10 @@ public class ChessGame {
         tiles = board.getTiles();
         init();
     }
+
+    // getters
     public int getCols() { return this.cols; }
     public int getRows() { return this.rows; }
-
     public Board getBoard() { return board; }
     public Tile getSelectedTile() { return selectedTile; }
     public List<List<Piece>> getGrave() { return grave; }
@@ -52,8 +53,9 @@ public class ChessGame {
             currentPlayerIndex = 0;
     }
 
-    // finds first player with same color as piece, then puts it into that grave
-    public void putToGrave(Tile tile, Piece piece) {
+    // puts piece into matching player's grave
+    public void putToGrave(Piece piece) {
+        Tile tile = board.findTile(piece);
         for (int i = 0; i < playerColor.length; ++i) {
             if (playerColor[i] == piece.getColor()) {
                 grave.get(i).add(tile.remove(piece));
@@ -254,7 +256,7 @@ public class ChessGame {
                 selectedTile != null && selectedTile != tile) {
 
             Piece destPiece = tile.peek();
-            if (destPiece != null) putToGrave(tile, destPiece);
+            if (destPiece != null) putToGrave(destPiece);
 
             board.movePiece(selectedRow, selectedCol, row, col);
 

@@ -2,7 +2,7 @@ package com.chess.board;
 import com.chess.util.Utilities;
 import com.chess.piece.Piece;
 
-/* Documents the history of a chess game. Holds which piece moved from which position to which */
+/* Documents the history of a chess game. Holds which piece moved from source coordinate to destination coordinate */
 public class BoardMove {
     Piece piece;
     int srcRow, srcCol, destRow, destCol;

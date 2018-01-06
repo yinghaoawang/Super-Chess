@@ -12,6 +12,7 @@ public abstract class Piece {
         Color(String name) { this.name = name; }
         public String toString() { return this.name; }
     }
+
     String name = null;
     char symbol = '\0';
     String displaySequence = null;
@@ -19,30 +20,34 @@ public abstract class Piece {
     public int moveCount = 0;
     Color color;
     List<Move> moves = new ArrayList<>();
+
+    // constructor
     public Piece(Color color) {
         this.color = color;
         init();
-        //if (this.color == Color.WHITE) symbol = Utilities.charToLowerCase(symbol);
-        //else symbol = Utilities.charToUpperCase(symbol);
     }
+
+    // Getters
     public Color getColor() { return color; }
     public List<Move> getMoves() { return moves; }
     public String getName() { return name; }
     public char getSymbol() { return symbol; }
     public String getDisplaySequence() { if (displaySequence == null) return Character.toString(symbol); return displaySequence; }
     public char getEncoding() { if (encoding == '\0') return symbol; return encoding; }
-    public String toString() { return color + " " + name; }
     public boolean isBlack() { return color == Color.BLACK; }
     public boolean isWhite() { return color == Color.WHITE; }
+    // methods to be defined in sublasses
     abstract void initSymbol();
     abstract void initName();
     abstract void initMoves();
+    // calls other inits to be defined in subclasses
     void init() {
         initSymbol();
         initName();
         initMoves();
         assertIntegrity();
     }
+    // asserts if piece has required variables
     void assertIntegrity() {
         if (symbol == '\0') Utilities.printErrorAndExit("Piece has no symbol");
         if (name == null) Utilities.printErrorAndExit("Piece has no name");
@@ -74,4 +79,7 @@ public abstract class Piece {
         // for non all path
         moves.add(move);
     }
+
+    @Override
+    public String toString() { return color + " " + name; }
 }

@@ -57,6 +57,7 @@ public class ChessBoardPanel extends JPanel {
         init();
     }
 
+    // initialization
     void init() {
         initRects();
         initEventListeners();
@@ -79,6 +80,7 @@ public class ChessBoardPanel extends JPanel {
         }
     }
 
+    // draw the coordinates on side of chess board a, b, c... 1, 2, 3...
     private void drawCoords(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         // draw coordinates a1, etc.
@@ -96,6 +98,7 @@ public class ChessBoardPanel extends JPanel {
         }
     }
 
+    // draws the pieces character encodings which appear like real chess pieces
     private void drawPieces(Graphics g) {
         TileCollection tiles = board.getTiles();
         Graphics2D g2d = (Graphics2D) g;

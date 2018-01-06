@@ -28,27 +28,30 @@ public class Tile {
     public boolean isWhite() { return color == Color.WHITE; }
     public boolean isEmpty() { return pieces.size() == 0; }
     public int size() { return pieces.size(); }
+    public List<Piece> getPieces() { return pieces; }
 
+    // setters
     public void setColor(Color color) { this.color = color; }
 
-    // list operations
+    /* list operations */
 
     // returns the piece at given index
     public Piece get(int index) { return pieces.get(index); }
 
-    // uses queue's peek
+    // gets front of tile's pieces
     public Piece peek() {
         if (pieces.size() <= 0) return null;
         return (Piece)((LinkedList)pieces).peek();
     }
 
-    // uses linked list's push
+    // pushes piece to front of pieces
     public void push(Piece piece) {
         ((LinkedList<Piece>)pieces).push(piece);
     }
+    // adds a piece to designated index
     public void add(int index, Piece piece) { ((LinkedList<Piece>)pieces).add(index, piece);}
 
-    // remove and returns the piece in the tile
+    // remove and returns the piece in front of tile or specified
     public Piece remove() { return remove(0); }
     public Piece remove(Piece piece) {
         return remove(indexOf(piece));
@@ -80,8 +83,7 @@ public class Tile {
         return -1;
     }
 
-    public List<Piece> getPieces() { return pieces; }
-
+    // determines if the tile contains a piece
     public boolean contains(Piece piece) {
         return indexOf(piece) != -1;
     }

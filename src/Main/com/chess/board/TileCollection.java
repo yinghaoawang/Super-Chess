@@ -10,6 +10,11 @@ public class TileCollection implements Iterable<Tile> {
         this.rows = rows;
         this.cols = cols;
         tiles = new Tile[rows][cols];
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                tiles[i][j] = new Tile();
+            }
+        }
     }
 
     public Tile get(int row, int col) {

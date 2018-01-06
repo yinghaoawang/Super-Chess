@@ -36,6 +36,14 @@ public class Move {
     /* dont forget to put into copy constructor when adding new fields */
     /* dont forget to put into copy constructor when adding new fields */
 
+    // determines which quadrant needs to swap row and col values
+    public static boolean[] swapConversion = new boolean[] {
+            false, // quadrant 1
+            true, // quadrant 2
+            false, // quadrant 3
+            true // quadrant 4
+    };
+
     // setters
     public void setMove(int rowMove, int colMove) { this.rowMove = rowMove; this.colMove = colMove; }
     public void setRowMove(int rowMove) { this.rowMove = rowMove; }

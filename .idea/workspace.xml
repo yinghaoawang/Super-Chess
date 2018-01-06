@@ -14,18 +14,8 @@
       <file leaf-file-name="ChessGravesPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
+            <state relative-caret-position="426">
               <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Piece.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/piece/Piece.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="35" column="61" lean-forward="true" selection-start-line="35" selection-start-column="61" selection-end-line="35" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -47,12 +37,12 @@
       <file leaf-file-name="TileCollection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileCollection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+            <state relative-caret-position="255">
+              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#893#894#0" expanded="true" />
-                <element signature="e#952#953#0" expanded="true" />
+                <element signature="e#1045#1046#0" expanded="true" />
+                <element signature="e#1104#1105#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,8 +85,18 @@
       <file leaf-file-name="ChessGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+            <state relative-caret-position="272">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/move/Move.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="38" column="65" lean-forward="false" selection-start-line="38" selection-start-column="65" selection-end-line="38" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -105,11 +105,15 @@
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="81" column="5" lean-forward="true" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
+            <state relative-caret-position="312">
+              <caret line="64" column="9" lean-forward="true" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
               <folding>
-                <element signature="e#2488#2489#0" expanded="true" />
-                <element signature="e#2535#2536#0" expanded="true" />
+                <element signature="e#607#608#0" expanded="true" />
+                <element signature="e#634#635#0" expanded="true" />
+                <element signature="e#709#710#0" expanded="true" />
+                <element signature="e#763#764#0" expanded="true" />
+                <element signature="e#2612#2613#0" expanded="true" />
+                <element signature="e#2659#2660#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -138,9 +142,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tilepressed</find>
-      <find>public</find>
-      <find>draw</find>
       <find>tile</find>
       <find>Tile</find>
       <find>hover</find>
@@ -168,6 +169,9 @@
       <find>rintln</find>
       <find>println</find>
       <find>for (int i = 0; i &lt; rows</find>
+      <find>inittiles</find>
+      <find>findtile</find>
+      <find>getpiecemovetiles</find>
     </findStrings>
     <replaceStrings>
       <replace>import com.chess.move.*;</replace>
@@ -211,10 +215,11 @@
         <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/Tile.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/piece/Piece.java" />
-        <option value="$PROJECT_DIR$/src/Main/com/chess/board/TileCollection.java" />
-        <option value="$PROJECT_DIR$/src/Main/com/chess/ChessGame.java" />
-        <option value="$PROJECT_DIR$/src/Main/com/chess/board/Board.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardPanel.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/move/Move.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/board/TileCollection.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/board/Board.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/ChessGame.java" />
       </list>
     </option>
   </component>
@@ -278,6 +283,14 @@
               <item name="Main" type="462c0819:PsiDirectoryNode" />
               <item name="chess" type="462c0819:PsiDirectoryNode" />
               <item name="graphics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="chess" type="462c0819:PsiDirectoryNode" />
+              <item name="move" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -772,14 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/move/Move.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/piece/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -798,26 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="7" lean-forward="false" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#893#894#0" expanded="true" />
-            <element signature="e#952#953#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -826,28 +811,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#2605#2606#0" expanded="true" />
             <element signature="e#2648#2649#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="81" column="5" lean-forward="true" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
-          <folding>
-            <element signature="e#2488#2489#0" expanded="true" />
-            <element signature="e#2535#2536#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGameFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <element signature="e#188#189#0" expanded="true" />
-            <element signature="e#210#211#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -868,10 +831,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1045#1046#0" expanded="true" />
+            <element signature="e#1104#1105#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGameFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#188#189#0" expanded="true" />
+            <element signature="e#210#211#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/move/Move.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="38" column="65" lean-forward="false" selection-start-line="38" selection-start-column="65" selection-end-line="38" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="64" column="9" lean-forward="true" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
+          <folding>
+            <element signature="e#607#608#0" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#2612#2613#0" expanded="true" />
+            <element signature="e#2659#2660#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="85" column="7" lean-forward="false" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+        <state relative-caret-position="272">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>

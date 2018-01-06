@@ -22,7 +22,7 @@ public class ChessGame {
     private Tile selectedTile = null;
     private int selectedRow = -1;
     private int selectedCol = -1;
-    private List<Tile> moveTiles = null;
+    private List<Tile> selectedMoveTiles = null;
     private List<BoardMove> boardMoves = null;
 
     // player
@@ -63,49 +63,51 @@ public class ChessGame {
     }
 
     // returns a Tile List of all the possible moves on the board of the selected piece
-    public List<Tile> getMoveTiles(int row, int col) {
+    public List<Tile> getPieceMoveTiles(int row, int col) {
+        Tile tile = tiles.get(row, col);
+        Piece piece = tile.peek();
+        if (piece == null) return null;
+        return getPieceMoveTiles(piece);
+    }
+    public List<Tile> getPieceMoveTiles(Piece piece) {
         List<Tile> res = new ArrayList<Tile>();
         try {
-            Tile tile = tiles.get(row, col);
-            Piece piece = tile.peek();
             boolean[] allPathBlockedQuadrants = new boolean[] { false, false, false, false };
             for (Move move: piece.getMoves()) {
-                int multiplier = 1;
                 boolean[] blockedQuadrants = new boolean[] { false, false, false, false };
                 if (move.isAllPath()) blockedQuadrants = allPathBlockedQuadrants;
                 do {
-                    addMoveQuadrants(res, piece, row, col, move, multiplier, blockedQuadrants);
-                    if (move.isTransposed()) addMoveQuadrants(res, piece, row, col, move.toTransposed(), multiplier, blockedQuadrants);
-                } while (move.isUntilEnd() && multiplier++ < Math.max(rows, cols));
+                    addMoveQuadrants(res, piece, move, blockedQuadrants);
+                    if (move.isTransposed()) addMoveQuadrants(res, piece, move.toTransposed(), blockedQuadrants);
+                } while (move.isUntilEnd());
             }
         } catch(Exception e) { Utilities.printException(e); }
         return res;
     }
 
-    // addMoveQuadrants adds to the Tile List res the respective moves a multiplier times its movement
-    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move) {
-        addMoveQuadrants(res, piece, row, col, move, 1);
+
+    // addMoveQuadrants adds to the Tile List res the respective moves (helper for getTargetMoveTiles
+    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move) {
+        addMoveQuadrants(res, piece, move, new boolean[] { false, false, false, false });
     }
-    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier) {
-        addMoveQuadrants(res, piece, row, col, move, multiplier, new boolean[] { false, false, false, false });
-    }
-    private void addMoveQuadrants(List<Tile> res, Piece piece, int row, int col, Move move, int multiplier, boolean[] blockedQuadrants) {
+    private void addMoveQuadrants(List<Tile> res, Piece piece, Move move, boolean[] blockedQuadrants) {
+        Tile pTile = board.findTile(piece);
+        Point pCoord = board.findCoord(piece);
+
+        if (pTile == null || pCoord == null) {
+            return;
+        }
+
         // scale here
         Point[] signConversion = new Point[] {
-            new Point(multiplier, multiplier), // quadrant 1 (0)
-            new Point(multiplier, -1 * multiplier), // quadrant 2 (1)
-            new Point(-1 * multiplier, -1 * multiplier), // quadrant 3 (2)
-            new Point(-1 * multiplier, multiplier) // quadrant 4 (3)
+                new Point(1, 1), // quadrant 1 (0)
+                new Point(1, -1), // quadrant 2 (1)
+                new Point(-1, -1), // quadrant 3 (2)
+                new Point(-1, 1) // quadrant 4 (3)
         };
-        boolean[] swapConversion = new boolean[] {
-            false, // quadrant 1
-            true, // quadrant 2
-            false, // quadrant 3
-            true // quadrant 4
-        };
+
         boolean[] quadrants = move.getQuadrants();
         for (int i = 0; i < quadrants.length; ++i) {
-            // TODO RULES -- HOW DO I MODULARIZE THIS?!?!
             // pre
             if (quadrants[i] == false) continue;
             if (move.isBlockable() && blockedQuadrants[i]) continue;
@@ -114,7 +116,7 @@ public class ChessGame {
             rowMove = move.getRowMove();
             colMove = move.getColMove();
 
-            if (swapConversion[i] == true) {
+            if (Move.swapConversion[i] == true) {
                 int tmp = rowMove;
                 rowMove = colMove;
                 colMove = tmp;
@@ -122,8 +124,8 @@ public class ChessGame {
             rowMove *= signConversion[i].x; // not really x, just using point for 2 ints
             colMove *= signConversion[i].y;
 
-            destRow = rowMove + row;
-            destCol = colMove + col;
+            destRow = rowMove + pCoord.x;
+            destCol = colMove + pCoord.y;
 
             // TODO RULES
             // post
@@ -139,11 +141,11 @@ public class ChessGame {
             if (!move.isAttacking() && (destTile.peek() != null)) continue; // if cannot attack, make sure there is no piece on tile
 
             if (move.isAttackToMove() && (destTile.peek() == null || // if attackToMove, make sure there is a piece to attack
-                    destTile.peek().getColor() == selectedTile.peek().getColor()))
+                    destTile.peek().getColor() == pTile.peek().getColor()))
                 continue;
 
             if (!move.isTeamAttacking() && (destTile.peek() != null && // unless it is team attacking, it cannot move to tile with same color piece
-                    destTile.peek().getColor() == selectedTile.peek().getColor()))
+                    destTile.peek().getColor() == pTile.peek().getColor()))
                 continue;
 
             if (move.isFirstMove() && piece.moveCount != 0) continue;
@@ -157,7 +159,7 @@ public class ChessGame {
         try {
             selectedTile = tiles.get(row, col);
             if (selectedTile.peek() != null && selectedTile.peek().getColor() == playerColor[currentPlayerIndex])
-                moveTiles = getMoveTiles(row, col);
+                selectedMoveTiles = getPieceMoveTiles(row, col);
             selectedRow = row;
             selectedCol = col;
         } catch (Exception e) {}
@@ -168,7 +170,7 @@ public class ChessGame {
         selectedTile = null;
         selectedRow = -1;
         selectedCol = -1;
-        moveTiles = null;
+        selectedMoveTiles = null;
     }
 
     // initiates board by calling other inits
@@ -219,7 +221,7 @@ public class ChessGame {
     public void tilePressed(int row, int col) {
         Tile tile = tiles.get(row, col);
         // if clicked on a move tile, then move the piece and update stuff
-        if (moveTiles != null && moveTiles.contains(tile) &&
+        if (selectedMoveTiles != null && selectedMoveTiles.contains(tile) &&
                 selectedTile != null && selectedTile != tile) {
 
             Piece destPiece = tile.peek();
@@ -265,11 +267,11 @@ public class ChessGame {
         }
     }
 
-    // determines if the tile is a tile in moveTiles
+    // determines if the tile is a tile in selectedMoveTiles
     public boolean isInMoveTiles(Tile tile) {
-        if (moveTiles == null) return false;
+        if (selectedMoveTiles == null) return false;
 
-        for (Tile t: moveTiles) {
+        for (Tile t: selectedMoveTiles) {
             if (t == tile) return true;
         }
         return false;

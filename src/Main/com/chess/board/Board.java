@@ -2,6 +2,8 @@ package com.chess.board;
 import com.chess.util.Utilities;
 import com.chess.piece.*;
 
+import java.awt.*;
+
 /* The setting where pieces interact with each other. Contains methods required to move them around */
 public class Board {
     private int rows; // rows on board
@@ -14,7 +16,7 @@ public class Board {
     public Board(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        tiles = new TileCollection(rows, cols);
+
         init();
     }
 
@@ -25,11 +27,7 @@ public class Board {
 
     // initialize board of empty constructor tiles
     void initTiles() {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                tiles.set(i, j, new Tile());
-            }
-        }
+        tiles = new TileCollection(rows, cols);
     }
 
     // getters
@@ -58,6 +56,16 @@ public class Board {
         for (Tile t : tiles) if (t.contains(piece)) return t;
         return null;
     }
+
+    public Point findCoord(Piece piece) {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (tiles.get(i, j).contains(piece)) return new Point(i, j);
+            }
+        }
+        return null;
+    }
+
     // overloaded- finds the piece at src with the index and moves that one
     public void movePiece(int index, int srcRow, int srcCol, int destRow, int destCol) {
         try {

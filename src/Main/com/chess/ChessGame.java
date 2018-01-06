@@ -191,7 +191,6 @@ public class ChessGame {
             }
 
         }
-        System.out.println(possibleMoves.size());
         return possibleMoves;
     }
 
@@ -267,7 +266,6 @@ public class ChessGame {
         // if there is no selected tile on a click, then you select the tile. deselect if you do have a selected tile
         if (selectedTile == null && tile.peek() != null) {
             selectTile(row, col);
-            System.out.println(isInDanger(tile.peek()));
         } else {
             deselectTile();
         }

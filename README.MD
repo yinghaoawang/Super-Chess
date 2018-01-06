@@ -87,11 +87,11 @@ The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Q
 ## Progress Visuals
 ### 1/5/18
 ![1/5](https://i.imgur.com/UJik6kw.png)
-*Update: Check added and working. Can block or move queen out of way for moves*
+*Update: Check added and working. Works for moving king, blocking king, and eating threat*
 
 ### 1/2/18
 ![1/2](https://i.imgur.com/37ZuYo2.png)
-*Update: Layout made modular and smooth, twitchy graveyard fix*
+*Update: Back to working on this project. Layout made modular and smooth, twitchy graveyard fix*
 
 ### 3/16/17 modularity [blueprint](https://raw.githubusercontent.com/yinghaoawang/Super-Chess/master/images/blueprint_3-16-17.png)
 

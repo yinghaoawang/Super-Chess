@@ -30,6 +30,12 @@ public class Board {
     // initialize board of empty constructor tiles
     void initTiles() {
         tiles = new TileCollection(rows, cols);
+        // make checkerboard design
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if ((j + i) % 2 == 0) tiles.get(i, j).setColor(Tile.Color.BLACK);
+            }
+        }
     }
 
     // getters

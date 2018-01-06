@@ -29,6 +29,8 @@ public class Tile {
     public boolean isEmpty() { return pieces.size() == 0; }
     public int size() { return pieces.size(); }
 
+    public void setColor(Color color) { this.color = color; }
+
     // list operations
 
     // returns the piece at given index

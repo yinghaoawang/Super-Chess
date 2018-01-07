@@ -30,9 +30,11 @@ public class Move {
     boolean blockable = false; // if this piece can be blocked by other pieces (i.e bishop rook, pawn, not horse, etc.)
     boolean untilEnd = false; // continues the trend (i.e bishop, rook, queen, not horse, not pawn, etc.)
     boolean attacking = true; // whether if this move can be used to kill
-    boolean attackToMove = false; // wthether the piece can only move here if enemy on here
+    boolean attackToMove = false; // whether the piece can only move here if enemy on here
     boolean teamAttacking = false; // whether this piece can eat teammates
-    boolean firstMove = false; // if this rule only applies on first move of a piece (i.e pawn double move and en passant)
+    boolean firstMove = false; // if this rule only applies on first move of a piece (i.e pawn double move)
+    boolean specialMove = false; // is this move to be handled outside
+    String specialMoveName = null; // the name used to be handled
     /* dont forget to put into copy constructor when adding new fields */
     /* dont forget to put into copy constructor when adding new fields */
 

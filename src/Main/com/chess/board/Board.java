@@ -73,6 +73,10 @@ public class Board {
         return null;
     }
 
+    public Tile findTile(int row, int col) {
+        return tiles.get(row, col);
+    }
+
     public List<Tile> findTiles(String name, Piece.Color color) {
         List<Tile> res = new ArrayList<>();
         for (Tile t : tiles) if (t.contains(name, color)) res.add(t);

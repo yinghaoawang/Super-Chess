@@ -13,11 +13,12 @@ public abstract class Piece {
         public String toString() { return this.name; }
     }
 
+    public int moveCount = 0;
+
     String name = null;
     char symbol = '\0';
     String displaySequence = null;
     char encoding = '\0';
-    public int moveCount = 0;
     Color color;
     List<Move> moves = new ArrayList<>();
 

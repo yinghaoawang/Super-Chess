@@ -26,9 +26,8 @@
         - [x] Blocking
         - [ ] En Passant
         - [ ] Castling
-        - [ ] Game Staets
-            - [ ] Win
-            - [ ] Lost
+        - [ ] Game states
+            - [ ] Win/Loss
             - [ ] Draw
             - [ ] Restart
     - [x] 2 players
@@ -60,8 +59,7 @@
 -->
 
 ### Description:
-I make a scaleable chess engine such that it may be able to create awesome pieces with insane moves. First time making an actual graphical project from scratch. It is very satisfying thus far.  
-The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Queen (or any other piece) in no more than 5 lines of code!  
+Super Chess is a chess engine that is able to create pieces with dynamic moves easily.
 
 ### How to run
 - Download/clone the program
@@ -74,6 +72,11 @@ The moves that the pieces aren't hardcoded! A pawn can be set to behave like a Q
 #### On Intellij IDEA:
 - Open the project folder
 - Compile and run ChessGameRunner
+
+### Sample Modifications
+```java
+// Sample code goes here
+```
 
 ### Things learned:
 - Due to packaging, I now learn of the importance of class access. Especially package-private.

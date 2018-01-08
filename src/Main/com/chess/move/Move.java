@@ -33,7 +33,6 @@ public class Move {
     boolean attackToMove = false; // whether the piece can only move here if enemy on here
     boolean teamAttacking = false; // whether this piece can eat teammates
     boolean firstMove = false; // if this rule only applies on first move of a piece (i.e pawn double move)
-    boolean specialMove = false; // is this move to be handled outside
     String specialMoveName = null; // the name used to be handled
     /* dont forget to put into copy constructor when adding new fields */
     /* dont forget to put into copy constructor when adding new fields */
@@ -77,12 +76,14 @@ public class Move {
     public boolean isAttackToMove() { return attackToMove; }
     public boolean isTeamAttacking() { return teamAttacking; }
     public boolean isFirstMove() { return firstMove; }
+    public boolean isSpecialMove() { return specialMoveName != null; }
     public boolean isInQ1() { return quadrants[0]; }
     public boolean isInQ2() { return quadrants[1]; }
     public boolean isInQ3() { return quadrants[2]; }
     public boolean isInQ4() { return quadrants[3]; }
     public int getRowMove() { return rowMove; }
     public int getColMove() { return colMove; }
+    public String getSpecialMoveName() { return specialMoveName; }
     public boolean[] getQuadrants() { return Arrays.copyOf(quadrants, quadrants.length); }
     public Move toTransposed() {
         Move transMove = null;

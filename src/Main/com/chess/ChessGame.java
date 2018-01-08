@@ -19,7 +19,7 @@ public class ChessGame {
     private Tile selectedTile = null;
     private int selectedRow = -1;
     private int selectedCol = -1;
-    private List<TileMove> selectedMoveTiles = null;
+    private TileMoveList selectedMoveTiles = null;
     private List<BoardMove> boardMoves = null;
 
     // player
@@ -121,7 +121,7 @@ public class ChessGame {
                 rowMove = colMove;
                 colMove = tmp;
             }
-            rowMove *= signConversion[i].x; // not really x, just using point for 2 ints
+            rowMove *= signConversion[i].x; // x is row, y is col
             colMove *= signConversion[i].y;
 
             destRow = rowMove + pCoord.x;
@@ -150,30 +150,33 @@ public class ChessGame {
 
             if (move.isFirstMove() && piece.moveCount != 0) continue;
 
-            if (!res.contains(destTile)) res.add(new TileMove(destTile));
+            if (!res.contains(destTile)) res.add(new TileMove(destTile, move.getSpecialMoveName()));
         }
     }
 
     // action for mouse presses a tile
     public void tilePressed(int row, int col) {
-        Tile tile = tiles.get(row, col);
-        // if clicked on a move tile, then move the piece and update stuff
-        if (selectedMoveTiles != null && selectedMoveTilesContains(tile) &&
-                selectedTile != null && selectedTile != tile) {
+        Tile destTile = tiles.get(row, col);
+        if (selectedMoveTiles != null && selectedMoveTiles.contains(destTile) &&
+                selectedTile != null && selectedTile != destTile) {
 
-
-            Piece destPiece = tile.peek();
+            Piece destPiece = destTile.peek();
+            Piece selectedPiece = selectedTile.peek();
             if (destPiece != null) putToGrave(destPiece);
 
-            board.movePiece(selectedRow, selectedCol, row, col);
+            if (tileIsSpecialMove(destTile)) {
+                executeSpecialMove(selectedPiece, destTile);
+            } else {
+                board.movePiece(selectedPiece, destTile);
+            }
 
-            ++tile.peek().moveCount;
-            boardMoves.add(new BoardMove(tile.peek(), selectedRow, selectedCol, row, col));
+            ++selectedPiece.moveCount;
+            boardMoves.add(new BoardMove(selectedPiece, board.findCoord(selectedTile), board.findCoord(destTile)));
             nextPlayer();
         }
 
         // if there is no selected tile on a click, then you select the tile. deselect if you do have a selected tile
-        if (selectedTile == null && tile.peek() != null) {
+        if (selectedTile == null && destTile.peek() != null) {
             selectTile(row, col);
         } else {
             deselectTile();
@@ -191,40 +194,8 @@ public class ChessGame {
         selectedCol = col;
     }
 
-/*
-    private List<Move> getCastleMoves(Piece piece) {
-        List<Move> res = new ArrayList<>();
-        if (piece.moveCount != 0) return res;
-        // search horizontally
-        Point coord = board.findCoord(piece);
-        Piece.Color pColor = piece.getColor();
-        int pRow = coord.x;
-        int pCol = coord.y;
-        // get each tile horizontal to the piece
-        for (int i = pCol - 1; i >= 0; --i) {
-            Tile tile = board.findTile(pRow, i);
-            // if tile is empty, then check if that tile is threatened by enemy (cannot castle if it is)
-            if (tile.isEmpty()) {
-                if (isInDanger(tile, pColor)) break;
-            }
-            // if tile is not empty, make sure it meets criteria before adding move
-            else {
-                System.out.println("asdf");
-                Piece tilePiece = tile.peek();
-                if (tilePiece.getName() != "Rook") break;
-                // if it is a rook, make sure it is not right next to king (space to castle)
-                if (i == pCol - 1) break;
-                // if it is a rook, make sure it has never moved
-                if (tilePiece.moveCount != 0) break;
-                // if it meets criteria, then
-                res.add(new CastleMove(Math.abs(pCol - i), 3));
-            }
-        }
-        return res;
-    }
-*/
     // Gets the possible tiles a piece can move to
-    private List<TileMove> getPossibleMoves(Piece piece) {
+    private TileMoveList getPossibleMoves(Piece piece) {
         TileMoveList possibleMoves = new TileMoveList();
         Tile pTile = board.findTile(piece);
 
@@ -232,6 +203,13 @@ public class ChessGame {
 
         if (piece != null && piece.getColor() == currPlayerColor) {
             possibleMoves = getPieceMoveTiles(piece);
+            TileMoveList specialMoves = possibleMoves.getSpecialTileMoves();
+
+            // make sure special moves are doable
+            for (TileMove tm : specialMoves) {
+                if (!canHandleSpecialMove(tm, piece)) possibleMoves.remove(tm);
+            }
+
 
             // makes sure that when moving, the king is not endangered
             for (int i = 0; i < possibleMoves.size(); ++i) {
@@ -250,6 +228,77 @@ public class ChessGame {
 
         }
         return possibleMoves;
+    }
+
+    // determine if the piece can make a special move
+    private boolean canHandleSpecialMove(TileMove tm, Piece piece) {
+        if (tm.name == "Castle") {
+            return canHandleCastling(tm, piece);
+        }
+        return false;
+    }
+    private boolean canHandleCastling(TileMove tm, Piece piece) {
+        // king must have never moved to castle
+        if (piece.moveCount != 0) return false;
+
+        // the tile and coords of the given piece
+        Tile pTile = board.findTile(piece);
+        Point pCoord = board.findCoord(piece);
+        Point tCoord = board.findCoord(tm.tile);
+
+        // no moves if the tile could not be found
+        if (pTile == null || pCoord == null) {
+            return false;
+        }
+
+        // set corresponding variables
+        int pRow = pCoord.x;
+        int pCol = pCoord.y;
+        int tRow = tCoord.x;
+        int tCol = tCoord.y;
+
+        // make sure they're aligned horizontally (same row)
+        if (pRow != tRow) return false;
+
+        // make sure there is enough space to put rook behind the queen
+        if (Math.abs(pCol - tCol) < 2) return false;
+
+        // boolean to check if target tile is on left of king tile
+        boolean leftOf = tCol < pCol;
+
+        // loops thru left or right of piece depending on where target tile is
+        int delta = 1;
+        if (leftOf) delta = -1;
+        for (int i = pCol, iteration = 0; (leftOf && i >= 0) || (!leftOf && i < cols); i += delta, ++iteration) {
+            if (i == pCol) {
+                continue;
+            }
+            Tile tile = board.findTile(pRow, i);
+            // if tile is not occupied
+            if (tile.isEmpty()) {
+                // tile must be safe if queen is to walk on it
+                if (iteration <= 2) {
+                    if (isInDanger(tile, piece.getColor())) return false;
+                }
+                // otherwise continue onto next time
+                continue;
+            }
+
+            // if tile is occupied
+
+            // if the piece occupying is not a rook, then cannot castle
+            Piece currPiece = tile.peek();
+            if (currPiece.getName() != "Rook") return false;
+
+            // make sure rook has space to castle to
+            if (iteration < 2) return false;
+
+            // the rook needs to have never moved
+            if (currPiece.moveCount != 0) return false;
+        }
+
+        // if all the tiles until it encouters a rook are true, then castling is allowed
+        return true;
     }
 
     // what to do when deselecting a tile
@@ -284,8 +333,9 @@ public class ChessGame {
         //board.addPiece(new Knight(Piece.Color.WHITE), 0, 6);
         board.addPiece(new Rook(Piece.Color.WHITE), 0, 7);
         for (int i = 0; i < 8; ++i) {
-            board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
+            if (i != 4) board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
+        board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);
 
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 0);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 1);
@@ -300,15 +350,9 @@ public class ChessGame {
         }
     }
 
-    // check if the tilemoves contain the tile
-    boolean selectedMoveTilesContains(Tile tile) {
-        for (TileMove tm : selectedMoveTiles) if (tm.tile == tile) return true;
-        return false;
-    }
-
     // create text areas for board moves
     void initBoardMoves() {
-        boardMoves = new ArrayList<BoardMove>();
+        boardMoves = new ArrayList<>();
     }
 
     // inits and colors the tiles as a chessboard design
@@ -345,6 +389,44 @@ public class ChessGame {
             if (tm.tile == tile) return true;
         }
         return false;
+    }
+
+    // determines if a tile is a special move tile
+    private boolean tileIsSpecialMove(Tile tile) {
+        TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
+        return specialMoves.contains(tile);
+    }
+
+    private void executeSpecialMove(Piece piece, Tile tile) {
+        TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
+        TileMove tm = specialMoves.get(tile);
+        String name = tm.name;
+        if (name == "Castle") executeCastleMove(piece, tile);
+    }
+
+    // TODO
+    private void executeCastleMove(Piece piece, Tile tile) {
+        Point pCoord = board.findCoord(piece);
+        Point tCoord = board.findCoord(tile);
+
+        int pRow = pCoord.x;
+        int pCol = pCoord.y;
+        int tRow = tCoord.x;
+        int tCol = tCoord.y;
+
+        boolean leftOf = tCol < pCol;
+        int delta = 1;
+        if (leftOf) delta = -1;
+        for (int i = pCol; (leftOf && i >= 0) || (!leftOf && i < cols); i += delta) {
+            if (i == pCol) continue;
+            Tile currTile = board.findTile(pRow, i);
+            if (currTile.isEmpty()) continue;
+            // if tile is not empty, then it must be a rook, so do castle
+            // move rook
+            board.movePiece(currTile.peek(), pRow, pCol + delta);
+            // move king
+            board.movePiece(piece, tile);
+        }
     }
 
     // determines if white or black king(s) is in danger

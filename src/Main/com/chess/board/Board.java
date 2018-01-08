@@ -57,6 +57,10 @@ public class Board {
             Utilities.printException(e);
         }
     }
+    public void movePiece(Piece piece, int row, int col) {
+        Point pCoord = findCoord(piece);
+        movePiece(piece.getName(), pCoord.x, pCoord.y, row, col);
+    }
 
     public Piece findPiece(String name, Piece.Color color) {
         for (Tile t : tiles) {
@@ -83,10 +87,19 @@ public class Board {
         return res;
     }
 
+    // find the coordinate on the board (row, col)
     public Point findCoord(Piece piece) {
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (tiles.get(i, j).contains(piece)) return new Point(i, j);
+            }
+        }
+        return null;
+    }
+    public Point findCoord(Tile tile) {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (tiles.get(i, j) == tile) return new Point(i, j);
             }
         }
         return null;

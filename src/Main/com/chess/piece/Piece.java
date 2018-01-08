@@ -57,7 +57,7 @@ public abstract class Piece {
     }
 
     // add move to piece's moves
-    protected void addMove(Move move) {
+    void addMove(Move move) {
         int rowMove = move.getRowMove();
         int colMove= move.getColMove();
         int i = 0;

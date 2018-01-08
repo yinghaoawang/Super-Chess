@@ -15,6 +15,7 @@ public class King extends Piece {
     void initMoves() {
         addMove(new SingleStraightMove());
         addMove(new SingleDiagonalMove());
-        addMove(new CastleMove());
+        addMove(new CastleMove(0));
+        addMove(new CastleMove(2));
     }
 }

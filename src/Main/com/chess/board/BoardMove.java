@@ -2,6 +2,8 @@ package com.chess.board;
 import com.chess.util.Utilities;
 import com.chess.piece.Piece;
 
+import java.awt.*;
+
 /* Documents the history of a chess game. Holds which piece moved from source coordinate to destination coordinate */
 public class BoardMove {
     Piece piece;
@@ -12,6 +14,9 @@ public class BoardMove {
         this.srcCol = srcCol;
         this.destRow = destRow;
         this.destCol = destCol;
+    }
+    public BoardMove(Piece piece, Point src, Point dest) {
+        this(piece, src.x, src.y, dest.x, dest.y);
     }
     public String toString() {
         return piece.getDisplaySequence() + Utilities.colToChar(srcCol) + Utilities.rowToChar(srcRow) + " "

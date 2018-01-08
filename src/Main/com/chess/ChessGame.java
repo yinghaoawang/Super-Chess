@@ -335,7 +335,10 @@ public class ChessGame {
         for (int i = 0; i < 8; ++i) {
             if (i != 4) board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
+
+
         board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);
+        board.addPiece(new Queen(Piece.Color.BLACK), 4, 7);
 
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 0);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 1);

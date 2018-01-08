@@ -25,7 +25,7 @@
         - [ ] Checkmate
         - [x] Blocking
         - [ ] En Passant
-        - [ ] Castling
+        - [x] Castling
         - [ ] Game states
             - [ ] Win/Loss
             - [ ] Draw
@@ -88,6 +88,9 @@ Super Chess is a chess engine that is able to create pieces with dynamic moves e
 - The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
 ## Progress Visuals
+### 1/7/18
+![1/7](https://i.imgur.com/VpOjvMo.gifv)
+*Update: Special moves: castling*
 ### 1/5/18
 ![1/5](https://i.imgur.com/UJik6kw.png)
 *Update: Check added and working. Works for moving king, blocking king, and eating threat*

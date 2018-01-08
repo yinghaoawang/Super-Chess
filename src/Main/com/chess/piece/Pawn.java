@@ -31,14 +31,22 @@ public class Pawn extends Piece {
         attack.setQuadrants(true, true, false, false);
         attack.setAttackToMove(true);
 
+        Move ep1 = new EnPassantMove(0);
+        Move ep2 = new EnPassantMove(1);
+
         if (color == Piece.Color.BLACK) {
             move = move.toInvertedQuadrants();
             doubleMove = doubleMove.toInvertedQuadrants();
+
             attack = attack.toInvertedQuadrants();
+            ep1.setQuadrants(new boolean[] { false, false, true, false });
+            ep2.setQuadrants(new boolean[] { false, false, false, true });
         }
 
         addMove(move);
         addMove(attack);
         addMove(doubleMove);
+        addMove(ep1);
+        addMove(ep2);
     }
 }

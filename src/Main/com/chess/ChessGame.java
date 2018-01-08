@@ -7,6 +7,7 @@ import com.chess.util.Utilities;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /* The logic of this program. It holds pieces together all the pieces
@@ -26,7 +27,7 @@ public class ChessGame {
     private Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
 
     // grave
-    private List<List<Piece>> grave = new ArrayList<List<Piece>>();
+    private List<List<Piece>> grave = new LinkedList<>();
     private int currentPlayerIndex = 0;
 
     public ChessGame() {
@@ -189,9 +190,16 @@ public class ChessGame {
         Piece piece = selectedTile.peek();
         selectedMoveTiles = getPossibleMoves(piece);
 
-        // TODO ENPASSANT
         selectedRow = row;
         selectedCol = col;
+    }
+
+    // what to do when deselecting a tile
+    private void deselectTile() {
+        selectedTile = null;
+        selectedRow = -1;
+        selectedCol = -1;
+        selectedMoveTiles = null;
     }
 
     // Gets the possible tiles a piece can move to
@@ -234,9 +242,13 @@ public class ChessGame {
     private boolean canHandleSpecialMove(TileMove tm, Piece piece) {
         if (tm.name == "Castle") {
             return canHandleCastling(tm, piece);
+        } else if (tm.name == "En Passant") {
+            return canHandleEnPassant(tm, piece);
         }
         return false;
     }
+
+    // determine if piece can castle
     private boolean canHandleCastling(TileMove tm, Piece piece) {
         // king must have never moved to castle
         if (piece.moveCount != 0) return false;
@@ -301,15 +313,63 @@ public class ChessGame {
         return true;
     }
 
-    // what to do when deselecting a tile
-    private void deselectTile() {
-        selectedTile = null;
-        selectedRow = -1;
-        selectedCol = -1;
-        selectedMoveTiles = null;
+    // determines if piece can en passant
+    private boolean canHandleEnPassant(TileMove tm, Piece piece) {
+        // must be on 5th rank
+        if (getPieceRank(piece) != 5) return false;
+
+        // set vars
+        Point tCoord = board.findCoord(tm.tile);
+        Point pCoord = board.findCoord(piece);
+        int pRow = pCoord.x;
+        int pCol = pCoord.y;
+        int tRow = tCoord.x;
+        int tCol = tCoord.y;
+
+        // find target pawn to capture
+        Tile targetTile = board.findTile(pRow, tCol); // gets adjacent tile
+        if (targetTile == null || targetTile.isEmpty()) return false;
+
+        Piece targetPiece = targetTile.peek(); // gets target piece
+        if (targetPiece.getColor() == piece.getColor()) return false; // cannot eat own piece
+        if (targetPiece.getName() != "Pawn") return false; // must be a pawn to eat
+
+        // target pawn must have just moved
+        if (boardMoves.isEmpty()) return false;
+        BoardMove lastMove = boardMoves.get(boardMoves.size()-1);
+        if (lastMove.getPiece() != targetPiece) return false;
+
+        // target pawn must have made a double move
+        if (Math.abs(lastMove.getDestRow() - lastMove.getSrcRow()) != 2) return false;
+
+        // make sure queen is safe if en passant is made
+        boolean queenDanger = false;
+        Tile tmpTile = new Tile();
+        board.movePiece(targetPiece, tmpTile);
+        board.movePiece(piece, targetTile);
+        if (isColorCheck(piece.getColor())) {
+            queenDanger = true;
+        }
+
+        // put the pieces back
+        board.movePiece(piece, tm.tile);
+        board.addPiece(targetPiece, targetTile);
+        if (queenDanger) return false;
+
+        return true;
     }
 
-    // initiates board by calling other inits
+    // get the rank (layman's row) of a piece
+    private int getPieceRank(Piece piece) {
+        Point coord = board.findCoord(piece);
+        if (piece.getColor() == Piece.Color.WHITE) {
+            return coord.x + 1;
+        } else {
+            return rows - coord.x;
+        }
+    }
+
+    // initializes board by calling other initializers
     void init() {
         initTiles();
         initPieces();
@@ -317,6 +377,7 @@ public class ChessGame {
         initGraves();
     }
 
+    // creates graveyard list for pieces
     void initGraves() {
         // create grave piece list
         for (int i = 0; i < playerColor.length; ++i) grave.add(new ArrayList<Piece>());
@@ -358,7 +419,7 @@ public class ChessGame {
         boardMoves = new ArrayList<>();
     }
 
-    // inits and colors the tiles as a chessboard design
+    // initializes and colors the tiles as a chessboard design
     void initTiles() {
         // begin first tile as black
         boolean blackRow = true;
@@ -400,14 +461,16 @@ public class ChessGame {
         return specialMoves.contains(tile);
     }
 
+    // executes special move if it has one (assuming all prerequsites are met, will not make any checks)
     private void executeSpecialMove(Piece piece, Tile tile) {
         TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
         TileMove tm = specialMoves.get(tile);
         String name = tm.name;
         if (name == "Castle") executeCastleMove(piece, tile);
+        else if (name == "En Passant") executeEnPassantMove(piece, tile);
     }
 
-    // TODO
+    // assuming can execute castle move, will move rook behind king, and move king 2 steps
     private void executeCastleMove(Piece piece, Tile tile) {
         Point pCoord = board.findCoord(piece);
         Point tCoord = board.findCoord(tile);
@@ -430,6 +493,21 @@ public class ChessGame {
             // move king
             board.movePiece(piece, tile);
         }
+    }
+
+    // assuming can execute en passant move, will kill target piece, and move current pawn to diagonal
+    private void executeEnPassantMove(Piece piece, Tile tile) {
+        Point pCoord = board.findCoord(piece);
+        Point tCoord = board.findCoord(tile);
+
+        int pRow = pCoord.x;
+        int pCol = pCoord.y;
+        int tRow = tCoord.x;
+        int tCol = tCoord.y;
+
+        Tile targetTile = board.findTile(pRow, tCol);
+        putToGrave(targetTile.peek());
+        board.movePiece(piece, tile);
     }
 
     // determines if white or black king(s) is in danger

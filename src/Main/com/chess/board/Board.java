@@ -127,6 +127,10 @@ public class Board {
     public void addPiece(Piece piece, int row, int col) {
         tiles.get(row, col).push(piece);
     }
+    public void addPiece(Piece piece, Tile tile) {
+        Point point = findCoord(tile);
+        addPiece(piece, point.x, point.y);
+    }
 
     // removes and returns the piece at the top of the tile
     public Piece removePiece(int row, int col) throws Exception {

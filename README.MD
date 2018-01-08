@@ -1,12 +1,15 @@
 ## Chess Checklist
 - [ ] Base Chess Engine
     - [x] Create pieces with respective moves
-        - [x] Pieces
+        - [x] Functional Pieces
             - [x] Colors
             - [x] Moves
                 - [x] Scaleable moves (i.e A knight that can move in constant Ls and can be blocked)
                 - [x] Implementation of moves given characteristics
-            - [x] Pawn Moves
+            - [x] Pawn Moves (Double move, eating diagonally only)
+            - [x] Special Moves
+                - [x] Castling
+                - [x] En Passant
         - [x] Base chess Pieces (Knight, Rook, etc.)
     - [x] GUI
         - [x] Chessboard tiles
@@ -24,8 +27,6 @@
         - [x] Check
         - [ ] Checkmate
         - [x] Blocking
-        - [ ] En Passant
-        - [x] Castling
         - [ ] Game states
             - [ ] Win/Loss
             - [ ] Draw
@@ -35,7 +36,7 @@
         - [x] Graves
     - [ ] Modularize
         - Chess game
-            - [ ] Chess game
+            - [x] Chess game
         - Displays
             - [x] Chess game frame
             - [x] Chess board panel
@@ -88,6 +89,9 @@ Super Chess is a chess engine that is able to create pieces with dynamic moves e
 - The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
 ## Progress Visuals
+### 1/7/18 night
+![1/7](images/gifs/2018-01-07_20-25-40.gif)
+*Update: Special moves: en passant*
 ### 1/7/18
 ![1/7](images/gifs/2018-01-07_19-02-28.gif)
 *Update: Special moves: castling*

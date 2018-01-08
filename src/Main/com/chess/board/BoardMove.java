@@ -18,6 +18,13 @@ public class BoardMove {
     public BoardMove(Piece piece, Point src, Point dest) {
         this(piece, src.x, src.y, dest.x, dest.y);
     }
+    public Piece getPiece() { return piece; }
+    public Point getSrcCoord() { return new Point(srcRow, srcCol); }
+    public Point getDestCoord() { return new Point(destRow, destCol); }
+    public int getSrcRow() { return srcRow; }
+    public int getSrcCol() { return srcCol; }
+    public int getDestRow() { return destRow; }
+    public int getDestCol() { return destCol; }
     public String toString() {
         return piece.getDisplaySequence() + Utilities.colToChar(srcCol) + Utilities.rowToChar(srcRow) + " "
             + Utilities.colToChar(destCol) + Utilities.rowToChar(destRow);

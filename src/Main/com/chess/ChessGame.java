@@ -23,6 +23,8 @@ public class ChessGame {
     private TileMoveList selectedMoveTiles = null;
     private List<BoardMove> boardMoves = null;
 
+    private String message = "";
+
     // player
     private Piece.Color[] playerColor = new Piece.Color[] { Piece.Color.WHITE, Piece.Color.BLACK };
 
@@ -44,6 +46,7 @@ public class ChessGame {
     public Tile getSelectedTile() { return selectedTile; }
     public List<List<Piece>> getGrave() { return grave; }
     public List<BoardMove> getBoardMoves() { return boardMoves; }
+    public String getMessage() { return message; }
 
     // on to the next player
     public void nextPlayer() {
@@ -56,8 +59,22 @@ public class ChessGame {
     public void nextPlayer(int index) {
         currentPlayerIndex = index;
         Piece.Color color = playerColor[currentPlayerIndex];
+
         // TODO
-        System.out.println(isColorCheckmate(color));
+        updateState();
+    }
+
+    public void updateState() {
+        Piece.Color currColor = playerColor[currentPlayerIndex];
+        String strColor = "White";
+        if (currColor == Piece.Color.BLACK) strColor = "Black";
+        if (isColorCheckmate(currColor)) {
+            message = strColor + " is in checkmate.";
+        } else if (isColorCheck(currColor)) {
+            message = strColor + " is in check.";
+        } else {
+            message = strColor + "'s move.";
+        }
     }
 
     // puts piece into matching player's grave

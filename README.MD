@@ -89,7 +89,7 @@ Super Chess is a chess engine that is able to create pieces with dynamic moves e
 
 ## Progress Visuals
 ### 1/7/18
-![1/7](https://i.imgur.com/VpOjvMo.gifv)
+![1/7](images/gifs/2018-01-07_19-02-28.gif)
 *Update: Special moves: castling*
 ### 1/5/18
 ![1/5](https://i.imgur.com/UJik6kw.png)

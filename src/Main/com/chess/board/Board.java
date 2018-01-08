@@ -133,8 +133,12 @@ public class Board {
     }
 
     // removes and returns the piece at the top of the tile
-    public Piece removePiece(int row, int col) throws Exception {
+    public Piece removePiece(int row, int col) {
         return tiles.get(row, col).remove();
+    }
+    public Piece removePiece(Piece piece) {
+        Point coord = findCoord(piece);
+        return removePiece(coord.x, coord.y);
     }
 
     // helpers, self explanatory names

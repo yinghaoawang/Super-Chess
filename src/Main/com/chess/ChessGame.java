@@ -47,8 +47,17 @@ public class ChessGame {
 
     // on to the next player
     public void nextPlayer() {
-        if (++currentPlayerIndex >= playerColor.length)
-            currentPlayerIndex = 0;
+        int index = currentPlayerIndex;
+        if (++index >= playerColor.length)
+            index = 0;
+        nextPlayer(index);
+
+    }
+    public void nextPlayer(int index) {
+        currentPlayerIndex = index;
+        Piece.Color color = playerColor[currentPlayerIndex];
+        // TODO
+        System.out.println(isColorCheckmate(color));
     }
 
     // puts piece into matching player's grave
@@ -212,22 +221,21 @@ public class ChessGame {
         if (piece != null && piece.getColor() == currPlayerColor) {
             possibleMoves = getPieceMoveTiles(piece);
             TileMoveList specialMoves = possibleMoves.getSpecialTileMoves();
+            TileMoveList regularMoves = possibleMoves.getRegularTileMoves();
 
-            // make sure special moves are doable
+            // make sure special moves are doable (handles king safety)
             for (TileMove tm : specialMoves) {
                 if (!canHandleSpecialMove(tm, piece)) possibleMoves.remove(tm);
             }
 
-
-            // makes sure that when moving, the king is not endangered
-            for (int i = 0; i < possibleMoves.size(); ++i) {
-                Tile t = possibleMoves.get(i).tile;
+            // makes sure that when moving with regular moves, the king is not endangered
+            for (int i = 0; i < regularMoves.size(); ++i) {
+                Tile t = regularMoves.get(i).tile;
                 // let them try moves temporarily to see if it protects king
                 board.movePiece(piece, t);
 
                 if (isColorCheck(currPlayerColor)) { // if it does not protect king, then remove it from possible moves
                     possibleMoves.remove(t);
-                    --i;
                 }
 
                 // move piece back to original spot
@@ -279,6 +287,7 @@ public class ChessGame {
         boolean leftOf = tCol < pCol;
 
         // loops thru left or right of piece depending on where target tile is
+        //Piece rook = null;
         int delta = 1;
         if (leftOf) delta = -1;
         for (int i = pCol, iteration = 0; (leftOf && i >= 0) || (!leftOf && i < cols); i += delta, ++iteration) {
@@ -301,6 +310,7 @@ public class ChessGame {
             // if the piece occupying is not a rook, then cannot castle
             Piece currPiece = tile.peek();
             if (currPiece.getName() != "Rook") return false;
+            //rook = currPiece;
 
             // make sure rook has space to castle to
             if (iteration < 2) return false;
@@ -308,6 +318,19 @@ public class ChessGame {
             // the rook needs to have never moved
             if (currPiece.moveCount != 0) return false;
         }
+
+        /* Should not be needed since rooks are on corner of map, and castling implies the 2 spaces on side of king are safe
+        // check if queen is in danger after castling
+        boolean kingDanger = false;
+        Tile rookTile = board.findTile(rook);
+        board.movePiece(rook, board.findTile(pRow, pCol+delta));
+        board.movePiece(piece, pTile);
+        if (isColorCheck(piece.getColor())) kingDanger = true;
+        board.movePiece(rook, rookTile);
+        board.movePiece(piece, pTile);
+
+        if (kingDanger) return false;
+        */
 
         // if all the tiles until it encouters a rook are true, then castling is allowed
         return true;
@@ -342,19 +365,19 @@ public class ChessGame {
         // target pawn must have made a double move
         if (Math.abs(lastMove.getDestRow() - lastMove.getSrcRow()) != 2) return false;
 
-        // make sure queen is safe if en passant is made
-        boolean queenDanger = false;
-        Tile tmpTile = new Tile();
-        board.movePiece(targetPiece, tmpTile);
+        // make sure king is safe if en passant is made
+        boolean kingDanger = false;
+        board.removePiece(targetPiece);
         board.movePiece(piece, targetTile);
         if (isColorCheck(piece.getColor())) {
-            queenDanger = true;
+            kingDanger = true;
         }
+
 
         // put the pieces back
         board.movePiece(piece, tm.tile);
         board.addPiece(targetPiece, targetTile);
-        if (queenDanger) return false;
+        if (kingDanger) return false;
 
         return true;
     }
@@ -375,6 +398,7 @@ public class ChessGame {
         initPieces();
         initBoardMoves();
         initGraves();
+        nextPlayer(0);
     }
 
     // creates graveyard list for pieces
@@ -394,18 +418,20 @@ public class ChessGame {
         //board.addPiece(new Knight(Piece.Color.WHITE), 0, 6);
         board.addPiece(new Rook(Piece.Color.WHITE), 0, 7);
         for (int i = 0; i < 8; ++i) {
-            if (i != 4) board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
+            board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
 
 
-        board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);
+        //board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);
         board.addPiece(new Queen(Piece.Color.BLACK), 4, 7);
+        board.addPiece(new Bishop(Piece.Color.BLACK), 3, 7);
+        board.addPiece(new Pawn(Piece.Color.BLACK), 3, 5);
 
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 0);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 1);
         board.addPiece(new Bishop(Piece.Color.BLACK), 7, 2);
         board.addPiece(new Queen(Piece.Color.BLACK), 7, 3);
-        board.addPiece(new King(Piece.Color.BLACK), 7, 4);
+        board.addPiece(new King(Piece.Color.BLACK), 4, 7);
         board.addPiece(new Bishop(Piece.Color.BLACK), 7, 5);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 6);
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 7);
@@ -508,6 +534,18 @@ public class ChessGame {
         Tile targetTile = board.findTile(pRow, tCol);
         putToGrave(targetTile.peek());
         board.movePiece(piece, tile);
+    }
+
+    // checks if the current color player is in checkmate
+    public boolean isColorCheckmate(Piece.Color color) {
+        int count = 0;
+        for (Tile tile : tiles) {
+            if (tile.isEmpty()) continue;
+            int possibleMoveCount = getPossibleMoves(tile.peek()).size();
+            count += possibleMoveCount;
+        }
+
+        return count == 0;
     }
 
     // determines if white or black king(s) is in danger

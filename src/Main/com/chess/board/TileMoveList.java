@@ -35,4 +35,12 @@ public class TileMoveList extends ArrayList<TileMove> {
         }
         return res;
     }
+
+    public TileMoveList getRegularTileMoves() {
+        TileMoveList res = new TileMoveList();
+        for (TileMove tm : this) {
+            if (tm.name == null) res.add(tm);
+        }
+        return res;
+    }
 }

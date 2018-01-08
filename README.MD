@@ -25,7 +25,7 @@
         - [x] Graves (eaten pieces)
     - [ ] Rules
         - [x] Check
-        - [ ] Checkmate
+        - [x] Checkmate
         - [x] Blocking
         - [ ] Game states
             - [ ] Win/Loss

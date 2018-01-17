@@ -723,7 +723,6 @@ public class ChessGame {
         }
         System.out.println();
 
-        /* // must accept draw (TODO?)
         // no capture or pawn move (50 move rule)
         for (int i = boardMoves.size() - 1; i > boardMoves.size() - 51; --i) {
             BoardMove move = boardMoves.get(i);

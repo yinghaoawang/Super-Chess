@@ -1,5 +1,5 @@
 ## Chess Checklist
-- [ ] Base Chess Engine
+- [x] Base Chess Engine
     - [x] Create pieces with respective moves
         - [x] Functional Pieces
             - [x] Colors
@@ -27,13 +27,13 @@
         - [x] Check
         - [x] Checkmate
         - [x] Blocking
-        - [ ] Game states
-            - [ ] White/Black Win
-            - [ ] Draw
+        - [x] Game states
+            - [x] White/Black Win
+            - [x] Draw
     - [x] 2 players
         - [x] Turns
         - [x] Graves
-    - [ ] Modularize
+    - [x] Modularize
         - Chess game
             - [x] Chess game
         - Displays

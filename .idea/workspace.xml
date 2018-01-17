@@ -14,8 +14,8 @@
       <file leaf-file-name="ChessGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="482" column="26" lean-forward="false" selection-start-line="482" selection-start-column="26" selection-end-line="482" selection-end-column="26" />
+            <state relative-caret-position="713">
+              <caret line="742" column="10" lean-forward="true" selection-start-line="742" selection-start-column="10" selection-end-line="742" selection-end-column="10" />
               <folding>
                 <element signature="class#State#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />
@@ -1116,8 +1116,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="482" column="26" lean-forward="false" selection-start-line="482" selection-start-column="26" selection-end-line="482" selection-end-column="26" />
+        <state relative-caret-position="713">
+          <caret line="742" column="10" lean-forward="true" selection-start-line="742" selection-start-column="10" selection-end-line="742" selection-end-column="10" />
           <folding>
             <element signature="class#State#0;class#ChessGame#0" expanded="false" />
             <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />

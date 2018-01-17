@@ -705,13 +705,12 @@ public class ChessGame {
         }
 
         // threefold repetition
-        for (int iteration = 1, i = boardMoves.size() - 1; i > boardMoves.size() - 5; --i, ++iteration) {
+        for (int i = boardMoves.size() - 1; i > boardMoves.size() - 5; --i) {
             if (i < 4) break;
             BoardMove move = boardMoves.get(i);
             BoardMove prev = boardMoves.get(i - 4);
 
 
-            System.out.println(move + " " + prev + " " + iteration);
             // 3 fold repetition involves matching moves 4 moves ago
             if (move.getVictimPiece() != null) break; // eating does not count
             if (move.getSrcRow() != prev.getSrcRow()) break;
@@ -720,13 +719,30 @@ public class ChessGame {
             if (move.getDestCol() != prev.getDestCol()) break;
 
             // if past 4th iteration, is 3fold rep
-            if (iteration >= 4) return true;
+            if (i == boardMoves.size() - 4) return true;
         }
         System.out.println();
 
-        // no capture or pawn move
+        /* // must accept draw (TODO?)
+        // no capture or pawn move (50 move rule)
+        for (int i = boardMoves.size() - 1; i > boardMoves.size() - 51; --i) {
+            BoardMove move = boardMoves.get(i);
+            if (move.getPiece().getName() == "Pawn") break;
+            if (move.getVictimPiece() != null) break;
 
+            if (i == boardMoves.size() - 50) return true;
+        }
+        */
+
+        /* // TODO? (not completely sure about the draw)
         // impossible checkmate
+        if (boardOnlyHas(new String[] {"King"})) return true;
+        if (boardOnlyHas(new String[] {"King", "Knight"}, new String[] {"King"})) return true;
+        if (boardOnlyHas(new String[] {"King", "Bishop"}, new String[] {"King"})) return true;
+        // if (king +bishsamecolor v king+bishsamecolor) return true;
+        */
+
+        // mutual agreement draw (TODO?)
 
         return false;
     }

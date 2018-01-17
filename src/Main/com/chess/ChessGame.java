@@ -77,6 +77,15 @@ public class ChessGame {
         }
     }
 
+    // gets the corresponding index for grave
+    int getGraveIndex(Piece.Color color) {
+        for (int i = 0; i < playerColor.length; ++i) {
+            if (playerColor[i] == color) return i;
+        }
+        System.err.println("Color does not exist in player/grave index");
+        return -1;
+    }
+
     // puts piece into matching player's grave
     public void putToGrave(Piece piece) {
         Tile tile = board.findTile(piece);
@@ -87,6 +96,29 @@ public class ChessGame {
             }
         }
     }
+
+    // finds piece in graveyard, removes it from graveyard and returns it
+    public Piece takeFromGrave(Piece piece) {
+        int graveIndex = getGraveIndex(piece.getColor());
+        for (Piece p : grave.get(graveIndex)) {
+            if (p == piece) {
+                grave.remove(p);
+                return p;
+            }
+        }
+        return null;
+    }
+    public Piece takefromGrave(String name, Piece.Color color) {
+        int graveIndex = getGraveIndex(color);
+        for (Piece p : grave.get(graveIndex)) {
+            if (p.getName() == name) {
+                grave.remove(p);
+                return p;
+            }
+        }
+        return null;
+    }
+
 
     // returns a Tile List of all the possible moves on the board of the selected piece
     public TileMoveList getPieceMoveTiles(int row, int col) {
@@ -184,6 +216,7 @@ public class ChessGame {
     // action for mouse presses a tile
     public void tilePressed(int row, int col) {
         Tile destTile = tiles.get(row, col);
+        boolean asdf = false;
         if (selectedMoveTiles != null && selectedMoveTiles.contains(destTile) &&
                 selectedTile != null && selectedTile != destTile) {
 
@@ -193,12 +226,14 @@ public class ChessGame {
 
             if (tileIsSpecialMove(destTile)) {
                 executeSpecialMove(selectedPiece, destTile);
+                asdf = true;
             } else {
                 board.movePiece(selectedPiece, destTile);
             }
 
             ++selectedPiece.moveCount;
             boardMoves.add(new BoardMove(selectedPiece, board.findCoord(selectedTile), board.findCoord(destTile)));
+            //if (asdf) undoEnPassantMove(boardMoves.get(boardMoves.size() - 1));
             nextPlayer();
         }
 
@@ -384,16 +419,23 @@ public class ChessGame {
 
         // make sure king is safe if en passant is made
         boolean kingDanger = false;
+        /*
         board.removePiece(targetPiece);
         board.movePiece(piece, targetTile);
+        */
+        executeEnPassantMove(piece, targetTile);
+        BoardMove move = new BoardMove(piece, pRow, pCol, pRow, tCol);
         if (isColorCheck(piece.getColor())) {
             kingDanger = true;
         }
 
 
         // put the pieces back
+        /*
         board.movePiece(piece, tm.tile);
         board.addPiece(targetPiece, targetTile);
+        */
+        undoEnPassantMove(move);
         if (kingDanger) return false;
 
         return true;
@@ -538,6 +580,23 @@ public class ChessGame {
         }
     }
 
+    // undo the previous move if it is a castling move
+    private void undoCastleMove(BoardMove move) {
+        Piece king = move.getPiece();
+        // col dir the rook is in in respect to the king after castling, 1 if king moved to left, -1 if king moved to right
+        boolean rookLeftOf = move.getDestCol() > move.getSrcCol();
+        int rookDir = rookLeftOf ? -1 : 1;
+        int rookCol = move.getDestCol() + rookDir;
+        Piece rook = board.findPiece(move.getDestRow(), rookCol);
+        assert(rook != null);
+        board.movePiece(king, move.getSrcRow(), move.getSrcCol());
+        if (rookLeftOf) {
+            board.movePiece(rook, move.getSrcRow(), cols - 1);
+        } else {
+            board.movePiece(rook, move.getSrcRow(), 0);
+        }
+    }
+
     // assuming can execute en passant move, will kill target piece, and move current pawn to diagonal
     private void executeEnPassantMove(Piece piece, Tile tile) {
         Point pCoord = board.findCoord(piece);
@@ -551,6 +610,16 @@ public class ChessGame {
         Tile targetTile = board.findTile(pRow, tCol);
         putToGrave(targetTile.peek());
         board.movePiece(piece, tile);
+    }
+
+    // undoes last move if it is an enpassant move
+    private void undoEnPassantMove(BoardMove move) {
+        Piece killer = move.getPiece();
+        Piece.Color victimColor = killer.getColor() == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
+        Piece victim = takefromGrave("Pawn", victimColor);
+        board.removePiece(killer);
+        board.addPiece(killer, move.getSrcRow(), move.getSrcCol());
+        board.addPiece(victim, move.getSrcRow(), move.getDestCol());
     }
 
     // checks if the current color player is in checkmate

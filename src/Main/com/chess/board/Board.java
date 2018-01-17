@@ -46,6 +46,25 @@ public class Board {
     public void movePiece(int srcRow, int srcCol, int destRow, int destCol) {
         movePiece(0, srcRow, srcCol, destRow, destCol);
     }
+
+    // overloaded- finds the piece at src with the index and moves that one
+    public void movePiece(int index, int srcRow, int srcCol, int destRow, int destCol) {
+        try {
+            Tile tile = tiles.get(srcRow, srcCol);
+            Tile destTile = tiles.get(destRow, destCol);
+
+            Piece piece = tile.remove(index);
+            destTile.push(piece);
+        } catch (Exception e) {
+            Utilities.printException(e);
+        }
+    }
+    public void movePiece(Piece piece, Tile tile) {
+        Tile prevTile = findTile(piece);
+        prevTile.remove(piece);
+        tile.push(piece);
+    }
+
     // overloaded- finds the piece at src with the given name
     public void movePiece(String name, int srcRow, int srcCol, int destRow, int destCol) {
         try {
@@ -62,6 +81,7 @@ public class Board {
         movePiece(piece.getName(), pCoord.x, pCoord.y, row, col);
     }
 
+    // finds a piece on the board
     public Piece findPiece(String name, Piece.Color color) {
         for (Tile t : tiles) {
             for (Piece p : t.getPieces()) {
@@ -69,6 +89,9 @@ public class Board {
             }
         }
         return null;
+    }
+    public Piece findPiece(int row, int col) {
+        return tiles.get(row, col).peek();
     }
 
     // finds the tile that contains the parameter piece
@@ -103,24 +126,6 @@ public class Board {
             }
         }
         return null;
-    }
-
-    // overloaded- finds the piece at src with the index and moves that one
-    public void movePiece(int index, int srcRow, int srcCol, int destRow, int destCol) {
-        try {
-            Tile tile = tiles.get(srcRow, srcCol);
-            Tile destTile = tiles.get(destRow, destCol);
-
-            Piece piece = tile.remove(index);
-            destTile.push(piece);
-        } catch (Exception e) {
-            Utilities.printException(e);
-        }
-    }
-    public void movePiece(Piece piece, Tile tile) {
-        Tile prevTile = findTile(piece);
-        prevTile.remove(piece);
-        tile.push(piece);
     }
 
     // puts a piece to the top of the tile

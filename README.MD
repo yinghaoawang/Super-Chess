@@ -34,7 +34,7 @@
     - [x] 2 players
         - [x] Turns
         - [x] Graves
-    - [ ] Modularize
+    - [x] Modularize
         - Chess game
             - [x] Chess game
         - Displays
@@ -42,7 +42,7 @@
             - [x] Chess board panel
             - [x] Chess board move panel
             - [x] Chess grave panel
-            - [ ] Player panel
+            - [x] Chess info panel
 
 <!---
 - [ ] Chess Engine Extras

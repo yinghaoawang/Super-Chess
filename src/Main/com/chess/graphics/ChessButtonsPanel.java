@@ -26,7 +26,11 @@ public class ChessButtonsPanel extends JPanel {
         add(newGameBtn);
         add(undoBtn);
 
-        newGameBtn.addActionListener(e -> gamePanel.repaintGame());
+        newGameBtn.addActionListener(e -> {
+            game.clear();
+            game.newGame();
+            gamePanel.repaintGame();
+        });
         undoBtn.addActionListener(e -> {
             game.undoLastMove();
             gamePanel.repaintGame();

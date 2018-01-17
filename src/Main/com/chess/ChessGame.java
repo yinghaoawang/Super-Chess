@@ -10,9 +10,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 /* The logic of this program. It holds pieces together all the pieces
  * that include the moves, pieces, board, board moves, graves, and players */
 public class ChessGame {
+    public enum State {
+        NIL, WHITEWIN, BLACKWIN, DRAW
+    }
+    State state = State.NIL;
+
     private Board board = null;
     private TileCollection tiles = null;
     private int rows, cols;
@@ -57,15 +64,13 @@ public class ChessGame {
 
     }
     public void prevPlayer() {
-        int index =currentPlayerIndex;
+        int index = currentPlayerIndex;
         if (--index < 0) index = playerColor.length - 1;
         toPlayer(index);
     }
     public void toPlayer(int index) {
         currentPlayerIndex = index;
-        Piece.Color color = playerColor[currentPlayerIndex];
 
-        // TODO
         updateState();
     }
 
@@ -75,8 +80,13 @@ public class ChessGame {
         if (currColor == Piece.Color.BLACK) strColor = "Black";
         if (isColorCheckmate(currColor)) {
             message = strColor + " is in checkmate.";
+            if (strColor == "Black") state = State.WHITEWIN;
+            else state = State.BLACKWIN;
         } else if (isColorCheck(currColor)) {
             message = strColor + " is in check.";
+        } else if (isDraw()) {
+            state = State.DRAW;
+            message = "Draw.";
         } else {
             message = strColor + "'s move.";
         }
@@ -269,12 +279,13 @@ public class ChessGame {
 
     // Gets the possible tiles a piece can move to
     private TileMoveList getPossibleMoves(Piece piece) {
+        return getPossibleMoves(piece, piece.getColor());
+    }
+    private TileMoveList getPossibleMoves(Piece piece, Piece.Color color) {
         TileMoveList possibleMoves = new TileMoveList();
         Tile pTile = board.findTile(piece);
 
-        Piece.Color currPlayerColor = playerColor[currentPlayerIndex];
-
-        if (piece != null && piece.getColor() == currPlayerColor) {
+        if (piece != null && piece.getColor() == color) {
             possibleMoves = getPieceMoveTiles(piece);
             TileMoveList specialMoves = possibleMoves.getSpecialTileMoves();
             TileMoveList regularMoves = possibleMoves.getRegularTileMoves();
@@ -290,7 +301,7 @@ public class ChessGame {
                 // let them try moves temporarily to see if it protects king
                 board.movePiece(piece, t);
 
-                if (isColorCheck(currPlayerColor)) { // if it does not protect king, then remove it from possible moves
+                if (isColorCheck(color)) { // if it does not protect king, then remove it from possible moves
                     possibleMoves.remove(t);
                 }
 
@@ -458,10 +469,21 @@ public class ChessGame {
     // initializes board by calling other initializers
     void init() {
         initTiles();
-        initPieces();
+
         initBoardMoves();
         initGraves();
+
+        newGame();
+    }
+
+    public void newGame() {
+        initPieces();
         toPlayer(0);
+    }
+    public void clear() {
+        board.clear();
+        boardMoves.clear();
+        for (int i = 0; i < grave.size(); ++i) grave.get(i).clear();
     }
 
     // creates graveyard list for pieces
@@ -664,7 +686,6 @@ public class ChessGame {
 
     // undoes last move if it is an enpassant move
     private void undoEnPassantMove(BoardMove move) {
-        System.out.println(move.getVictimPiece());
         Piece killer = move.getPiece();
         Piece victim = takeFromGrave(move.getVictimPiece());
         board.removePiece(killer);
@@ -672,16 +693,39 @@ public class ChessGame {
         board.addPiece(victim, move.getSrcRow(), move.getDestCol());
     }
 
+    // determine if the game is in a draw
+    public boolean isDraw() {
+        // stalemate
+        for (int i = 0; i < playerColor.length; ++i) {
+            Piece.Color color = playerColor[i];
+            if ((getPossibleMoveCount(color) == 0) && !isColorCheck(color)) {
+                return true;
+            }
+        }
+
+        // threefold repetition
+
+        // no capture or pawn move
+
+        // impossible checkmate
+
+        return false;
+    }
+
     // checks if the current color player is in checkmate
     public boolean isColorCheckmate(Piece.Color color) {
+        return (getPossibleMoveCount(color) == 0) && isColorCheck(color);
+    }
+
+    public int getPossibleMoveCount(Piece.Color color) {
         int count = 0;
         for (Tile tile : tiles) {
             if (tile.isEmpty()) continue;
+            if (!tile.peek().getColor().equals(color)) continue;
             int possibleMoveCount = getPossibleMoves(tile.peek()).size();
             count += possibleMoveCount;
         }
-
-        return count == 0;
+        return count;
     }
 
     // determines if white or black king(s) is in danger

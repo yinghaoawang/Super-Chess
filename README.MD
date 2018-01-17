@@ -28,13 +28,12 @@
         - [x] Checkmate
         - [x] Blocking
         - [ ] Game states
-            - [ ] Win/Loss
+            - [ ] White/Black Win
             - [ ] Draw
-            - [ ] Restart
     - [x] 2 players
         - [x] Turns
         - [x] Graves
-    - [x] Modularize
+    - [ ] Modularize
         - Chess game
             - [x] Chess game
         - Displays
@@ -43,6 +42,9 @@
             - [x] Chess board move panel
             - [x] Chess grave panel
             - [x] Chess info panel
+            - [x] Chess buttons panel
+                - [x] New Game
+                - [x] Undo
 
 <!---
 - [ ] Chess Engine Extras

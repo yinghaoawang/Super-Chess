@@ -10,6 +10,15 @@ public class TileMoveList extends ArrayList<TileMove> {
         return false;
     }
 
+    /*
+    @Override
+    public int size() {
+        int count = 0;
+        for (TileMove tm : this) ++count;
+        return count;
+    }
+    */
+
     public boolean add(Tile tile) {
         return add(new TileMove(tile));
     }

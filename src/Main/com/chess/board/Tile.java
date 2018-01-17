@@ -64,6 +64,11 @@ public class Tile {
         return res;
     }
 
+    // removes all pieces from tile
+    public void clear() {
+        for (Piece p : pieces) pieces.remove(p);
+    }
+
     // get the index of a piece if it exists in the tile
     public int indexOf(Piece piece) { return pieces.indexOf(piece); }
 

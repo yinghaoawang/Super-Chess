@@ -37,6 +37,13 @@ public class Board {
         }
     }
 
+    // removes all pieces from board
+    public void clear() {
+        for (Tile tile : tiles) {
+            tile.clear();
+        }
+    }
+
     // getters
     public TileCollection getTiles() { return tiles; }
     public int getRows() { return rows; }

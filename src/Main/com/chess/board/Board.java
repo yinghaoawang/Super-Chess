@@ -65,12 +65,12 @@ public class Board {
         tile.push(piece);
     }
 
-    // overloaded- finds the piece at src with the given name
+    // overloaded- finds the piece at src with the given specialMoveName
     public void movePiece(String name, int srcRow, int srcCol, int destRow, int destCol) {
         try {
             int index = tiles.get(srcRow, srcCol).indexOfName(name);
             if (index < 0)
-                throw new Exception("Piece with name \"" + name + "\" not on tile");
+                throw new Exception("Piece with specialMoveName \"" + name + "\" not on tile");
             movePiece(index, srcRow, srcCol, destRow, destCol);
         } catch (Exception e) {
             Utilities.printException(e);

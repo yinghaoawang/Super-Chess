@@ -67,13 +67,13 @@ public class Tile {
     // get the index of a piece if it exists in the tile
     public int indexOf(Piece piece) { return pieces.indexOf(piece); }
 
-    // get the index of a piece of the same name as the passed piece's name, -1 if not found
+    // get the index of a piece of the same specialMoveName as the passed piece's specialMoveName, -1 if not found
     public int indexOfName(Piece piece) {
         if (piece == null) return -1;
         return indexOfName(piece.getName());
     }
 
-    // get the index of a piece of the same name as the passed name, -1 if not found
+    // get the index of a piece of the same specialMoveName as the passed specialMoveName, -1 if not found
     public int indexOfName(String name) {
         for (int i = 0; i < pieces.size(); ++i) {
             if (pieces.get(i).getName().equals(name)) {

@@ -8,12 +8,17 @@ import java.awt.*;
 public class BoardMove {
     Piece piece;
     int srcRow, srcCol, destRow, destCol;
-    public BoardMove(Piece piece, int srcRow, int srcCol, int destRow, int destCol) {
+    String specialMoveName = null;
+    public BoardMove(Piece piece, int srcRow, int srcCol, int destRow, int destCol, String specialMoveName) {
         this.piece = piece;
         this.srcRow = srcRow;
         this.srcCol = srcCol;
         this.destRow = destRow;
         this.destCol = destCol;
+        this.specialMoveName = specialMoveName;
+    }
+    public BoardMove(Piece piece, int srcRow, int srcCol, int destRow, int destCol) {
+        this(piece, srcRow, srcCol, destRow, destCol, null);
     }
     public BoardMove(Piece piece, Point src, Point dest) {
         this(piece, src.x, src.y, dest.x, dest.y);
@@ -25,6 +30,7 @@ public class BoardMove {
     public int getSrcCol() { return srcCol; }
     public int getDestRow() { return destRow; }
     public int getDestCol() { return destCol; }
+    public String getSpecialMoveName() { return specialMoveName; }
     public String toString() {
         return piece.getDisplaySequence() + Utilities.colToChar(srcCol) + Utilities.rowToChar(srcRow) + " "
             + Utilities.colToChar(destCol) + Utilities.rowToChar(destRow);

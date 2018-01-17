@@ -31,7 +31,7 @@ public class TileMoveList extends ArrayList<TileMove> {
     public TileMoveList getSpecialTileMoves() {
         TileMoveList res = new TileMoveList();
         for (TileMove tm : this) {
-            if (tm.name != null) res.add(tm);
+            if (tm.specialMoveName != null) res.add(tm);
         }
         return res;
     }
@@ -39,7 +39,7 @@ public class TileMoveList extends ArrayList<TileMove> {
     public TileMoveList getRegularTileMoves() {
         TileMoveList res = new TileMoveList();
         for (TileMove tm : this) {
-            if (tm.name == null) res.add(tm);
+            if (tm.specialMoveName == null) res.add(tm);
         }
         return res;
     }

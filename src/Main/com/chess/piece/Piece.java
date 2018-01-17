@@ -51,7 +51,7 @@ public abstract class Piece {
     // asserts if piece has required variables
     void assertIntegrity() {
         if (symbol == '\0') Utilities.printErrorAndExit("Piece has no symbol");
-        if (name == null) Utilities.printErrorAndExit("Piece has no name");
+        if (name == null) Utilities.printErrorAndExit("Piece has no specialMoveName");
         if (moves.size() <= 0) Utilities.printErrorAndExit("Piece has no moves");
         // if (g2d == null) throw new Exception("Piece has no g2d");
     }

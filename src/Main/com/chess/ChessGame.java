@@ -102,7 +102,7 @@ public class ChessGame {
         int graveIndex = getGraveIndex(piece.getColor());
         for (Piece p : grave.get(graveIndex)) {
             if (p == piece) {
-                grave.remove(p);
+                grave.get(graveIndex).remove(p);
                 return p;
             }
         }
@@ -112,7 +112,7 @@ public class ChessGame {
         int graveIndex = getGraveIndex(color);
         for (Piece p : grave.get(graveIndex)) {
             if (p.getName() == name) {
-                grave.remove(p);
+                grave.get(graveIndex).remove(p);
                 return p;
             }
         }
@@ -216,7 +216,6 @@ public class ChessGame {
     // action for mouse presses a tile
     public void tilePressed(int row, int col) {
         Tile destTile = tiles.get(row, col);
-        boolean asdf = false;
         if (selectedMoveTiles != null && selectedMoveTiles.contains(destTile) &&
                 selectedTile != null && selectedTile != destTile) {
 
@@ -226,7 +225,6 @@ public class ChessGame {
 
             if (tileIsSpecialMove(destTile)) {
                 executeSpecialMove(selectedPiece, destTile);
-                asdf = true;
             } else {
                 board.movePiece(selectedPiece, destTile);
             }
@@ -300,9 +298,9 @@ public class ChessGame {
 
     // determine if the piece can make a special move
     private boolean canHandleSpecialMove(TileMove tm, Piece piece) {
-        if (tm.name == "Castle") {
+        if (tm.specialMoveName == "Castle") {
             return canHandleCastling(tm, piece);
-        } else if (tm.name == "En Passant") {
+        } else if (tm.specialMoveName == "En Passant") {
             return canHandleEnPassant(tm, piece);
         }
         return false;
@@ -424,7 +422,7 @@ public class ChessGame {
         board.movePiece(piece, targetTile);
         */
         executeEnPassantMove(piece, targetTile);
-        BoardMove move = new BoardMove(piece, pRow, pCol, pRow, tCol);
+        BoardMove move = new BoardMove(piece, pRow, pCol, pRow, tCol, tm.specialMoveName);
         if (isColorCheck(piece.getColor())) {
             kingDanger = true;
         }
@@ -550,9 +548,18 @@ public class ChessGame {
     private void executeSpecialMove(Piece piece, Tile tile) {
         TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
         TileMove tm = specialMoves.get(tile);
-        String name = tm.name;
+        String name = tm.specialMoveName;
         if (name == "Castle") executeCastleMove(piece, tile);
         else if (name == "En Passant") executeEnPassantMove(piece, tile);
+    }
+
+    private void undoSpecialMove(BoardMove move) {
+        String specialName = move.getSpecialMoveName();
+        if (specialName == "Castle") {
+            undoCastleMove(move);
+        } else if (specialName == "En Passant") {
+            undoEnPassantMove(move);
+        }
     }
 
     // assuming can execute castle move, will move rook behind king, and move king 2 steps
@@ -617,6 +624,7 @@ public class ChessGame {
         Piece killer = move.getPiece();
         Piece.Color victimColor = killer.getColor() == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
         Piece victim = takefromGrave("Pawn", victimColor);
+        System.out.println(victim);
         board.removePiece(killer);
         board.addPiece(killer, move.getSrcRow(), move.getSrcCol());
         board.addPiece(victim, move.getSrcRow(), move.getDestCol());

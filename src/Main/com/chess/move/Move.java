@@ -33,7 +33,7 @@ public class Move {
     boolean attackToMove = false; // whether the piece can only move here if enemy on here
     boolean teamAttacking = false; // whether this piece can eat teammates
     boolean firstMove = false; // if this rule only applies on first move of a piece (i.e pawn double move)
-    String specialMoveName = null; // the name used to be handled
+    String specialMoveName = null; // the specialMoveName used to be handled
     /* dont forget to put into copy constructor when adding new fields */
     /* dont forget to put into copy constructor when adding new fields */
 

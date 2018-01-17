@@ -18,11 +18,8 @@ public class BoardMove {
         this.specialMoveName = specialMoveName;
         this.victim = victim;
     }
-    public BoardMove(Piece piece, Piece victim, int srcRow, int srcCol, int destRow, int destCol) {
-        this(piece, victim, srcRow, srcCol, destRow, destCol, null);
-    }
-    public BoardMove(Piece piece, Piece victim, Point src, Point dest) {
-        this(piece, victim, src.x, src.y, dest.x, dest.y);
+    public BoardMove(Piece piece, Piece victim, Point src, Point dest, String specialMoveName) {
+        this(piece, victim, src.x, src.y, dest.x, dest.y, specialMoveName);
     }
     public Piece getPiece() { return piece; }
     public Point getSrcCoord() { return new Point(srcRow, srcCol); }

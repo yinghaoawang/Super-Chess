@@ -7,13 +7,13 @@ import java.awt.*;
 
 public class ChessButtonsPanel extends JPanel {
     ChessGame game;
-    ChessBoardPanel boardPanel;
+    ChessGamePanel gamePanel;
     JButton newGameBtn;
     JButton undoBtn;
 
-    ChessButtonsPanel(ChessGame game, ChessBoardPanel boardPanel) {
+    ChessButtonsPanel(ChessGame game, ChessGamePanel gamePanel) {
         this.game = game;
-        this.boardPanel = boardPanel;
+        this.gamePanel = gamePanel;
         initButtons();
     }
 
@@ -26,16 +26,11 @@ public class ChessButtonsPanel extends JPanel {
         add(newGameBtn);
         add(undoBtn);
 
-        newGameBtn.addActionListener(e -> boardPanel.repaint());
+        newGameBtn.addActionListener(e -> gamePanel.repaintGame());
         undoBtn.addActionListener(e -> {
             game.undoLastMove();
-            boardPanel.repaint();
+            gamePanel.repaintGame();
         });
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
     }
 
     @Override

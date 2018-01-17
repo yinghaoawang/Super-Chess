@@ -14,13 +14,20 @@ public class ChessGamePanel extends JPanel {
     private ChessInfoPanel infoPanel = null;
     private ChessButtonsPanel buttonsPanel = null;
 
+    public void repaintGame() {
+        boardPanel.repaint();
+        gravesPanel.repaint();
+        infoPanel.repaint();
+        boardMovesPanel.update();
+    }
+
     ChessGamePanel() {
         game = new ChessGame();
         boardPanel = new ChessBoardPanel(game);
         boardMovesPanel = new ChessBoardMovesPanel(game, boardPanel);
         gravesPanel = new ChessGravesPanel(game, boardPanel);
         infoPanel = new ChessInfoPanel(game, boardPanel);
-        buttonsPanel = new ChessButtonsPanel(game, boardPanel);
+        buttonsPanel = new ChessButtonsPanel(game, this);
 
         boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         boardMovesPanel.setBorder(BorderFactory.createLineBorder(Color.black));

@@ -226,16 +226,17 @@ public class ChessGame {
 
             Piece destPiece = destTile.peek();
             Piece selectedPiece = selectedTile.peek();
+            Piece victimPiece = destPiece;
             if (destPiece != null) putToGrave(destPiece);
 
             if (tileIsSpecialMove(destTile)) {
-                executeSpecialMove(selectedPiece, destTile);
+                victimPiece = executeSpecialMove(selectedPiece, destTile);
             } else {
                 board.movePiece(selectedPiece, destTile);
             }
 
             ++selectedPiece.moveCount;
-            boardMoves.add(new BoardMove(selectedPiece, destPiece, board.findCoord(selectedTile), board.findCoord(destTile)));
+            boardMoves.add(new BoardMove(selectedPiece, victimPiece, board.findCoord(selectedTile), board.findCoord(destTile), getSpecialMoveName(destTile)));
             //if (asdf) undoEnPassantMove(boardMoves.get(boardMoves.size() - 1));
             nextPlayer();
         }
@@ -550,12 +551,20 @@ public class ChessGame {
     }
 
     // executes special move if it has one (assuming all prerequsites are met, will not make any checks)
-    private void executeSpecialMove(Piece piece, Tile tile) {
+    private Piece executeSpecialMove(Piece piece, Tile tile) {
         TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
         TileMove tm = specialMoves.get(tile);
         String name = tm.specialMoveName;
-        if (name == "Castle") executeCastleMove(piece, tile);
-        else if (name == "En Passant") executeEnPassantMove(piece, tile);
+        if (name == "Castle") return executeCastleMove(piece, tile);
+        else if (name == "En Passant") return executeEnPassantMove(piece, tile);
+        return null;
+    }
+
+    private String getSpecialMoveName(Tile tile) {
+        TileMoveList specialMoves = selectedMoveTiles.getSpecialTileMoves();
+        TileMove tm = specialMoves.get(tile);
+        if (tm == null) return null;
+        return tm.specialMoveName;
     }
 
     private void undoSpecialMove(BoardMove move) {
@@ -568,7 +577,7 @@ public class ChessGame {
     }
 
     // assuming can execute castle move, will move rook behind king, and move king 2 steps
-    private void executeCastleMove(Piece piece, Tile tile) {
+    private Piece executeCastleMove(Piece piece, Tile tile) {
         Point pCoord = board.findCoord(piece);
         Point tCoord = board.findCoord(tile);
 
@@ -590,6 +599,7 @@ public class ChessGame {
             // move king
             board.movePiece(piece, tile);
         }
+        return null;
     }
 
     // undo the previous move if it is a castling move
@@ -610,7 +620,7 @@ public class ChessGame {
     }
 
     // assuming can execute en passant move, will kill target piece, and move current pawn to diagonal
-    private void executeEnPassantMove(Piece piece, Tile tile) {
+    private Piece executeEnPassantMove(Piece piece, Tile tile) {
         Point pCoord = board.findCoord(piece);
         Point tCoord = board.findCoord(tile);
 
@@ -620,13 +630,20 @@ public class ChessGame {
         int tCol = tCoord.y;
 
         Tile targetTile = board.findTile(pRow, tCol);
-        putToGrave(targetTile.peek());
+        Piece targetPiece = targetTile.peek();
+        putToGrave(targetPiece);
         board.movePiece(piece, tile);
+        return targetPiece;
     }
 
     // undoes last move
     private void undoMove(BoardMove move) {
-        if (move.getSpecialMoveName() != null) undoSpecialMove(move);
+        --move.getPiece().moveCount;
+        // undo special move
+        if (move.getSpecialMoveName() != null) {
+            undoSpecialMove(move);
+            return;
+        }
         // undo regular move
         Piece piece = move.getPiece();
         board.movePiece(piece, move.getSrcRow(), move.getSrcCol());
@@ -643,11 +660,11 @@ public class ChessGame {
         undoMove(lastMove);
         boardMoves.remove(lastMove);
         prevPlayer();
-        System.out.println("heh");
     }
 
     // undoes last move if it is an enpassant move
     private void undoEnPassantMove(BoardMove move) {
+        System.out.println(move.getVictimPiece());
         Piece killer = move.getPiece();
         Piece victim = takeFromGrave(move.getVictimPiece());
         board.removePiece(killer);

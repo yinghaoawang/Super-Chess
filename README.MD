@@ -4,6 +4,8 @@ Super Chess is a chess engine that is able to create pieces with dynamic moves e
 The base game is able to play Chess completely. All special moves like En Passant have been
 implemented. 
 
+![1/16](https://i.imgur.com/hj0Pq7c.png)
+
 ### How to run
 - Download/clone the program
 - On command line:

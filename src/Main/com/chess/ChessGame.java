@@ -53,10 +53,15 @@ public class ChessGame {
         int index = currentPlayerIndex;
         if (++index >= playerColor.length)
             index = 0;
-        nextPlayer(index);
+        toPlayer(index);
 
     }
-    public void nextPlayer(int index) {
+    public void prevPlayer() {
+        int index =currentPlayerIndex;
+        if (--index < 0) index = playerColor.length - 1;
+        toPlayer(index);
+    }
+    public void toPlayer(int index) {
         currentPlayerIndex = index;
         Piece.Color color = playerColor[currentPlayerIndex];
 
@@ -108,7 +113,7 @@ public class ChessGame {
         }
         return null;
     }
-    public Piece takefromGrave(String name, Piece.Color color) {
+    public Piece takeFromGrave(String name, Piece.Color color) {
         int graveIndex = getGraveIndex(color);
         for (Piece p : grave.get(graveIndex)) {
             if (p.getName() == name) {
@@ -230,7 +235,7 @@ public class ChessGame {
             }
 
             ++selectedPiece.moveCount;
-            boardMoves.add(new BoardMove(selectedPiece, board.findCoord(selectedTile), board.findCoord(destTile)));
+            boardMoves.add(new BoardMove(selectedPiece, destPiece, board.findCoord(selectedTile), board.findCoord(destTile)));
             //if (asdf) undoEnPassantMove(boardMoves.get(boardMoves.size() - 1));
             nextPlayer();
         }
@@ -422,7 +427,7 @@ public class ChessGame {
         board.movePiece(piece, targetTile);
         */
         executeEnPassantMove(piece, targetTile);
-        BoardMove move = new BoardMove(piece, pRow, pCol, pRow, tCol, tm.specialMoveName);
+        BoardMove move = new BoardMove(piece, targetPiece, pRow, pCol, pRow, tCol, tm.specialMoveName);
         if (isColorCheck(piece.getColor())) {
             kingDanger = true;
         }
@@ -455,7 +460,7 @@ public class ChessGame {
         initPieces();
         initBoardMoves();
         initGraves();
-        nextPlayer(0);
+        toPlayer(0);
     }
 
     // creates graveyard list for pieces
@@ -619,12 +624,32 @@ public class ChessGame {
         board.movePiece(piece, tile);
     }
 
+    // undoes last move
+    private void undoMove(BoardMove move) {
+        if (move.getSpecialMoveName() != null) undoSpecialMove(move);
+        // undo regular move
+        Piece piece = move.getPiece();
+        board.movePiece(piece, move.getSrcRow(), move.getSrcCol());
+        Piece victim = move.getVictimPiece();
+        if (victim == null) return;
+        takeFromGrave(victim);
+        board.addPiece(victim, move.getDestRow(), move.getDestCol());
+    }
+
+    // public function for undoing last move (removes from board moves)
+    public void undoLastMove() {
+        if (boardMoves.size() == 0) return;
+        BoardMove lastMove = boardMoves.get(boardMoves.size() - 1);
+        undoMove(lastMove);
+        boardMoves.remove(lastMove);
+        prevPlayer();
+        System.out.println("heh");
+    }
+
     // undoes last move if it is an enpassant move
     private void undoEnPassantMove(BoardMove move) {
         Piece killer = move.getPiece();
-        Piece.Color victimColor = killer.getColor() == Piece.Color.WHITE ? Piece.Color.BLACK : Piece.Color.WHITE;
-        Piece victim = takefromGrave("Pawn", victimColor);
-        System.out.println(victim);
+        Piece victim = takeFromGrave(move.getVictimPiece());
         board.removePiece(killer);
         board.addPiece(killer, move.getSrcRow(), move.getSrcCol());
         board.addPiece(victim, move.getSrcRow(), move.getDestCol());

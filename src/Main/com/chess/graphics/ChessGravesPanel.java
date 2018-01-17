@@ -11,14 +11,11 @@ public class ChessGravesPanel extends JPanel {
     // fields
     private ChessGame game = null;
     private ChessBoardPanel boardPanel = null;
-    private JTextArea whiteGraveTextArea = null;
-    private JTextArea blackGraveTextArea = null;
     private int pieceFontSize = 25;
 
     ChessGravesPanel(ChessGame game, ChessBoardPanel boardPanel) {
         this.game = game;
         this.boardPanel = boardPanel;
-        init();
         initEventListeners(boardPanel);
     }
 
@@ -31,13 +28,6 @@ public class ChessGravesPanel extends JPanel {
             }
         });
     }
-
-    // standard initialization
-    void init() {
-        Color pieceBlackColor = boardPanel.pieceBlackColor;
-        Color pieceWhiteColor = boardPanel.pieceWhiteColor;
-    }
-    
     // have graves of white and black display dead pieces
     private void drawGraves(Graphics g) {
         // try to get graves

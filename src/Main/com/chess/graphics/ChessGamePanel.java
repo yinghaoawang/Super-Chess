@@ -12,6 +12,7 @@ public class ChessGamePanel extends JPanel {
     private ChessBoardMovesPanel boardMovesPanel = null;
     private ChessGravesPanel gravesPanel = null;
     private ChessInfoPanel infoPanel = null;
+    private ChessButtonsPanel buttonsPanel = null;
 
     ChessGamePanel() {
         game = new ChessGame();
@@ -19,11 +20,13 @@ public class ChessGamePanel extends JPanel {
         boardMovesPanel = new ChessBoardMovesPanel(game, boardPanel);
         gravesPanel = new ChessGravesPanel(game, boardPanel);
         infoPanel = new ChessInfoPanel(game, boardPanel);
+        buttonsPanel = new ChessButtonsPanel(game, boardPanel);
 
         boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         boardMovesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         gravesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,5 +60,13 @@ public class ChessGamePanel extends JPanel {
         gbc.gridheight = 1;
 
         add(gravesPanel, gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 3;
+        gbc.gridheight = 1;
+
+        add(buttonsPanel, gbc);
     }
 }

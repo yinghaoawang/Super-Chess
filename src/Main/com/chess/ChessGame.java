@@ -498,12 +498,12 @@ public class ChessGame {
     // places pieces on the chess board as they should be
     void initPieces() {
         board.addPiece(new Rook(Piece.Color.WHITE), 0, 0);
-       // board.addPiece(new Knight(Piece.Color.WHITE), 0, 1);
-        //board.addPiece(new Bishop(Piece.Color.WHITE), 0, 2);
-        //board.addPiece(new Queen(Piece.Color.WHITE), 0, 3);
+        board.addPiece(new Knight(Piece.Color.WHITE), 0, 1);
+        board.addPiece(new Bishop(Piece.Color.WHITE), 0, 2);
+        board.addPiece(new Queen(Piece.Color.WHITE), 0, 3);
         board.addPiece(new King(Piece.Color.WHITE), 0, 4);
-        //board.addPiece(new Bishop(Piece.Color.WHITE), 0, 5);
-        //board.addPiece(new Knight(Piece.Color.WHITE), 0, 6);
+        board.addPiece(new Bishop(Piece.Color.WHITE), 0, 5);
+        board.addPiece(new Knight(Piece.Color.WHITE), 0, 6);
         board.addPiece(new Rook(Piece.Color.WHITE), 0, 7);
         for (int i = 0; i < 8; ++i) {
             board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
@@ -511,15 +511,17 @@ public class ChessGame {
 
 
         //board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);
+        /*
         board.addPiece(new Queen(Piece.Color.BLACK), 4, 7);
         board.addPiece(new Bishop(Piece.Color.BLACK), 3, 7);
         board.addPiece(new Pawn(Piece.Color.BLACK), 3, 5);
+        */
 
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 0);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 1);
         board.addPiece(new Bishop(Piece.Color.BLACK), 7, 2);
         board.addPiece(new Queen(Piece.Color.BLACK), 7, 3);
-        board.addPiece(new King(Piece.Color.BLACK), 4, 7);
+        board.addPiece(new King(Piece.Color.BLACK), 7, 4);
         board.addPiece(new Bishop(Piece.Color.BLACK), 7, 5);
         board.addPiece(new Knight(Piece.Color.BLACK), 7, 6);
         board.addPiece(new Rook(Piece.Color.BLACK), 7, 7);
@@ -705,8 +707,7 @@ public class ChessGame {
         }
 
         // threefold repetition
-        for (int i = boardMoves.size() - 1; i > boardMoves.size() - 5; --i) {
-            if (i < 4) break;
+        for (int i = boardMoves.size() - 1; i >= 4 && i > boardMoves.size() - 5; --i) {
             BoardMove move = boardMoves.get(i);
             BoardMove prev = boardMoves.get(i - 4);
 
@@ -724,7 +725,8 @@ public class ChessGame {
         System.out.println();
 
         // no capture or pawn move (50 move rule)
-        for (int i = boardMoves.size() - 1; i > boardMoves.size() - 51; --i) {
+        /*
+        for (int i = boardMoves.size() - 1; i >= 0 && i > boardMoves.size() - 51; --i) {
             BoardMove move = boardMoves.get(i);
             if (move.getPiece().getName() == "Pawn") break;
             if (move.getVictimPiece() != null) break;
@@ -732,6 +734,7 @@ public class ChessGame {
             if (i == boardMoves.size() - 50) return true;
         }
         */
+
 
         /* // TODO? (not completely sure about the draw)
         // impossible checkmate

@@ -14,8 +14,8 @@
       <file leaf-file-name="ChessGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="724" column="0" lean-forward="true" selection-start-line="724" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
+            <state relative-caret-position="514">
+              <caret line="523" column="56" lean-forward="false" selection-start-line="523" selection-start-column="56" selection-end-line="523" selection-end-column="56" />
               <folding>
                 <element signature="class#State#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />
@@ -50,9 +50,6 @@
                 <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
-                <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
-                <element signature="e#18141#18196#0" expanded="false" />
-                <element signature="e#18389#18443#0" expanded="false" />
                 <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -60,7 +57,7 @@
                 <element signature="method#getSpecialMoveName#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#undoSpecialMove#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#executeCastleMove#0;class#ChessGame#0" expanded="false" />
-                <element signature="e#22669#22730#0" expanded="false" />
+                <element signature="e#22681#22742#0" expanded="false" />
                 <element signature="method#undoCastleMove#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#executeEnPassantMove#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#undoMove#0;class#ChessGame#0" expanded="false" />
@@ -206,7 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>findpiece</find>
       <find>undocastlemove</find>
       <find>selecttile</find>
       <find>selectTile</find>
@@ -236,6 +232,7 @@
       <find>getpossiblemoves</find>
       <find>= getpossible</find>
       <find>newGame</find>
+      <find>initpieces</find>
     </findStrings>
     <replaceStrings>
       <replace>import com.chess.move.*;</replace>
@@ -510,7 +507,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35910878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35910878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39973786" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -604,9 +601,6 @@
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
-            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#18141#18196#0" expanded="false" />
-            <element signature="e#18389#18443#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -614,7 +608,7 @@
             <element signature="method#getSpecialMoveName#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeCastleMove#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#22669#22730#0" expanded="false" />
+            <element signature="e#22681#22742#0" expanded="false" />
             <element signature="method#undoCastleMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeEnPassantMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoMove#0;class#ChessGame#0" expanded="false" />
@@ -729,9 +723,6 @@
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
-            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#18141#18196#0" expanded="false" />
-            <element signature="e#18389#18443#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -739,7 +730,7 @@
             <element signature="method#getSpecialMoveName#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeCastleMove#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#22669#22730#0" expanded="false" />
+            <element signature="e#22681#22742#0" expanded="false" />
             <element signature="method#undoCastleMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeEnPassantMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoMove#0;class#ChessGame#0" expanded="false" />
@@ -1116,8 +1107,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="724" column="0" lean-forward="true" selection-start-line="724" selection-start-column="0" selection-end-line="724" selection-end-column="0" />
+        <state relative-caret-position="514">
+          <caret line="523" column="56" lean-forward="false" selection-start-line="523" selection-start-column="56" selection-end-line="523" selection-end-column="56" />
           <folding>
             <element signature="class#State#0;class#ChessGame#0" expanded="false" />
             <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />
@@ -1152,9 +1143,6 @@
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
-            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#18141#18196#0" expanded="false" />
-            <element signature="e#18389#18443#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -1162,7 +1150,7 @@
             <element signature="method#getSpecialMoveName#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeCastleMove#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#22669#22730#0" expanded="false" />
+            <element signature="e#22681#22742#0" expanded="false" />
             <element signature="method#undoCastleMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#executeEnPassantMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#undoMove#0;class#ChessGame#0" expanded="false" />

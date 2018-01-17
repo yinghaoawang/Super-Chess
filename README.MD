@@ -1,3 +1,22 @@
+# Super Chess
+### Description:
+Super Chess is a chess engine that is able to create pieces with dynamic moves easily.
+The base game is able to play Chess completely. All special moves like En Passant have been
+implemented. 
+
+### How to run
+- Download/clone the program
+- On command line:
+    - Enter the directory containing the Makefile
+    - Run the command "Make"
+    - Run the command "./run"
+- On Intellij IDEA:
+    - Open the project folder
+    - Compile and run ChessGameRunner
+
+***
+
+# Developer's self reflective progress reports
 ## Chess Checklist
 - [x] Base Chess Engine
     - [x] Create pieces with respective moves
@@ -23,7 +42,7 @@
             - [x] Tile names (A1, C5, etc.)
             - [x] Previous moves
         - [x] Graves (eaten pieces)
-    - [ ] Rules
+    - [x] Rules
         - [x] Check
         - [x] Checkmate
         - [x] Blocking
@@ -61,36 +80,20 @@
         - [ ] Play over TCP
 -->
 
-### Description:
-Super Chess is a chess engine that is able to create pieces with dynamic moves easily.
-
-### How to run
-- Download/clone the program
-
-#### On command line:
-- Enter the directory containing the Makefile
-- Run the command "Make"
-- Run the command "./run"
-
-#### On Intellij IDEA:
-- Open the project folder
-- Compile and run ChessGameRunner
-
-### Sample Modifications
-```java
-// Sample code goes here
-```
-
 ### Things learned:
+- The importance of modularity and how it is able to make a large codebase readable
 - Due to packaging, I now learn of the importance of class access. Especially package-private.
 - Using a different Makefile given a package with subdirectories (i think that's what you call them, i.e chess/piece/\* etc)
-- Further solidified the concept of mapping x to columns, and y to rows
 - Slightly better understanding of the placement of try catch blocks and throwing error exceptions
 - Basics of character encodings in java
 - Exercised the practice of writing readable code (i.e the board move determination from 4-6 nested for loops to 2)
 - The active practice of "high cohesion, loose coupling" (primarily when I split up the board and created logic and display modules)
 
 ## Progress Visuals
+### 1/16/18
+![1/16](https://i.imgur.com/hj0Pq7c.png)
+*Update: Almost completely finished besides with 3 draw cases*
+
 ### 1/7/18 night
 ![1/7](images/gifs/2018-01-07_20-25-40.gif)
 *Update: Special moves: en passant*

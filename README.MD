@@ -1,20 +1,24 @@
 # Super Chess
-### Description:
+## Description:
 Super Chess is a chess engine that is able to create pieces with dynamic moves easily.
 The base game is able to play Chess completely. All special moves like En Passant have been
 implemented. 
 
 ![1/16](https://i.imgur.com/hj0Pq7c.png)
 
-### How to run
+## How to run
 - Download/clone the program
 - On command line:
     - Enter the directory containing the Makefile
-    - Run the command "Make"
+    - Run the command "make" (Need to download make if do not )have
     - Run the command "./run"
 - On Intellij IDEA:
     - Open the project folder
     - Compile and run ChessGameRunner
+
+## Built with
+- Java AWT & Swing - GUI & other graphics
+- IntelliJ IDEA - IDE
 
 ***
 

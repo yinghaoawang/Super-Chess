@@ -263,7 +263,7 @@ public class ChessGame {
     private void selectTile(int row, int col) {
         selectedTile = tiles.get(row, col);
         Piece piece = selectedTile.peek();
-        selectedMoveTiles = getPossibleMoves(piece);
+        selectedMoveTiles = getPossibleMoves(piece, playerColor[currentPlayerIndex]);
 
         selectedRow = row;
         selectedCol = col;
@@ -695,13 +695,12 @@ public class ChessGame {
 
     // determine if the game is in a draw
     public boolean isDraw() {
-        // stalemate
-        for (int i = 0; i < playerColor.length; ++i) {
-            Piece.Color color = playerColor[i];
-            if ((getPossibleMoveCount(color) == 0) && !isColorCheck(color)) {
-                return true;
-            }
+        // stalemate (if the player on turn has no legal move but is not in check, this is stalemate and the game is automatically a draw.)
+        Piece.Color color = playerColor[currentPlayerIndex];
+        if ((getPossibleMoveCount(color) == 0) && !isColorCheck(color)) {
+            return true;
         }
+
 
         // threefold repetition
 

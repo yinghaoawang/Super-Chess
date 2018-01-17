@@ -263,7 +263,9 @@ public class ChessGame {
     private void selectTile(int row, int col) {
         selectedTile = tiles.get(row, col);
         Piece piece = selectedTile.peek();
-        selectedMoveTiles = getPossibleMoves(piece, playerColor[currentPlayerIndex]);
+
+        // find and set all possible moves from all pieces for the current player
+        if (state != State.DRAW) selectedMoveTiles = getPossibleMoves(piece, playerColor[currentPlayerIndex]);
 
         selectedRow = row;
         selectedCol = col;
@@ -478,6 +480,7 @@ public class ChessGame {
 
     public void newGame() {
         initPieces();
+        state = State.NIL;
         toPlayer(0);
     }
     public void clear() {
@@ -701,8 +704,25 @@ public class ChessGame {
             return true;
         }
 
-
         // threefold repetition
+        for (int iteration = 1, i = boardMoves.size() - 1; i > boardMoves.size() - 5; --i, ++iteration) {
+            if (i < 4) break;
+            BoardMove move = boardMoves.get(i);
+            BoardMove prev = boardMoves.get(i - 4);
+
+
+            System.out.println(move + " " + prev + " " + iteration);
+            // 3 fold repetition involves matching moves 4 moves ago
+            if (move.getVictimPiece() != null) break; // eating does not count
+            if (move.getSrcRow() != prev.getSrcRow()) break;
+            if (move.getSrcCol() != prev.getSrcCol()) break;
+            if (move.getDestRow() != prev.getDestRow()) break;
+            if (move.getDestCol() != prev.getDestCol()) break;
+
+            // if past 4th iteration, is 3fold rep
+            if (iteration >= 4) return true;
+        }
+        System.out.println();
 
         // no capture or pawn move
 

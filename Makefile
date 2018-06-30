@@ -8,7 +8,6 @@ PACKAGES = chess
 
 # Java compiler
 JAVAC = javac
-JVM = 1.9
 
 # Directory for compiled binaries
 # - trailing slash is important!
@@ -19,7 +18,7 @@ BIN = ./bin/
 SRC = ./src/Main/
 
 # Java compiler flags
-JAVAFLAGS = -Xlint:unchecked -g -d $(BIN) -cp $(SRC) -target $(JVM)
+JAVAFLAGS = -Xlint:unchecked -g -d $(BIN) -cp $(SRC)
 
 # Creating a .class file
 COMPILE = $(JAVAC) $(JAVAFLAGS)

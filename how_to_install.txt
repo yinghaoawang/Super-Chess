@@ -1,0 +1,18 @@
+Requires Java to be installed.
+
+- Download/git clone the program
+
+- On command line (Mac/Linux terminal):
+    - Enter the directory containing the Makefile
+    - Run the command "make"
+    - Run the command "./run"
+	
+- On Intellij IDEA:
+    - Open the project folder
+    - Compile and run ChessGameRunner
+	
+- On Windows' Linux Subsystem
+	- Install X server on Windows, I prefer Xming
+	- In Linux Subsystem, run the line "export DISPLAY:= 0"
+    - Run the command "make"
+    - Run the command "./run"

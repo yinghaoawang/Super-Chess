@@ -14,8 +14,8 @@
       <file leaf-file-name="ChessGame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2197">
-              <caret line="523" column="56" lean-forward="false" selection-start-line="523" selection-start-column="56" selection-end-line="523" selection-end-column="56" />
+            <state relative-caret-position="4080">
+              <caret line="480" column="0" lean-forward="false" selection-start-line="480" selection-start-column="0" selection-end-line="480" selection-end-column="0" />
               <folding>
                 <element signature="class#State#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />
@@ -29,6 +29,8 @@
                 <element signature="method#nextPlayer#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#prevPlayer#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#toPlayer#0;class#ChessGame#0" expanded="false" />
+                <element signature="method#updateState#0;class#ChessGame#0" expanded="false" />
+                <element signature="method#getGraveIndex#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#putToGrave#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#takeFromGrave#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#takeFromGrave#1;class#ChessGame#0" expanded="false" />
@@ -39,8 +41,7 @@
                 <element signature="method#tilePressed#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#selectTile#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#deselectTile#0;class#ChessGame#0" expanded="false" />
-                <element signature="e#10524#10525#0" expanded="true" />
-                <element signature="e#10588#10589#0" expanded="true" />
+                <element signature="method#getPossibleMoves#1;class#ChessGame#0" expanded="false" />
                 <element signature="method#canHandleSpecialMove#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#canHandleCastling#0;class#ChessGame#0" expanded="false" />
                 <element signature="e#13294#13364#0" expanded="false" />
@@ -48,8 +49,10 @@
                 <element signature="e#14265#14284#0" expanded="false" />
                 <element signature="method#canHandleEnPassant#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
+                <element signature="method#newGame#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
+                <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
                 <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -74,8 +77,8 @@
       <file leaf-file-name="ChessButtonsPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessButtonsPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+            <state relative-caret-position="442">
+              <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,11 +86,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Board.java">
+      <file leaf-file-name="ChessGameFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGameFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+            <state relative-caret-position="560">
+              <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChessBoardMovesPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardMovesPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="34" column="38" lean-forward="false" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -96,7 +109,7 @@
       <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
+            <state relative-caret-position="2000">
               <caret line="66" column="35" lean-forward="false" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
               <folding>
                 <element signature="class#Color#0;class#Tile#0" expanded="false" />
@@ -120,13 +133,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChessInfoPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChessInfoPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessInfoPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="2" lean-forward="true" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#998#1174#0" expanded="true" />
+                <element signature="e#1173#1174#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -135,26 +150,13 @@
       <file leaf-file-name="ChessBoardPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2072">
-              <caret line="205" column="25" lean-forward="true" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="25" />
+            <state relative-caret-position="466">
+              <caret line="185" column="21" lean-forward="true" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
               <folding>
                 <element signature="method#ChessBoardPanel#0;class#ChessBoardPanel#0" expanded="false" />
                 <element signature="method#init#0;class#ChessBoardPanel#0" expanded="false" />
                 <element signature="method#initRects#0;class#ChessBoardPanel#0" expanded="false" />
-                <element signature="method#drawCoords#0;class#ChessBoardPanel#0" expanded="false" />
-                <element signature="method#drawPieces#0;class#ChessBoardPanel#0" expanded="false" />
-                <element signature="method#unhoverTile#0;class#ChessBoardPanel#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardMove.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/BoardMove.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-52">
-              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -162,12 +164,19 @@
       <file leaf-file-name="ChessGravesPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
+            <state relative-caret-position="1240">
               <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-              <folding>
-                <element signature="e#763#939#0" expanded="true" />
-                <element signature="e#938#939#0" expanded="true" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChessGamePanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="755">
+              <caret line="38" column="73" lean-forward="false" selection-start-line="38" selection-start-column="73" selection-end-line="38" selection-end-column="73" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -175,18 +184,8 @@
       <file leaf-file-name="TileMoveList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileMoveList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-187">
+            <state relative-caret-position="760">
               <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChessGamePanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="19" column="26" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -203,8 +202,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>undocastlemove</find>
-      <find>selecttile</find>
       <find>selectTile</find>
       <find>nextplayer()</find>
       <find>executeSpecialMove</find>
@@ -233,6 +230,8 @@
       <find>= getpossible</find>
       <find>newGame</find>
       <find>initpieces</find>
+      <find>setborder</find>
+      <find>border</find>
     </findStrings>
     <replaceStrings>
       <replace>import com.chess.move.*;</replace>
@@ -287,16 +286,16 @@
         <option value="$PROJECT_DIR$/src/Main/com/chess/move/DoubleMove.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/move/EnPassantMove.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/piece/Pawn.java" />
-        <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessInfoPanel.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/TileMove.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/BoardMove.java" />
-        <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/Board.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/Tile.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessButtonsPanel.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/board/TileMoveList.java" />
         <option value="$PROJECT_DIR$/src/Main/com/chess/ChessGame.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessInfoPanel.java" />
+        <option value="$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java" />
       </list>
     </option>
   </component>
@@ -320,12 +319,41 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
               <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="chess" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Super-Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="chess" type="462c0819:PsiDirectoryNode" />
+              <item name="graphics" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Super-Chess" type="b2602c69:ProjectViewProjectNode" />
@@ -340,9 +368,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,23 +473,23 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1613" height="873" extended-state="6" />
+    <frame x="-12" y="-12" width="3224" height="1754" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15697311" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.156875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263434" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35910878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35910878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39973786" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263434" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -531,6 +556,8 @@
             <element signature="method#nextPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#prevPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#toPlayer#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#updateState#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#getGraveIndex#0;class#ChessGame#0" expanded="false" />
             <element signature="method#putToGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#1;class#ChessGame#0" expanded="false" />
@@ -541,8 +568,7 @@
             <element signature="method#tilePressed#0;class#ChessGame#0" expanded="false" />
             <element signature="method#selectTile#0;class#ChessGame#0" expanded="false" />
             <element signature="method#deselectTile#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#10524#10525#0" expanded="true" />
-            <element signature="e#10588#10589#0" expanded="true" />
+            <element signature="method#getPossibleMoves#1;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleCastling#0;class#ChessGame#0" expanded="false" />
             <element signature="e#13294#13364#0" expanded="false" />
@@ -550,8 +576,10 @@
             <element signature="e#14265#14284#0" expanded="false" />
             <element signature="method#canHandleEnPassant#0;class#ChessGame#0" expanded="false" />
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#newGame#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -599,10 +627,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="7" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-          <folding>
-            <element signature="e#763#939#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -629,9 +654,6 @@
             <element signature="method#ChessBoardPanel#0;class#ChessBoardPanel#0" expanded="false" />
             <element signature="method#init#0;class#ChessBoardPanel#0" expanded="false" />
             <element signature="method#initRects#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#drawCoords#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#drawPieces#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#unhoverTile#0;class#ChessBoardPanel#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -653,6 +675,8 @@
             <element signature="method#nextPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#prevPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#toPlayer#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#updateState#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#getGraveIndex#0;class#ChessGame#0" expanded="false" />
             <element signature="method#putToGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#1;class#ChessGame#0" expanded="false" />
@@ -663,8 +687,7 @@
             <element signature="method#tilePressed#0;class#ChessGame#0" expanded="false" />
             <element signature="method#selectTile#0;class#ChessGame#0" expanded="false" />
             <element signature="method#deselectTile#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#10524#10525#0" expanded="true" />
-            <element signature="e#10588#10589#0" expanded="true" />
+            <element signature="method#getPossibleMoves#1;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleCastling#0;class#ChessGame#0" expanded="false" />
             <element signature="e#13294#13364#0" expanded="false" />
@@ -672,8 +695,10 @@
             <element signature="e#14265#14284#0" expanded="false" />
             <element signature="method#canHandleEnPassant#0;class#ChessGame#0" expanded="false" />
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#newGame#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -929,14 +954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGameFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileMove.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -945,48 +962,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardMovesPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="45" column="25" lean-forward="true" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/BoardMove.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-52">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state relative-caret-position="440">
+          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="19" column="26" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2072">
-          <caret line="205" column="25" lean-forward="true" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="25" />
-          <folding>
-            <element signature="method#ChessBoardPanel#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#init#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#initRects#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#drawCoords#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#drawPieces#0;class#ChessBoardPanel#0" expanded="false" />
-            <element signature="method#unhoverTile#0;class#ChessBoardPanel#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
+        <state relative-caret-position="1280">
           <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
           <folding />
         </state>
@@ -994,7 +980,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
+        <state relative-caret-position="2000">
           <caret line="66" column="35" lean-forward="false" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
           <folding>
             <element signature="class#Color#0;class#Tile#0" expanded="false" />
@@ -1017,39 +1003,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessButtonsPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGravesPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
+        <state relative-caret-position="1240">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="e#763#939#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/board/TileMoveList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187">
+        <state relative-caret-position="760">
           <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessInfoPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="true" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#998#1174#0" expanded="true" />
+            <element signature="e#1173#1174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/com/chess/ChessGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2197">
-          <caret line="523" column="56" lean-forward="false" selection-start-line="523" selection-start-column="56" selection-end-line="523" selection-end-column="56" />
+        <state relative-caret-position="4080">
+          <caret line="480" column="0" lean-forward="false" selection-start-line="480" selection-start-column="0" selection-end-line="480" selection-end-column="0" />
           <folding>
             <element signature="class#State#0;class#ChessGame#0" expanded="false" />
             <element signature="method#ChessGame#0;class#ChessGame#0" expanded="false" />
@@ -1063,6 +1048,8 @@
             <element signature="method#nextPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#prevPlayer#0;class#ChessGame#0" expanded="false" />
             <element signature="method#toPlayer#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#updateState#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#getGraveIndex#0;class#ChessGame#0" expanded="false" />
             <element signature="method#putToGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#0;class#ChessGame#0" expanded="false" />
             <element signature="method#takeFromGrave#1;class#ChessGame#0" expanded="false" />
@@ -1073,8 +1060,7 @@
             <element signature="method#tilePressed#0;class#ChessGame#0" expanded="false" />
             <element signature="method#selectTile#0;class#ChessGame#0" expanded="false" />
             <element signature="method#deselectTile#0;class#ChessGame#0" expanded="false" />
-            <element signature="e#10524#10525#0" expanded="true" />
-            <element signature="e#10588#10589#0" expanded="true" />
+            <element signature="method#getPossibleMoves#1;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleSpecialMove#0;class#ChessGame#0" expanded="false" />
             <element signature="method#canHandleCastling#0;class#ChessGame#0" expanded="false" />
             <element signature="e#13294#13364#0" expanded="false" />
@@ -1082,8 +1068,10 @@
             <element signature="e#14265#14284#0" expanded="false" />
             <element signature="method#canHandleEnPassant#0;class#ChessGame#0" expanded="false" />
             <element signature="method#getPieceRank#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#newGame#0;class#ChessGame#0" expanded="false" />
             <element signature="method#clear#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initGraves#0;class#ChessGame#0" expanded="false" />
+            <element signature="method#initPieces#0;class#ChessGame#0" expanded="false" />
             <element signature="method#initTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#isInMoveTiles#0;class#ChessGame#0" expanded="false" />
             <element signature="method#tileIsSpecialMove#0;class#ChessGame#0" expanded="false" />
@@ -1104,13 +1092,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessInfoPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardMovesPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        <state relative-caret-position="452">
+          <caret line="34" column="38" lean-forward="false" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessBoardPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="185" column="21" lean-forward="true" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
+          <folding>
+            <element signature="method#ChessBoardPanel#0;class#ChessBoardPanel#0" expanded="false" />
+            <element signature="method#init#0;class#ChessBoardPanel#0" expanded="false" />
+            <element signature="method#initRects#0;class#ChessBoardPanel#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessButtonsPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGameFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/com/chess/graphics/ChessGamePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="755">
+          <caret line="38" column="73" lean-forward="false" selection-start-line="38" selection-start-column="73" selection-end-line="38" selection-end-column="73" />
+          <folding />
         </state>
       </provider>
     </entry>

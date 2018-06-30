@@ -29,11 +29,14 @@ public class ChessGamePanel extends JPanel {
         infoPanel = new ChessInfoPanel(game, boardPanel);
         buttonsPanel = new ChessButtonsPanel(game, this);
 
+        /*
         boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         boardMovesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         gravesPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+
         buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        */
+        infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

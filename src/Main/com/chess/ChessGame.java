@@ -360,9 +360,11 @@ public class ChessGame {
         int delta = 1;
         if (leftOf) delta = -1;
         for (int i = pCol, iteration = 0; (leftOf && i >= 0) || (!leftOf && i < cols); i += delta, ++iteration) {
+            /*
             if (i == pCol) {
                 continue;
             }
+            */
             Tile tile = board.findTile(pRow, i);
             // if tile is not occupied
             if (tile.isEmpty()) {

@@ -245,9 +245,19 @@ public class ChessGame {
                 board.movePiece(selectedPiece, destTile);
             }
 
+
+
             ++selectedPiece.moveCount;
             boardMoves.add(new BoardMove(selectedPiece, victimPiece, board.findCoord(selectedTile), board.findCoord(destTile), getSpecialMoveName(destTile)));
-            //if (asdf) undoEnPassantMove(boardMoves.get(boardMoves.size() - 1));
+
+            // checks if a pawn reaches the end of the board, then you "should choose a piece" but i'm just giving a queen for now
+            // todo: allow choice in pawn crossing
+            // todo: change boardmove to proper move name on pawn crossing
+            if (selectedPiece.getName() == "Pawn" && isEndOfBoard(selectedPiece.getColor(), row)) {
+                board.removePiece(row, col);
+                board.addPiece(copyPieceTypeTo(selectedPiece, "Queen"), row, col);
+            }
+
             nextPlayer();
         }
 
@@ -256,6 +266,30 @@ public class ChessGame {
             selectTile(row, col);
         } else {
             deselectTile();
+        }
+    }
+
+    private Piece copyPieceTypeTo(Piece piece, String newPieceTypeName) {
+        Piece newPiece;
+        if (newPieceTypeName == "Queen") {
+            newPiece = new Queen(piece.getColor());
+        }
+        // todo: the rest of this
+        else {
+            System.err.print("Cannot change piece to unknown type name: " + newPieceTypeName);
+            return null;
+        }
+        newPiece.moveCount = piece.moveCount;
+        return newPiece;
+    }
+
+    private boolean isEndOfBoard(Piece.Color color, int moveRow) {
+        if (color == Piece.Color.BLACK) {
+            if (moveRow == 0) return true;
+            return false;
+        } else {
+            if (moveRow == getRows() - 1) return true;
+            return false;
         }
     }
 
@@ -510,6 +544,8 @@ public class ChessGame {
         for (int i = 0; i < 8; ++i) {
             board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
+
+        board.addPiece(new Pawn(Piece.Color.WHITE), 5, 3);
 
 
         //board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);

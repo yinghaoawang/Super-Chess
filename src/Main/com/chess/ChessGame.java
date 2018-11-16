@@ -545,7 +545,7 @@ public class ChessGame {
             board.addPiece(new Pawn(Piece.Color.WHITE), 1, i);
         }
 
-        board.addPiece(new Pawn(Piece.Color.WHITE), 5, 3);
+        //board.addPiece(new Pawn(Piece.Color.WHITE), 5, 3);
 
 
         //board.addPiece(new Rook(Piece.Color.WHITE), 4, 4);

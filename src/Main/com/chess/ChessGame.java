@@ -403,25 +403,25 @@ public class ChessGame {
             // if tile is not occupied
             if (tile.isEmpty()) {
                 // tile must be safe if queen is to walk on it
-                if (iteration <= 2) {
+                if ((leftOf && i > 0) || (!leftOf && i < cols - 1)){
                     if (isInDanger(tile, piece.getColor())) return false;
                 }
                 // otherwise continue onto next time
                 continue;
             }
-
-            // if tile is occupied
-
-            // if the piece occupying is not a rook, then cannot castle
+            // if tile is occupied and
+            // if the last piece occupying is not a rook, then cannot castle
             Piece currPiece = tile.peek();
-            if (currPiece.getName() != "Rook") return false;
-            //rook = currPiece;
+            if ((leftOf && i == 0) || (!leftOf && i == cols - 1)) {
+                if (currPiece.getName() != "Rook") return false;
 
-            // make sure rook has space to castle to
-            if (iteration < 2) return false;
+                // make sure rook has space to castle to
+                if (iteration < 2) return false;
 
-            // the rook needs to have never moved
-            if (currPiece.moveCount != 0) return false;
+                // the rook needs to have never moved
+                if (currPiece.moveCount != 0) return false;
+            }
+
         }
 
         /* Should not be needed since rooks are on corner of map, and castling implies the 2 spaces on side of king are safe
